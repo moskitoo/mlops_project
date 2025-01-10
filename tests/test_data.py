@@ -1,6 +1,6 @@
 from torch.utils.data import Dataset
 
-from pv_defection_classification.data import MyDataset
+from src.pv_defection_classification.data import MyDataset
 
 
 def test_my_dataset():
