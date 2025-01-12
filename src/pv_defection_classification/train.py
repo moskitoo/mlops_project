@@ -1,7 +1,7 @@
 from detectron2.engine import DefaultTrainer
 import os
 from datetime import datetime
-from baloon_db import get_baloon_metadata
+from balloon_db import get_baloon_metadata
 from model import *
 
 #default values
