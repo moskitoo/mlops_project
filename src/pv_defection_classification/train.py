@@ -14,7 +14,7 @@ max_iteration = 300
 number_of_classes = 2
 
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-output_dir = f"../../models/{timestamp}"
+output_dir = f"models/{timestamp}"
 
 def train_model(batch_size : int = batch_size, learning_rate: float = learning_rate, max_iteration: int = max_iteration,
                 number_of_classes :int = number_of_classes):
@@ -38,7 +38,7 @@ def train_model(batch_size : int = batch_size, learning_rate: float = learning_r
     model.SOLVER.STEPS = []
     model.OUTPUT_DIR = output_dir
     os.makedirs(model.OUTPUT_DIR, exist_ok=True)
-    MetadataCatalog, DatasetCatalog  = get_metadata() #TBD replace with real dataset!
+    MetadataCatalog, DatasetCatalog  = get_metadata()
     trainer = DefaultTrainer(model)
     trainer.resume_or_load(resume=False)
     trainer.train()

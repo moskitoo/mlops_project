@@ -147,13 +147,10 @@ def get_data_dicts(img_dir):
             py = anno["y"]
             width = anno["width"]
             height = anno["height"]
-            # poly = [(x + 0.5, y + 0.5) for x, y in zip(px, py)]
-            # poly = [p for x in poly for p in x]
 
             obj = {
                 "bbox": [px, py, width, height],
                 "bbox_mode": BoxMode.XYWH_ABS,
-                # "segmentation": [[0]],
                 "category_id": 0,
             }
             objs.append(obj)
