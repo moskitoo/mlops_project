@@ -3,9 +3,13 @@ import os
 import random
 import shutil
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
+import cv2
+import numpy as np
 import typer
+from detectron2.data import DatasetCatalog, MetadataCatalog
+from detectron2.structures import BoxMode
 from torch.utils.data import Dataset
 
 
@@ -57,7 +61,7 @@ def process_files(
         img_new_anns = {
             "fileref": "",
             "size": filesize,
-            "filename": filename + filesize,
+            "filename": filename,
             "base64_img_data": "",
             "file_attributes": {},
             "regions": {},
@@ -76,7 +80,7 @@ def process_files(
             }
             img_new_anns["regions"][str(i)] = region
 
-        annotations[img_new_anns["filename"]] = img_new_anns
+        annotations[img_new_anns["filename"] + filesize] = img_new_anns
 
     save_annotations(annotations, annotations_output_path)
 
@@ -117,87 +121,52 @@ def preprocess(
     print("Preprocessing complete!")
 
 
-# def preprocess(
-#     raw_data_path: Path = "data/raw/pv_defection/dataset_2",
-#     output_folder: Path = "data/processed/pv_defection",
-#     split_ratio: float = 0.8,
-# ) -> None:
-#     """Process raw data and save it to processed directory in VGG format."""
-#     print("Preprocessing data...")
+def get_data_dicts(img_dir):
+    json_file = os.path.join(img_dir, "via_region_data.json")
+    with open(json_file) as f:
+        imgs_anns = json.load(f)
 
-#     # Create output directories for train and eval
-#     train_folder = os.path.join(output_folder, "train")
-#     eval_folder = os.path.join(output_folder, "eval")
-#     os.makedirs(train_folder, exist_ok=True)
-#     os.makedirs(eval_folder, exist_ok=True)
+    dataset_dicts = []
+    for idx, v in enumerate(imgs_anns.values()):
+        record = {}
 
-#     raw_data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../data/raw/pv_defection/dataset_2"))
+        filename = os.path.join(img_dir, v["filename"])
+        height, width = cv2.imread(filename).shape[:2]
 
-#     # Collect all image files from the raw_data_path
-#     image_files = [
-#         filename
-#         for filename in os.listdir(os.path.join(raw_data_path, "images"))
-#         if filename.lower().endswith((".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff"))
-#     ]
+        record["file_name"] = filename
+        record["image_id"] = idx
+        record["height"] = height
+        record["width"] = width
 
-#     # Shuffle the list of files to randomize train/eval split
-#     random.shuffle(image_files)
+        annos = v["regions"]
+        objs = []
+        for _, anno in annos.items():
+            assert not anno["region_attributes"]
+            anno = anno["shape_attributes"]
+            px = anno["x"]
+            py = anno["y"]
+            width = anno["width"]
+            height = anno["height"]
+            # poly = [(x + 0.5, y + 0.5) for x, y in zip(px, py)]
+            # poly = [p for x in poly for p in x]
 
-#     # Calculate the split index
-#     split_index = int(len(image_files) * split_ratio)
+            obj = {
+                "bbox": [px, py, width, height],
+                "bbox_mode": BoxMode.XYWH_ABS,
+                # "segmentation": [[0]],
+                "category_id": 0,
+            }
+            objs.append(obj)
+        record["annotations"] = objs
+        dataset_dicts.append(record)
+    return dataset_dicts
 
-#     # Split the files into train and eval
-#     train_files = image_files[:split_index]
-#     eval_files = image_files[split_index:]
 
-#     # Move files to their respective directories
-#     train_annotations = {}
-#     for filename in train_files:
-#         source_path = os.path.join(os.path.join(raw_data_path, "images"), filename)
-#         destination_path = os.path.join(train_folder, filename)
-#         shutil.copy(source_path, destination_path)
-
-#         json_name = filename.split(".")[0] + ".json"
-#         json_name = os.path.join(os.path.join(raw_data_path, "annotations"), json_name)
-#         with open(json_name) as f:
-#             img_og_anns = json.load(f)
-
-#         instances = img_og_anns["instances"]
-
-#         filesize = str(os.path.getsize(destination_path))
-#         img_new_anns = {}
-#         img_new_anns["fileref"] = ""
-#         img_new_anns["size"] = filesize
-#         img_new_anns["filename"] = filename + filesize
-#         img_new_anns["base64_img_data"] = ""
-#         img_new_anns["file_attributes"] = {}
-#         img_new_anns["regions"] = {}
-
-#         for i, instance in enumerate(instances):
-#             region = {}
-#             region["shape_attributes"] = {}
-#             region["shape_attributes"]["name"] = "rect"
-#             region["shape_attributes"]["x"] = instance["corners"][1]["x"]
-#             region["shape_attributes"]["y"] = instance["corners"][1]["y"]
-#             region["shape_attributes"]["width"] = abs(instance["corners"][0]["x"] - instance["corners"][1]["x"])
-#             region["shape_attributes"]["height"] = abs(instance["corners"][0]["y"] - instance["corners"][3]["y"])
-
-#             region["region_attributes"] = {}
-
-#             img_new_anns["regions"][str(i)] = region
-
-#         train_annotations[img_new_anns["filename"]] = img_new_anns
-
-#     with open(os.path.join(train_folder, "via_region_data.json"), "w") as f:
-#         json.dump(train_annotations, f)
-
-#     eval_annotations = {}
-#     for filename in eval_files:
-#         source_path = os.path.join(os.path.join(raw_data_path, "images"), filename)
-#         destination_path = os.path.join(eval_folder, filename)
-#         shutil.copy(source_path, destination_path)
-
-#     print("Preprocessing complete!")
+def get_metadata(data_path: Path = "data/processed/pv_defection/"):
+    for d in ["train", "val"]:
+        DatasetCatalog.register("pv_module_" + d, lambda d=d: get_data_dicts(data_path + d))
+        MetadataCatalog.get("pv_module_" + d).set(thing_classes=["pv_module"])
+    return DatasetCatalog, MetadataCatalog
 
 
 if __name__ == "__main__":

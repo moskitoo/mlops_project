@@ -1,8 +1,11 @@
-from detectron2.engine import DefaultTrainer
 import os
 from datetime import datetime
+
 from balloon_db import get_baloon_metadata
+from detectron2.engine import DefaultTrainer
 from model import *
+
+from data import get_metadata
 
 #default values
 batch_size = 2
@@ -35,7 +38,7 @@ def train_model(batch_size : int = batch_size, learning_rate: float = learning_r
     model.SOLVER.STEPS = []
     model.OUTPUT_DIR = output_dir
     os.makedirs(model.OUTPUT_DIR, exist_ok=True)
-    MetadataCatalog, DatasetCatalog  = get_baloon_metadata() #TBD replace with real dataset!
+    MetadataCatalog, DatasetCatalog  = get_metadata() #TBD replace with real dataset!
     trainer = DefaultTrainer(model)
     trainer.resume_or_load(resume=False)
     trainer.train()
