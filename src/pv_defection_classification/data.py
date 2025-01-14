@@ -94,9 +94,9 @@ def preprocess(
     print("Preprocessing data...")
 
     train_folder = output_folder / "train"
-    eval_folder = output_folder / "eval"
+    val_folder = output_folder / "val"
     train_annotations_path = train_folder / "via_region_data.json"
-    eval_annotations_path = eval_folder / "via_region_data.json"
+    val_annotations_path = val_folder / "via_region_data.json"
 
     source_images_dir = raw_data_path / "images"
     source_annotations_dir = raw_data_path / "annotations"
@@ -112,11 +112,11 @@ def preprocess(
     random.shuffle(image_files)
     split_index = int(len(image_files) * split_ratio)
     train_files = image_files[:split_index]
-    eval_files = image_files[split_index:]
+    val_files = image_files[split_index:]
 
-    # Process train and eval sets
+    # Process train and val sets
     process_files(train_files, source_images_dir, source_annotations_dir, train_folder, train_annotations_path)
-    process_files(eval_files, source_images_dir, source_annotations_dir, eval_folder, eval_annotations_path)
+    process_files(val_files, source_images_dir, source_annotations_dir, val_folder, val_annotations_path)
 
     print("Preprocessing complete!")
 
