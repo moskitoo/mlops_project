@@ -49,6 +49,6 @@ def get_balloon_dicts(img_dir):
 
 def get_baloon_metadata ():
     for d in ["train", "val"]:
-        DatasetCatalog.register("balloon_" + d, lambda d=d: get_balloon_dicts("../../data/raw/balloon/" + d))
+        DatasetCatalog.register("balloon_" + d, lambda d=d: get_balloon_dicts("data/raw/balloon/" + d))
         MetadataCatalog.get("balloon_" + d).set(thing_classes=["balloon"])
     return DatasetCatalog, MetadataCatalog

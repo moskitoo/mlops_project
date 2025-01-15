@@ -21,27 +21,38 @@ from data import get_metadata, get_data_dicts
 from balloon_db import get_balloon_dicts
 
 cfg = get_cfg()
-cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
+cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
 cfg.DATASETS.TRAIN = ("balloon_train",)
 cfg.DATASETS.TEST = ()
 cfg.DATALOADER.NUM_WORKERS = 2
+cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
+cfg.SOLVER.IMS_PER_BATCH = 2  # This is the real "batch size" commonly known to deep learning people
+cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
+cfg.SOLVER.MAX_ITER = 300    # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
+cfg.SOLVER.STEPS = []        # do not decay learning rate
+cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # The "RoIHead batch size". 128 is faster, and good enough for this toy dataset (default: 512)
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1
 
 #pv_model
-model_name = "2025-01-14_10-35-55"
+# model_name = "2025-01-14_10-35-55"
+model_name = "pv_2025-01-15_21-14-02"
 
 #balloon model
 # model_name = "2025-01-13_21-58-37"
 
 
-# dataset_dicts = get_data_dicts("data/processed/pv_defection/eval")
-dataset_dicts = get_balloon_dicts("data/raw/balloon/val")
+dataset_dicts = get_data_dicts("data/processed/pv_defection/eval")
+# dataset_dicts = get_balloon_dicts("data/raw/balloon/val")
 
 
 cfg.MODEL.WEIGHTS = f"models/{model_name}/model_final.pth"  # path to the model we just trained
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.1  # set a custom testing threshold
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.6  # set a custom testing threshold
 predictor = DefaultPredictor(cfg)
 
-pv_metadata = MetadataCatalog.get("pv_module_train")
+# pv_metadata = MetadataCatalog.get("pv_module_train")
+dataset_catalog, metadata_catalog = get_metadata()
+pv_metadata = metadata_catalog.get("pv_module_train")
+dataset_dicts = get_data_dicts("data/processed/pv_defection/eval")
 
 for d in random.sample(dataset_dicts, 3):
     im = cv2.imread(d["file_name"])

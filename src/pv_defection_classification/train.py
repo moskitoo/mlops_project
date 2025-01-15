@@ -44,6 +44,7 @@ def train_model(
     model.OUTPUT_DIR = output_dir
     os.makedirs(model.OUTPUT_DIR, exist_ok=True)
     MetadataCatalog, DatasetCatalog = get_metadata()
+    # MetadataCatalog, DatasetCatalog = get_baloon_metadata()
     trainer = DefaultTrainer(model)
     trainer.resume_or_load(resume=False)
     trainer.train()
