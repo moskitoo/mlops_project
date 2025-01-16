@@ -1,11 +1,14 @@
 import os
 from datetime import datetime
+from pathlib import Path
 
 from balloon_db import get_baloon_metadata
 from detectron2.engine import DefaultTrainer
 from model import *
 
 from data import get_metadata
+
+import typer
 
 # default values
 batch_size = 2
@@ -22,6 +25,7 @@ def train_model(
     learning_rate: float = learning_rate,
     max_iteration: int = max_iteration,
     number_of_classes: int = number_of_classes,
+    data_path: Path = "data/processed/pv_defection/"
 ):
     """
     this function creates the model and trains the model
@@ -43,12 +47,11 @@ def train_model(
     model.SOLVER.STEPS = []
     model.OUTPUT_DIR = output_dir
     os.makedirs(model.OUTPUT_DIR, exist_ok=True)
-    MetadataCatalog, DatasetCatalog = get_metadata()
-    # MetadataCatalog, DatasetCatalog = get_baloon_metadata()
+    MetadataCatalog, DatasetCatalog = get_metadata(data_path)
     trainer = DefaultTrainer(model)
     trainer.resume_or_load(resume=False)
     trainer.train()
 
 
 if __name__ == "__main__":
-    train_model()
+    typer.run(train_model)

@@ -10,6 +10,7 @@ import random
 
 import cv2
 import numpy as np
+from pathlib import Path
 
 # import some common detectron2 utilities
 from detectron2 import model_zoo
@@ -34,25 +35,32 @@ cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # The "RoIHead batch size". 128
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1
 
 #pv_model
-# model_name = "2025-01-14_10-35-55"
 model_name = "pv_2025-01-15_21-14-02"
+model_name = "merged_pv_2025-01-15_23-44-21"
+model_name = "dataset_2"
+model_name = "dataset_1"
 
 #balloon model
 # model_name = "2025-01-13_21-58-37"
 
 
-dataset_dicts = get_data_dicts("data/processed/pv_defection/eval")
+dataset_dicts = get_data_dicts("data/processed/pv_defection/val")
 # dataset_dicts = get_balloon_dicts("data/raw/balloon/val")
 
 
 cfg.MODEL.WEIGHTS = f"models/{model_name}/model_final.pth"  # path to the model we just trained
-cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.6  # set a custom testing threshold
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.65  # set a custom testing threshold
 predictor = DefaultPredictor(cfg)
 
 # pv_metadata = MetadataCatalog.get("pv_module_train")
-dataset_catalog, metadata_catalog = get_metadata()
+dataset_catalog, metadata_catalog = get_metadata(Path("data/processed/pv_defection"))
 pv_metadata = metadata_catalog.get("pv_module_train")
-dataset_dicts = get_data_dicts("data/processed/pv_defection/eval")
+dataset_dicts = get_data_dicts("data/processed/pv_defection/val")
+
+
+dataset_dicts = [{"file_name": "data/processed/pv_defection/val/20180630_154039.jpg"},
+                 {"file_name": "data/processed/pv_defection/val/20180630_154201.jpg"},
+                 {"file_name": "data/processed/pv_defection/val/033R.jpg"}]
 
 for d in random.sample(dataset_dicts, 3):
     im = cv2.imread(d["file_name"])
