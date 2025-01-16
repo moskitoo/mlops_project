@@ -2,13 +2,12 @@ import os
 from datetime import datetime
 from pathlib import Path
 
+import typer
 from balloon_db import get_baloon_metadata
 from detectron2.engine import DefaultTrainer
 from model import *
 
 from data import get_metadata
-
-import typer
 
 # default values
 batch_size = 2
@@ -25,7 +24,7 @@ def train_model(
     learning_rate: float = learning_rate,
     max_iteration: int = max_iteration,
     number_of_classes: int = number_of_classes,
-    data_path: Path = "data/processed/pv_defection/"
+    data_path: Path = "data/processed/pv_defection/",
 ):
     """
     this function creates the model and trains the model
