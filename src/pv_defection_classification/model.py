@@ -21,14 +21,7 @@ def get_model(Num_Classes : int = 1) -> get_cfg:
     cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml")  # Let training initialize from model zoo
     cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128
     cfg.MODEL.ROI_HEADS.NUM_CLASSES = Num_Classes
-
-    if torch.cuda.is_available():
-        device = "cuda"
-    elif torch.backends.mps.is_available():
-        device = "mps"
-    else:
-        device = "cpu"
-    cfg.MODEL.DEVICE = device
+    cfg.MODEL.DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     return cfg
 

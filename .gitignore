@@ -1,6 +1,7 @@
 docs/site/
 data/
 ballon/
+wandb/
 # test cache
 manual_test/
 

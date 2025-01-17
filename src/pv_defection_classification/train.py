@@ -9,10 +9,12 @@ from model import *
 
 from data import get_metadata
 
+import wandb
+
 # default values
 batch_size = 2
 learning_rate = 0.00025
-max_iteration = 300
+max_iteration = 2
 number_of_classes = 2
 
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -39,17 +41,33 @@ def train_model(
         no return, logs and checkpoints are stored under /models/<timestamp>
 
     """
-    model = get_model(number_of_classes)
-    model.SOLVER.IMS_PER_BATCH = batch_size
-    model.SOLVER.BASE_LR = learning_rate
-    model.SOLVER.MAX_ITER = max_iteration
-    model.SOLVER.STEPS = []
-    model.OUTPUT_DIR = output_dir
-    os.makedirs(model.OUTPUT_DIR, exist_ok=True)
-    MetadataCatalog, DatasetCatalog = get_metadata(data_path)
-    trainer = DefaultTrainer(model)
-    trainer.resume_or_load(resume=False)
-    trainer.train()
+    with wandb.init(project="pv_defection", entity="hndrkjs-danmarks-tekniske-universitet-dtu") as run:
+
+        artifact = wandb.Artifact(
+                    type='model',
+                    name='run-%s-model' % wandb.run.id,
+                    metadata={
+                        'format': {'type': 'detectron_model'},
+                        'timestamp': timestamp,
+                    }) 
+        
+        model = get_model(number_of_classes)
+        model.SOLVER.IMS_PER_BATCH = batch_size
+        model.SOLVER.BASE_LR = learning_rate
+        model.SOLVER.MAX_ITER = max_iteration
+        model.SOLVER.STEPS = []
+        model.OUTPUT_DIR = output_dir
+        os.makedirs(model.OUTPUT_DIR, exist_ok=True)
+        MetadataCatalog, DatasetCatalog = get_metadata(data_path)
+        trainer = DefaultTrainer(model)
+        trainer.resume_or_load(resume=False)
+        trainer.train()
+
+        artifact.add_file(f'models/{timestamp}/model_final.pth')
+        run.log_artifact(artifact)
+        run.link_artifact(artifact=artifact,  
+                target_path="hndrkjs-danmarks-tekniske-universitet-dtu-org/wandb-registry-mlops final project/trained-detectron2-model"
+                )
 
 
 if __name__ == "__main__":
