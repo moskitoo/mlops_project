@@ -41,7 +41,10 @@ def train_model(
         no return, logs and checkpoints are stored under /models/<timestamp>
 
     """
-    with wandb.init(project="pv_defection", entity="hndrkjs-danmarks-tekniske-universitet-dtu") as run:
+    with wandb.init(project="pv_defection", \
+                    entity="hndrkjs-danmarks-tekniske-universitet-dtu",\
+                    name=f'{timestamp}',\
+                    sync_tensorboard=True) as run:
 
         artifact = wandb.Artifact(
                     type='model',
@@ -68,7 +71,6 @@ def train_model(
         run.link_artifact(artifact=artifact,  
                 target_path="hndrkjs-danmarks-tekniske-universitet-dtu-org/wandb-registry-mlops final project/trained-detectron2-model"
                 )
-
-
+        run.finish()
 if __name__ == "__main__":
     typer.run(train_model)
