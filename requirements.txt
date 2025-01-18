@@ -287,3 +287,4 @@ yarg==0.1.9
 yarl==1.18.3
 zc.lockfile==3.0.post1
 detectron2 @ git+https://github.com/hndrkjs/detectron2@8992717b3bee2420d8b628cfe3f8f361ca0b952d
+

@@ -30,7 +30,6 @@ jobs:
        - name: Install dependencies on macOS
         if: runner.os == 'macOS'
         run: |
-          # Now we're in a Bash-like shell on macOS, so export works fine
           export MACOSX_DEPLOYMENT_TARGET=10.13
           python -m pip install --upgrade pip setuptools wheel
           pip install -r requirements.txt
