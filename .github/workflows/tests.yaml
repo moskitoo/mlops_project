@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - api_dev
   pull_request:
     branches:
       - main
@@ -27,7 +28,7 @@ jobs:
           cache: 'pip'
           cache-dependency-path: setup.py
 
-       - name: Install dependencies on macOS
+      - name: Install dependencies on macOS
         if: runner.os == 'macOS'
         run: |
           export MACOSX_DEPLOYMENT_TARGET=10.13
