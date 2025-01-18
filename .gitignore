@@ -1,6 +1,7 @@
 docs/site/
 data/
 ballon/
+wandb/
 # test cache
 manual_test/
 
@@ -178,3 +179,4 @@ cython_debug/
 #.idea/
 data/
 models/
+/data

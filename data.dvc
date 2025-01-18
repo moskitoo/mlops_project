@@ -9,6 +9,139 @@ outs:
       remote_storage:
         etag: 08a39799f0b3f58a031001
         version_id: '1736864340265891'
+  - relpath: processed/pv_defection/train/20180630_154039.jpg
+    md5: 4a70a8424f9a03bca2e2b7237f5b592f
+    size: 779306
+    cloud:
+      remote_storage:
+        etag: 08e092efcaf7fc8a031001
+        version_id: '1737123033762144'
+  - relpath: processed/pv_defection/train/20180630_154139.jpg
+    md5: 8e0185ee2dae9cced642fc759cc1475b
+    size: 770569
+    cloud:
+      remote_storage:
+        etag: 08e4f0ebcaf7fc8a031001
+        version_id: '1737123033708644'
+  - relpath: processed/pv_defection/train/20180630_154201.jpg
+    md5: 9de9fcfc3f594c6971015b6faf199807
+    size: 776712
+    cloud:
+      remote_storage:
+        etag: 0883b5b4c5f7fc8a031001
+        version_id: '1737123022314115'
+  - relpath: processed/pv_defection/train/20180630_154239.jpg
+    md5: e2d46454525af160d913f53b59afb7f1
+    size: 750681
+    cloud:
+      remote_storage:
+        etag: 08a6fcbacaf7fc8a031001
+        version_id: '1737123032907302'
+  - relpath: processed/pv_defection/train/20180630_154305.jpg
+    md5: 75a1d8f398289c10dc41b1fff24fd149
+    size: 759709
+    cloud:
+      remote_storage:
+        etag: 08ffb480cbf7fc8a031001
+        version_id: '1737123034045055'
+  - relpath: processed/pv_defection/train/20180630_154451.jpg
+    md5: d21b6eb68d809b09a001bebef8188cf8
+    size: 761004
+    cloud:
+      remote_storage:
+        etag: 08c0c391cbf7fc8a031001
+        version_id: '1737123034325440'
+  - relpath: processed/pv_defection/train/20180630_154509.jpg
+    md5: 63dfc8ef265ff0c613cddbecd5dc6224
+    size: 741478
+    cloud:
+      remote_storage:
+        etag: 08bdb9b5caf7fc8a031001
+        version_id: '1737123032816829'
+  - relpath: processed/pv_defection/train/20180630_154519.jpg
+    md5: d1013205f8f2820646868cb9c7065309
+    size: 750020
+    cloud:
+      remote_storage:
+        etag: 08fe8ef2c9f7fc8a031001
+        version_id: '1737123031713662'
+  - relpath: processed/pv_defection/train/20180630_154523.jpg
+    md5: 36eabf6f744151d3e796c3eff2f4765d
+    size: 746567
+    cloud:
+      remote_storage:
+        etag: 088688eecaf7fc8a031001
+        version_id: '1737123033744390'
+  - relpath: processed/pv_defection/train/20180630_154531.jpg
+    md5: 2c6b6433f45bff1e85ff23c238ffcd2f
+    size: 746238
+    cloud:
+      remote_storage:
+        etag: 08bd84a9caf7fc8a031001
+        version_id: '1737123032613437'
+  - relpath: processed/pv_defection/train/20180630_154541.jpg
+    md5: 7e212818f223e15bead5506205e44105
+    size: 734695
+    cloud:
+      remote_storage:
+        etag: 0883b290caf7fc8a031001
+        version_id: '1737123032209667'
+  - relpath: processed/pv_defection/train/20180630_154549.jpg
+    md5: e17fcc2e97d98ecce482a07faa272115
+    size: 738606
+    cloud:
+      remote_storage:
+        etag: 089985f2c9f7fc8a031001
+        version_id: '1737123031712409'
+  - relpath: processed/pv_defection/train/20180630_154617.jpg
+    md5: 4c9e329873a1a96e92b517bcf9be186e
+    size: 739429
+    cloud:
+      remote_storage:
+        etag: 089fd9ddc9f7fc8a031001
+        version_id: '1737123031379103'
+  - relpath: processed/pv_defection/train/via_region_data.json
+    md5: 14eeafadf15cf4a5fb5c53dff6ece67a
+    size: 417941
+    cloud:
+      remote_storage:
+        etag: 08e9fedcc7f7fc8a031001
+        version_id: '1737123027173225'
+  - relpath: processed/pv_defection/val/20180630_154245.jpg
+    md5: 093f60fd87ffcfad00e99c3ac3b1514b
+    size: 772679
+    cloud:
+      remote_storage:
+        etag: 08fee285caf7fc8a031001
+        version_id: '1737123032035710'
+  - relpath: processed/pv_defection/val/20180630_154327.jpg
+    md5: 201423592045cb0e7dcc17dc72fb55ba
+    size: 774895
+    cloud:
+      remote_storage:
+        etag: 08b19dc6caf7fc8a031001
+        version_id: '1737123033091761'
+  - relpath: processed/pv_defection/val/20180630_154513.jpg
+    md5: 39123f13edfb8c25647c620498dc16f0
+    size: 756523
+    cloud:
+      remote_storage:
+        etag: 08e7f3b0caf7fc8a031001
+        version_id: '1737123032742375'
+  - relpath: processed/pv_defection/val/20180630_154609.jpg
+    md5: 0172a49665fa9f15f53ac1d1fd9e7149
+    size: 741071
+    cloud:
+      remote_storage:
+        etag: 088685d7caf7fc8a031001
+        version_id: '1737123033367174'
+  - relpath: processed/pv_defection/val/via_region_data.json
+    md5: 17a03ea53eccd76e3622842872e6a3e4
+    size: 132049
+    cloud:
+      remote_storage:
+        etag: 08e1c6eac5f7fc8a031001
+        version_id: '1737123023201121'
   - relpath: raw/.gitkeep
     md5: d41d8cd98f00b204e9800998ecf8427e
     size: 0
@@ -548,3 +681,1928 @@ outs:
       remote_storage:
         etag: 08d4ceacf0b3f58a031001
         version_id: '1736864340584276'
+  - relpath: raw/pv_defection/dataset_1/annotations/001R.json
+    md5: a0910ad13ef17492c41928933f08f4ed
+    size: 10133
+    cloud:
+      remote_storage:
+        etag: 0889f6abd9f7fc8a031001
+        version_id: '1737123064118025'
+  - relpath: raw/pv_defection/dataset_1/annotations/002R.json
+    md5: 4b5485c5e972c329fd063ae587ee1393
+    size: 12582
+    cloud:
+      remote_storage:
+        etag: 08ffe1fcd8f7fc8a031001
+        version_id: '1737123063345407'
+  - relpath: raw/pv_defection/dataset_1/annotations/003R.json
+    md5: cc6a944db46f28544943bdf7745924df
+    size: 11045
+    cloud:
+      remote_storage:
+        etag: 08e1d2c7d9f7fc8a031001
+        version_id: '1737123064572257'
+  - relpath: raw/pv_defection/dataset_1/annotations/004R.json
+    md5: e60df33c25a35750bc8cce1b1000f5b6
+    size: 11324
+    cloud:
+      remote_storage:
+        etag: 08a09f9bd9f7fc8a031001
+        version_id: '1737123063844768'
+  - relpath: raw/pv_defection/dataset_1/annotations/005R.json
+    md5: 410cfb4cbec53c88d4bd15b1f9714140
+    size: 11619
+    cloud:
+      remote_storage:
+        etag: 08f082ddd9f7fc8a031001
+        version_id: '1737123064922480'
+  - relpath: raw/pv_defection/dataset_1/annotations/006R.json
+    md5: dbbe22795adc54fd1a8467989acb3368
+    size: 11022
+    cloud:
+      remote_storage:
+        etag: 08a48a88daf7fc8a031001
+        version_id: '1737123065627940'
+  - relpath: raw/pv_defection/dataset_1/annotations/007R.json
+    md5: 7f0afbd4f09434bceebc72e7d90e759f
+    size: 11040
+    cloud:
+      remote_storage:
+        etag: 08ce8e8ddaf7fc8a031001
+        version_id: '1737123065710414'
+  - relpath: raw/pv_defection/dataset_1/annotations/008R.json
+    md5: ade0f4194131bf75659a47ac6d26fa57
+    size: 12554
+    cloud:
+      remote_storage:
+        etag: 08e6a1f7d9f7fc8a031001
+        version_id: '1737123065352422'
+  - relpath: raw/pv_defection/dataset_1/annotations/009R.json
+    md5: b6cda7d01dff83210ca2601bf297bc04
+    size: 12824
+    cloud:
+      remote_storage:
+        etag: 0884b996d9f7fc8a031001
+        version_id: '1737123063766148'
+  - relpath: raw/pv_defection/dataset_1/annotations/010R.json
+    md5: 2fc3bd999feee69435041d70bed0261d
+    size: 11675
+    cloud:
+      remote_storage:
+        etag: 0898f483daf7fc8a031001
+        version_id: '1737123065559576'
+  - relpath: raw/pv_defection/dataset_1/annotations/011R.json
+    md5: 2a3654dab444613fb5ece93ce145c0db
+    size: 12882
+    cloud:
+      remote_storage:
+        etag: 08a3d8add9f7fc8a031001
+        version_id: '1737123064146979'
+  - relpath: raw/pv_defection/dataset_1/annotations/012R.json
+    md5: 11c1606779fa1d1fd23a90f178970be2
+    size: 13166
+    cloud:
+      remote_storage:
+        etag: 08968084daf7fc8a031001
+        version_id: '1737123065561110'
+  - relpath: raw/pv_defection/dataset_1/annotations/013R.json
+    md5: 95ea531c8e63d16843ba36c00d950021
+    size: 12253
+    cloud:
+      remote_storage:
+        etag: 0883efdad9f7fc8a031001
+        version_id: '1737123064887171'
+  - relpath: raw/pv_defection/dataset_1/annotations/014R.json
+    md5: 5dcc06d4b38b8619663bd471db1f9816
+    size: 11648
+    cloud:
+      remote_storage:
+        etag: 08b18ea4d9f7fc8a031001
+        version_id: '1737123063990065'
+  - relpath: raw/pv_defection/dataset_1/annotations/015R.json
+    md5: 7c63e70343ca6686220b2a367a503d8f
+    size: 12814
+    cloud:
+      remote_storage:
+        etag: 088ab0b2d9f7fc8a031001
+        version_id: '1737123064223754'
+  - relpath: raw/pv_defection/dataset_1/annotations/016R.json
+    md5: 41bbbaeca2157c62ee328437177aae65
+    size: 12857
+    cloud:
+      remote_storage:
+        etag: 08d9fbe4d9f7fc8a031001
+        version_id: '1737123065052633'
+  - relpath: raw/pv_defection/dataset_1/annotations/017R.json
+    md5: 4229ad9e6fea4807f0c7f3e91b591d2f
+    size: 11078
+    cloud:
+      remote_storage:
+        etag: 0896e4afd9f7fc8a031001
+        version_id: '1737123064181270'
+  - relpath: raw/pv_defection/dataset_1/annotations/018R.json
+    md5: 11b70ba75677908b95e904cd33fcf0b9
+    size: 12863
+    cloud:
+      remote_storage:
+        etag: 08bad982daf7fc8a031001
+        version_id: '1737123065539770'
+  - relpath: raw/pv_defection/dataset_1/annotations/019R.json
+    md5: 9f53a9126255fcb51d852826c6e20f60
+    size: 12548
+    cloud:
+      remote_storage:
+        etag: 08f18cb2daf7fc8a031001
+        version_id: '1737123066316401'
+  - relpath: raw/pv_defection/dataset_1/annotations/020R.json
+    md5: dc95dfc7ec5d8b9c8a8ba33654714d0a
+    size: 12841
+    cloud:
+      remote_storage:
+        etag: 08a788ced9f7fc8a031001
+        version_id: '1737123064677415'
+  - relpath: raw/pv_defection/dataset_1/annotations/021R.json
+    md5: d069f606c63104c3a04780d9614c369f
+    size: 12260
+    cloud:
+      remote_storage:
+        etag: 08e9d590daf7fc8a031001
+        version_id: '1737123065768681'
+  - relpath: raw/pv_defection/dataset_1/annotations/022R.json
+    md5: f47b080071c381fb52985fc7f79a1c2e
+    size: 12880
+    cloud:
+      remote_storage:
+        etag: 08a0d18fdaf7fc8a031001
+        version_id: '1737123065751712'
+  - relpath: raw/pv_defection/dataset_1/annotations/023R.json
+    md5: 0230c5c5e97b46dc7fc89625d6458ded
+    size: 11003
+    cloud:
+      remote_storage:
+        etag: 08a2b5b8d9f7fc8a031001
+        version_id: '1737123064322722'
+  - relpath: raw/pv_defection/dataset_1/annotations/024R.json
+    md5: 46d65326c7498953298c6dd53b611c4d
+    size: 12569
+    cloud:
+      remote_storage:
+        etag: 08de9282daf7fc8a031001
+        version_id: '1737123065530718'
+  - relpath: raw/pv_defection/dataset_1/annotations/025R.json
+    md5: 73f3142faf4f77ec860e29d59e8a74dd
+    size: 12269
+    cloud:
+      remote_storage:
+        etag: 08869dbbd9f7fc8a031001
+        version_id: '1737123064368774'
+  - relpath: raw/pv_defection/dataset_1/annotations/026R.json
+    md5: 1103c6b12b64848b3d7d8bd4f69ab371
+    size: 11318
+    cloud:
+      remote_storage:
+        etag: 08f7a6a2d9f7fc8a031001
+        version_id: '1737123063960439'
+  - relpath: raw/pv_defection/dataset_1/annotations/027R.json
+    md5: 8db0a31d93bedcd9bf801a2c363944d2
+    size: 12247
+    cloud:
+      remote_storage:
+        etag: 08cbb6e8d9f7fc8a031001
+        version_id: '1737123065109323'
+  - relpath: raw/pv_defection/dataset_1/annotations/028R.json
+    md5: 82c7e4aa0c9660889a2d7e4d5ce3f147
+    size: 12245
+    cloud:
+      remote_storage:
+        etag: 08a785d2d9f7fc8a031001
+        version_id: '1737123064742567'
+  - relpath: raw/pv_defection/dataset_1/annotations/029R.json
+    md5: 367270e2ebcdc75ad64b854d74f2cb93
+    size: 11039
+    cloud:
+      remote_storage:
+        etag: 088cb68edaf7fc8a031001
+        version_id: '1737123065731852'
+  - relpath: raw/pv_defection/dataset_1/annotations/030R.json
+    md5: fe89a7738ba241418456a95f383310c0
+    size: 11923
+    cloud:
+      remote_storage:
+        etag: 08ffb995daf7fc8a031001
+        version_id: '1737123065847039'
+  - relpath: raw/pv_defection/dataset_1/annotations/031R.json
+    md5: cb463df493a9dbb84aba7514cfa99032
+    size: 4905
+    cloud:
+      remote_storage:
+        etag: 08b3f28fdaf7fc8a031001
+        version_id: '1737123065755955'
+  - relpath: raw/pv_defection/dataset_1/annotations/032R.json
+    md5: 14418a6e3da9bf12b18ddac3bfdba50a
+    size: 4904
+    cloud:
+      remote_storage:
+        etag: 08a9e493d9f7fc8a031001
+        version_id: '1737123063722537'
+  - relpath: raw/pv_defection/dataset_1/annotations/033R.json
+    md5: 53f0dbd6922ebd625e4fd239640529fa
+    size: 7346
+    cloud:
+      remote_storage:
+        etag: 08bbdecdd9f7fc8a031001
+        version_id: '1737123064672059'
+  - relpath: raw/pv_defection/dataset_1/annotations/034R.json
+    md5: 76074ec913f51cb079a9e9aa01cca828
+    size: 8288
+    cloud:
+      remote_storage:
+        etag: 08a2b98edaf7fc8a031001
+        version_id: '1737123065732258'
+  - relpath: raw/pv_defection/dataset_1/annotations/035R.json
+    md5: eb80714302573a3ca063867ba3b226af
+    size: 7351
+    cloud:
+      remote_storage:
+        etag: 088ac689daf7fc8a031001
+        version_id: '1737123065651978'
+  - relpath: raw/pv_defection/dataset_1/annotations/036R.json
+    md5: 0217cc74b184281f3605fe35ef8249a9
+    size: 7654
+    cloud:
+      remote_storage:
+        etag: 08dfda95d9f7fc8a031001
+        version_id: '1737123063754079'
+  - relpath: raw/pv_defection/dataset_1/annotations/037R.json
+    md5: e9c66058018894c78e09a5e6014634f5
+    size: 9478
+    cloud:
+      remote_storage:
+        etag: 08d5a5f4d9f7fc8a031001
+        version_id: '1737123065303765'
+  - relpath: raw/pv_defection/dataset_1/annotations/038R.json
+    md5: 4652ae15b2aa1a0385b7ce573eac15d0
+    size: 10398
+    cloud:
+      remote_storage:
+        etag: 08aaaeb8d9f7fc8a031001
+        version_id: '1737123064321834'
+  - relpath: raw/pv_defection/dataset_1/annotations/039R.json
+    md5: 6c75128bd55b4153740d54c92db7040d
+    size: 11004
+    cloud:
+      remote_storage:
+        etag: 08c3ce89d9f7fc8a031001
+        version_id: '1737123063555907'
+  - relpath: raw/pv_defection/dataset_1/annotations/040R.json
+    md5: 5933bcdc1c9887ffb8581376aba217a8
+    size: 10721
+    cloud:
+      remote_storage:
+        etag: 08a4c9f6d9f7fc8a031001
+        version_id: '1737123065341092'
+  - relpath: raw/pv_defection/dataset_1/annotations/041R.json
+    md5: f86b3c587bc2db7ca4541d8110c5a2d4
+    size: 11656
+    cloud:
+      remote_storage:
+        etag: 08aeb88fdaf7fc8a031001
+        version_id: '1737123065748526'
+  - relpath: raw/pv_defection/dataset_1/annotations/042R.json
+    md5: dfb4832599ee1f6d9a95c6c19857032b
+    size: 10467
+    cloud:
+      remote_storage:
+        etag: 08f9c4e4d9f7fc8a031001
+        version_id: '1737123065045625'
+  - relpath: raw/pv_defection/dataset_1/annotations/043R.json
+    md5: 095e5f8dfc90d86c83e580c1f452d783
+    size: 9181
+    cloud:
+      remote_storage:
+        etag: 08ccadf7d9f7fc8a031001
+        version_id: '1737123065353932'
+  - relpath: raw/pv_defection/dataset_1/annotations/044R.json
+    md5: 9b73a17a4bd95beb8142dd5c940b8cb2
+    size: 9175
+    cloud:
+      remote_storage:
+        etag: 08eff9bfd9f7fc8a031001
+        version_id: '1737123064446191'
+  - relpath: raw/pv_defection/dataset_1/annotations/045R.json
+    md5: 3851f08c395d4f5c01e9b15df300d450
+    size: 9170
+    cloud:
+      remote_storage:
+        etag: 08a08b82daf7fc8a031001
+        version_id: '1737123065529760'
+  - relpath: raw/pv_defection/dataset_1/annotations/046R.json
+    md5: 437bed236951a554a090aedfddf18e58
+    size: 9181
+    cloud:
+      remote_storage:
+        etag: 089281bdd9f7fc8a031001
+        version_id: '1737123064397970'
+  - relpath: raw/pv_defection/dataset_1/annotations/047R.json
+    md5: ce9efee0729dc9473ba090399c4ae01e
+    size: 9813
+    cloud:
+      remote_storage:
+        etag: 0897cacad9f7fc8a031001
+        version_id: '1737123064620311'
+  - relpath: raw/pv_defection/dataset_1/annotations/048R.json
+    md5: fdf9b7517f6a1fc7947dff98199c1bde
+    size: 9489
+    cloud:
+      remote_storage:
+        etag: 08aafd99daf7fc8a031001
+        version_id: '1737123065921194'
+  - relpath: raw/pv_defection/dataset_1/annotations/049R.json
+    md5: 707964aac21e5826293abff4d37294ba
+    size: 9190
+    cloud:
+      remote_storage:
+        etag: 08d195e5d9f7fc8a031001
+        version_id: '1737123065055953'
+  - relpath: raw/pv_defection/dataset_1/annotations/050R.json
+    md5: 258816152c36b0895efa103775ad1f67
+    size: 9158
+    cloud:
+      remote_storage:
+        etag: 08fac2aad9f7fc8a031001
+        version_id: '1737123064095098'
+  - relpath: raw/pv_defection/dataset_1/annotations/051R.json
+    md5: f3f36bb459d299344a50edc0f75f05d5
+    size: 10099
+    cloud:
+      remote_storage:
+        etag: 0880cce6d9f7fc8a031001
+        version_id: '1737123065079296'
+  - relpath: raw/pv_defection/dataset_1/annotations/052R.json
+    md5: 8c77149d9d6a63d25553130ddd6c43f6
+    size: 10697
+    cloud:
+      remote_storage:
+        etag: 08d88d96d9f7fc8a031001
+        version_id: '1737123063760600'
+  - relpath: raw/pv_defection/dataset_1/annotations/053R.json
+    md5: 4413fa6a6e286b90e2a13e35dcd02dce
+    size: 12519
+    cloud:
+      remote_storage:
+        etag: 08adfde2d9f7fc8a031001
+        version_id: '1737123065020077'
+  - relpath: raw/pv_defection/dataset_1/annotations/054R.json
+    md5: 40e15f69fd730f96ffebf51431722a32
+    size: 12209
+    cloud:
+      remote_storage:
+        etag: 08afc8c2d9f7fc8a031001
+        version_id: '1737123064489007'
+  - relpath: raw/pv_defection/dataset_1/annotations/055R.json
+    md5: dde1ae4b053bac6d11a5a263eae424a9
+    size: 10997
+    cloud:
+      remote_storage:
+        etag: 08c09e82daf7fc8a031001
+        version_id: '1737123065532224'
+  - relpath: raw/pv_defection/dataset_1/annotations/056R.json
+    md5: 1d50c483a423b372e0336f778c5b1cb4
+    size: 11015
+    cloud:
+      remote_storage:
+        etag: 0890e99ddaf7fc8a031001
+        version_id: '1737123065984144'
+  - relpath: raw/pv_defection/dataset_1/annotations/057R.json
+    md5: 405570afc197cae5e9b5c2212f4f33cb
+    size: 9477
+    cloud:
+      remote_storage:
+        etag: 08dbee9ed9f7fc8a031001
+        version_id: '1737123063904091'
+  - relpath: raw/pv_defection/dataset_1/annotations/058R.json
+    md5: 3972c00519abfd4b3fc1a4f903a4a8e4
+    size: 9172
+    cloud:
+      remote_storage:
+        etag: 0880c98edaf7fc8a031001
+        version_id: '1737123065734272'
+  - relpath: raw/pv_defection/dataset_1/annotations/059R.json
+    md5: 7abf0548ac285367f603c7e1780cc457
+    size: 10062
+    cloud:
+      remote_storage:
+        etag: 08b6c0e3d9f7fc8a031001
+        version_id: '1737123065028662'
+  - relpath: raw/pv_defection/dataset_1/annotations/060R.json
+    md5: 3eb3c45baf908c1ec74c6956dcfa5c03
+    size: 11023
+    cloud:
+      remote_storage:
+        etag: 08b19bb4d9f7fc8a031001
+        version_id: '1737123064253873'
+  - relpath: raw/pv_defection/dataset_1/annotations/061R.json
+    md5: ec59c3d8ea69bf543b65d95c8ec17e00
+    size: 12528
+    cloud:
+      remote_storage:
+        etag: 08929caad9f7fc8a031001
+        version_id: '1737123064090130'
+  - relpath: raw/pv_defection/dataset_1/annotations/062R.json
+    md5: e259e3d780632df3d26c931d1152b19d
+    size: 11319
+    cloud:
+      remote_storage:
+        etag: 08e5e68ddaf7fc8a031001
+        version_id: '1737123065721701'
+  - relpath: raw/pv_defection/dataset_1/annotations/063R.json
+    md5: f39798101cd6f4a34f07824b53298311
+    size: 11886
+    cloud:
+      remote_storage:
+        etag: 08c480bdd9f7fc8a031001
+        version_id: '1737123064397892'
+  - relpath: raw/pv_defection/dataset_1/annotations/064R.json
+    md5: a644740453b2a4a2f9425d98cc8d47a9
+    size: 9176
+    cloud:
+      remote_storage:
+        etag: 0894d6a9d9f7fc8a031001
+        version_id: '1737123064081172'
+  - relpath: raw/pv_defection/dataset_1/annotations/065R.json
+    md5: 489e4f27bc6b77785944619c422a9c95
+    size: 9153
+    cloud:
+      remote_storage:
+        etag: 08c5f881d9f7fc8a031001
+        version_id: '1737123063430213'
+  - relpath: raw/pv_defection/dataset_1/annotations/066R.json
+    md5: e0e01ce01926bb396b0c81b62db5b60f
+    size: 7596
+    cloud:
+      remote_storage:
+        etag: 08aea78cdaf7fc8a031001
+        version_id: '1737123065697198'
+  - relpath: raw/pv_defection/dataset_1/annotations/067R.json
+    md5: 7e853513f90bf3b49e3286b06a9f1341
+    size: 10992
+    cloud:
+      remote_storage:
+        etag: 08f6bac8d9f7fc8a031001
+        version_id: '1737123064585590'
+  - relpath: raw/pv_defection/dataset_1/annotations/068R.json
+    md5: 077f6a119d230c2264725a2c174e3880
+    size: 12182
+    cloud:
+      remote_storage:
+        etag: 089dd78cd9f7fc8a031001
+        version_id: '1737123063606173'
+  - relpath: raw/pv_defection/dataset_1/annotations/069R.json
+    md5: 47c7b8161655450292874d7a76748f44
+    size: 10971
+    cloud:
+      remote_storage:
+        etag: 08cbd5f2d9f7fc8a031001
+        version_id: '1737123065277131'
+  - relpath: raw/pv_defection/dataset_1/annotations/070R.json
+    md5: ec1c95d252d84c65d2c7ef1d5b454035
+    size: 10412
+    cloud:
+      remote_storage:
+        etag: 08bb998adaf7fc8a031001
+        version_id: '1737123065662651'
+  - relpath: raw/pv_defection/dataset_1/annotations/071R.json
+    md5: 1bc711f416f65ae692804311764126de
+    size: 10698
+    cloud:
+      remote_storage:
+        etag: 08e181a5daf7fc8a031001
+        version_id: '1737123066101985'
+  - relpath: raw/pv_defection/dataset_1/annotations/072R.json
+    md5: 46a302b805cf41239b6a4cbf06bebb43
+    size: 11302
+    cloud:
+      remote_storage:
+        etag: 08b69d83daf7fc8a031001
+        version_id: '1737123065548470'
+  - relpath: raw/pv_defection/dataset_1/annotations/073R.json
+    md5: 2c43330bc3458628e4f478202d109bc4
+    size: 10702
+    cloud:
+      remote_storage:
+        etag: 0899a187d9f7fc8a031001
+        version_id: '1737123063517337'
+  - relpath: raw/pv_defection/dataset_1/annotations/074R.json
+    md5: 31079dbaa5a80c6ab8be71bd9aee5e24
+    size: 10734
+    cloud:
+      remote_storage:
+        etag: 08e099b0d9f7fc8a031001
+        version_id: '1737123064188128'
+  - relpath: raw/pv_defection/dataset_1/annotations/075R.json
+    md5: 8d3a75f606184be07b6ecfb73af23221
+    size: 9187
+    cloud:
+      remote_storage:
+        etag: 08deda8dd9f7fc8a031001
+        version_id: '1737123063623006'
+  - relpath: raw/pv_defection/dataset_1/annotations/076R.json
+    md5: bf1b791da2dc728209199b35196dc681
+    size: 9208
+    cloud:
+      remote_storage:
+        etag: 08bada9edaf7fc8a031001
+        version_id: '1737123065998650'
+  - relpath: raw/pv_defection/dataset_1/annotations/077R.json
+    md5: aa50188fb84548ca631d4f635b4b55c3
+    size: 9483
+    cloud:
+      remote_storage:
+        etag: 08d8e89fd9f7fc8a031001
+        version_id: '1737123063919704'
+  - relpath: raw/pv_defection/dataset_1/annotations/078R.json
+    md5: 05e38bc5859fe57d72b3bed025160e62
+    size: 10414
+    cloud:
+      remote_storage:
+        etag: 08b1d59bd9f7fc8a031001
+        version_id: '1737123063851697'
+  - relpath: raw/pv_defection/dataset_1/annotations/079R.json
+    md5: a1da61c641ac0656b53aa08f7f8544f3
+    size: 9182
+    cloud:
+      remote_storage:
+        etag: 08d4bc81daf7fc8a031001
+        version_id: '1737123065519700'
+  - relpath: raw/pv_defection/dataset_1/annotations/080R.json
+    md5: ab0f454912ad9b971501d182919a80f6
+    size: 9169
+    cloud:
+      remote_storage:
+        etag: 08cdccfad9f7fc8a031001
+        version_id: '1737123065407053'
+  - relpath: raw/pv_defection/dataset_1/annotations/081R.json
+    md5: 9eab6dfadd0d319e2cc11192dbb19c61
+    size: 9166
+    cloud:
+      remote_storage:
+        etag: 08e3b49ddaf7fc8a031001
+        version_id: '1737123065977443'
+  - relpath: raw/pv_defection/dataset_1/annotations/082R.json
+    md5: c447e85d60b6deab1a43d83eee73fdcd
+    size: 9208
+    cloud:
+      remote_storage:
+        etag: 08c1bc95d9f7fc8a031001
+        version_id: '1737123063750209'
+  - relpath: raw/pv_defection/dataset_1/annotations/083R.json
+    md5: 65e172930dfe8e5ed151178d1df9bf19
+    size: 10675
+    cloud:
+      remote_storage:
+        etag: 089acc84daf7fc8a031001
+        version_id: '1737123065570842'
+  - relpath: raw/pv_defection/dataset_1/annotations/084R.json
+    md5: a6d317d0ccfea27f41e1cbc9bc2d51ac
+    size: 9146
+    cloud:
+      remote_storage:
+        etag: 08ceb5abd9f7fc8a031001
+        version_id: '1737123064109774'
+  - relpath: raw/pv_defection/dataset_1/annotations/085R.json
+    md5: f2b7cba5ca71539a73790655daa2288b
+    size: 10673
+    cloud:
+      remote_storage:
+        etag: 08f1d1f0d9f7fc8a031001
+        version_id: '1737123065243889'
+  - relpath: raw/pv_defection/dataset_1/annotations/086R.json
+    md5: bd341c418b42333e858ef4eb2470b967
+    size: 10708
+    cloud:
+      remote_storage:
+        etag: 08828cddd9f7fc8a031001
+        version_id: '1737123064923650'
+  - relpath: raw/pv_defection/dataset_1/annotations/087R.json
+    md5: ebcea81e01361c1036cc0a05632fda6c
+    size: 9206
+    cloud:
+      remote_storage:
+        etag: 08a8af82daf7fc8a031001
+        version_id: '1737123065534376'
+  - relpath: raw/pv_defection/dataset_1/annotations/088R.json
+    md5: 0f6465bf68968d32d3e950d6c14baf6e
+    size: 9134
+    cloud:
+      remote_storage:
+        etag: 08b79185daf7fc8a031001
+        version_id: '1737123065579703'
+  - relpath: raw/pv_defection/dataset_1/annotations/089R.json
+    md5: b9b0bf16046c667a78d7dd4998caff71
+    size: 12271
+    cloud:
+      remote_storage:
+        etag: 08e7f9f3d9f7fc8a031001
+        version_id: '1737123065298151'
+  - relpath: raw/pv_defection/dataset_1/annotations/090R.json
+    md5: 1520baa57545c7db0b66ba18860b9283
+    size: 10718
+    cloud:
+      remote_storage:
+        etag: 08c2b7b7d9f7fc8a031001
+        version_id: '1737123064306626'
+  - relpath: raw/pv_defection/dataset_1/annotations/091R.json
+    md5: 2ec963a93d81b57737576bfce293c58c
+    size: 10415
+    cloud:
+      remote_storage:
+        etag: 08f296eed9f7fc8a031001
+        version_id: '1737123065203570'
+  - relpath: raw/pv_defection/dataset_1/annotations/092R.json
+    md5: b099f7186f7333de4379d0612ef6d895
+    size: 9184
+    cloud:
+      remote_storage:
+        etag: 08dc9aa2daf7fc8a031001
+        version_id: '1737123066056028'
+  - relpath: raw/pv_defection/dataset_1/annotations/093R.json
+    md5: 80c3e792d1cc0d0ea63a31a1d8c841e3
+    size: 10397
+    cloud:
+      remote_storage:
+        etag: 0894b88fdaf7fc8a031001
+        version_id: '1737123065748500'
+  - relpath: raw/pv_defection/dataset_1/annotations/094R.json
+    md5: dd289602e98423270d5bd616417c7031
+    size: 7667
+    cloud:
+      remote_storage:
+        etag: 08f6a4aad9f7fc8a031001
+        version_id: '1737123064091254'
+  - relpath: raw/pv_defection/dataset_1/annotations/095R.json
+    md5: 45d458d9141599225e83dc3f3a0ad037
+    size: 9128
+    cloud:
+      remote_storage:
+        etag: 08a2b8fad9f7fc8a031001
+        version_id: '1737123065404450'
+  - relpath: raw/pv_defection/dataset_1/annotations/096R.json
+    md5: b706302d41a7a18525a299767f2aa391
+    size: 11321
+    cloud:
+      remote_storage:
+        etag: 08a8d9ddd9f7fc8a031001
+        version_id: '1737123064933544'
+  - relpath: raw/pv_defection/dataset_1/annotations/097R.json
+    md5: 17986da8f35a4be72de8ab65787e6624
+    size: 11043
+    cloud:
+      remote_storage:
+        etag: 08cca9e8d9f7fc8a031001
+        version_id: '1737123065107660'
+  - relpath: raw/pv_defection/dataset_1/annotations/098R.json
+    md5: cbfa2404b897e7110c0d2337c6c7c7c1
+    size: 12253
+    cloud:
+      remote_storage:
+        etag: 08e6e4a3d9f7fc8a031001
+        version_id: '1737123063984742'
+  - relpath: raw/pv_defection/dataset_1/annotations/099R.json
+    md5: 85ca403cae01f4b3fb1cf53d097bc90d
+    size: 9168
+    cloud:
+      remote_storage:
+        etag: 08ffd7f2d9f7fc8a031001
+        version_id: '1737123065277439'
+  - relpath: raw/pv_defection/dataset_1/annotations/100R.json
+    md5: e887bb89461f749cff3d7715985905bc
+    size: 10082
+    cloud:
+      remote_storage:
+        etag: 08f29799daf7fc8a031001
+        version_id: '1737123065908210'
+  - relpath: raw/pv_defection/dataset_1/annotations/101R.json
+    md5: b841a88f9f159319dcb155620c34fc2c
+    size: 9204
+    cloud:
+      remote_storage:
+        etag: 08f0f28cdaf7fc8a031001
+        version_id: '1737123065706864'
+  - relpath: raw/pv_defection/dataset_1/annotations/102R.json
+    md5: 94b15bce9bf0d70a653dbd6808de175c
+    size: 10653
+    cloud:
+      remote_storage:
+        etag: 08e59ba9d9f7fc8a031001
+        version_id: '1737123064073701'
+  - relpath: raw/pv_defection/dataset_1/annotations/103R.json
+    md5: 9706fb064ddac4a916fe929e0b75b40a
+    size: 12212
+    cloud:
+      remote_storage:
+        etag: 089daefbd8f7fc8a031001
+        version_id: '1737123063322397'
+  - relpath: raw/pv_defection/dataset_1/annotations/104R.json
+    md5: 9ab679a27448b01c5ea37c7eb0e608b8
+    size: 9179
+    cloud:
+      remote_storage:
+        etag: 08b3c6cfd9f7fc8a031001
+        version_id: '1737123064701747'
+  - relpath: raw/pv_defection/dataset_1/annotations/105R.json
+    md5: e6312ab7baee8094747fad7e311be5ea
+    size: 9178
+    cloud:
+      remote_storage:
+        etag: 0883b9a0d9f7fc8a031001
+        version_id: '1737123063929987'
+  - relpath: raw/pv_defection/dataset_1/annotations/106R.json
+    md5: 34654f7990c6868c8491e1483aacb619
+    size: 9755
+    cloud:
+      remote_storage:
+        etag: 0898e4e8d9f7fc8a031001
+        version_id: '1737123065115160'
+  - relpath: raw/pv_defection/dataset_1/annotations/107R.json
+    md5: 1a657bc40e67ff1711aa1678c75d244c
+    size: 10960
+    cloud:
+      remote_storage:
+        etag: 08a5efd7d9f7fc8a031001
+        version_id: '1737123064838053'
+  - relpath: raw/pv_defection/dataset_1/annotations/108R.json
+    md5: b3a0212ae649dbc05048c5397a987f98
+    size: 10714
+    cloud:
+      remote_storage:
+        etag: 0899b6e0d9f7fc8a031001
+        version_id: '1737123064978201'
+  - relpath: raw/pv_defection/dataset_1/annotations/109R.json
+    md5: f2c94a1cd7aa96ae0148b10fedbf413f
+    size: 11044
+    cloud:
+      remote_storage:
+        etag: 08bcaf9fdaf7fc8a031001
+        version_id: '1737123066009532'
+  - relpath: raw/pv_defection/dataset_1/annotations/110R.json
+    md5: 89d90fe0b317584aa96363cd764275e6
+    size: 11016
+    cloud:
+      remote_storage:
+        etag: 08d2ebe4d9f7fc8a031001
+        version_id: '1737123065050578'
+  - relpath: raw/pv_defection/dataset_1/annotations/111R.json
+    md5: 8255c1d9d68fb8aca7d0a41c5d77e474
+    size: 9164
+    cloud:
+      remote_storage:
+        etag: 08b49ae1d9f7fc8a031001
+        version_id: '1737123064991028'
+  - relpath: raw/pv_defection/dataset_1/annotations/112R.json
+    md5: 52f48d5b158c2bf9264a76b213e2f8e9
+    size: 9172
+    cloud:
+      remote_storage:
+        etag: 08c4a3c5d9f7fc8a031001
+        version_id: '1737123064533444'
+  - relpath: raw/pv_defection/dataset_1/annotations/113R.json
+    md5: 1f89a276f04af5b4fadf09f88520703c
+    size: 10130
+    cloud:
+      remote_storage:
+        etag: 08cea5d8d9f7fc8a031001
+        version_id: '1737123064845006'
+  - relpath: raw/pv_defection/dataset_1/annotations/114R.json
+    md5: 4f52e85457798b0b82b12feecb538a02
+    size: 9165
+    cloud:
+      remote_storage:
+        etag: 08f4d4e4d9f7fc8a031001
+        version_id: '1737123065047668'
+  - relpath: raw/pv_defection/dataset_1/annotations/115R.json
+    md5: 881eb227952cb49996286038dca5c377
+    size: 10397
+    cloud:
+      remote_storage:
+        etag: 0896c3f9d9f7fc8a031001
+        version_id: '1737123065389462'
+  - relpath: raw/pv_defection/dataset_1/annotations/116R.json
+    md5: 72a4b09effdfc6becc67f953904ae53a
+    size: 10353
+    cloud:
+      remote_storage:
+        etag: 08e3b8e0d9f7fc8a031001
+        version_id: '1737123064978531'
+  - relpath: raw/pv_defection/dataset_1/annotations/117R.json
+    md5: b3030182202ceb6a913ca0c6fe22c00e
+    size: 10712
+    cloud:
+      remote_storage:
+        etag: 08e9cce5d9f7fc8a031001
+        version_id: '1737123065063017'
+  - relpath: raw/pv_defection/dataset_1/annotations/118R.json
+    md5: 614fe2802c91a023628e6924242ed865
+    size: 11591
+    cloud:
+      remote_storage:
+        etag: 08bbf0c0d9f7fc8a031001
+        version_id: '1737123064461371'
+  - relpath: raw/pv_defection/dataset_1/annotations/119R.json
+    md5: dc8005108bf5812a07d8f8dbe57799df
+    size: 10094
+    cloud:
+      remote_storage:
+        etag: 08b299cfd9f7fc8a031001
+        version_id: '1737123064695986'
+  - relpath: raw/pv_defection/dataset_1/annotations/120R.json
+    md5: 4a27118f653f7d6b36fc6221d36feae9
+    size: 7640
+    cloud:
+      remote_storage:
+        etag: 08a6dcc5d9f7fc8a031001
+        version_id: '1737123064540710'
+  - relpath: raw/pv_defection/dataset_1/images/001R.jpg
+    md5: 6b760d3ceddc8f69785712661c5be1d3
+    size: 904584
+    cloud:
+      remote_storage:
+        etag: 08e3a0deccf7fc8a031001
+        version_id: '1737123037679715'
+  - relpath: raw/pv_defection/dataset_1/images/002R.jpg
+    md5: 1caf871ce14c5092dcd76dfeaae63a12
+    size: 908064
+    cloud:
+      remote_storage:
+        etag: 08f481cadaf7fc8a031001
+        version_id: '1737123066708212'
+  - relpath: raw/pv_defection/dataset_1/images/003R.jpg
+    md5: 787c5d218aa3912a1fa6a6714ee39705
+    size: 905944
+    cloud:
+      remote_storage:
+        etag: 08c3e7bbcef7fc8a031001
+        version_id: '1737123041309635'
+  - relpath: raw/pv_defection/dataset_1/images/004R.jpg
+    md5: 13f025d02cf5ff97460ab5eaf3903d7d
+    size: 901817
+    cloud:
+      remote_storage:
+        etag: 0888f68ccef7fc8a031001
+        version_id: '1737123040541448'
+  - relpath: raw/pv_defection/dataset_1/images/005R.jpg
+    md5: bfee7bd0e9b833b11a3f3dfd0ada8997
+    size: 895729
+    cloud:
+      remote_storage:
+        etag: 08f5fd85d7f7fc8a031001
+        version_id: '1737123059302133'
+  - relpath: raw/pv_defection/dataset_1/images/006R.jpg
+    md5: 3a43c8136ddfbe376e262a02cfc3c1c3
+    size: 893827
+    cloud:
+      remote_storage:
+        etag: 08e2d79fd2f7fc8a031001
+        version_id: '1737123049237474'
+  - relpath: raw/pv_defection/dataset_1/images/007R.jpg
+    md5: dac4de647efc6ffdf35e65edb995a546
+    size: 895664
+    cloud:
+      remote_storage:
+        etag: 08d3fddcdaf7fc8a031001
+        version_id: '1737123067018963'
+  - relpath: raw/pv_defection/dataset_1/images/008R.jpg
+    md5: 9dfd4816572781412514ae054c7ece48
+    size: 895529
+    cloud:
+      remote_storage:
+        etag: 08b4bdb5d1f7fc8a031001
+        version_id: '1737123047497396'
+  - relpath: raw/pv_defection/dataset_1/images/009R.jpg
+    md5: 8683b2b66b19f328cda8c9b05af9aa61
+    size: 897414
+    cloud:
+      remote_storage:
+        etag: 088291f6d8f7fc8a031001
+        version_id: '1737123063236738'
+  - relpath: raw/pv_defection/dataset_1/images/010R.jpg
+    md5: 43cfc34894a16a955ae81136e30a54f3
+    size: 895583
+    cloud:
+      remote_storage:
+        etag: 08ec98cad0f7fc8a031001
+        version_id: '1737123045739628'
+  - relpath: raw/pv_defection/dataset_1/images/011R.jpg
+    md5: 98cc77fa03c0a1c0d26a03bcbefd942c
+    size: 893553
+    cloud:
+      remote_storage:
+        etag: 088581ced2f7fc8a031001
+        version_id: '1737123049996421'
+  - relpath: raw/pv_defection/dataset_1/images/012R.jpg
+    md5: c6cd85e1febd50bbccd05e2677afdb9d
+    size: 890987
+    cloud:
+      remote_storage:
+        etag: 088280e2d8f7fc8a031001
+        version_id: '1737123062906882'
+  - relpath: raw/pv_defection/dataset_1/images/013R.jpg
+    md5: 9611387007243a697635bc0cdd8a823f
+    size: 886320
+    cloud:
+      remote_storage:
+        etag: 08a29484d3f7fc8a031001
+        version_id: '1737123050883618'
+  - relpath: raw/pv_defection/dataset_1/images/014R.jpg
+    md5: a95c5abcbfdbe56c0d32cc669f9401f1
+    size: 883466
+    cloud:
+      remote_storage:
+        etag: 08eba5b2d2f7fc8a031001
+        version_id: '1737123049542379'
+  - relpath: raw/pv_defection/dataset_1/images/015R.jpg
+    md5: 6b865e8e36c65ab16917ce5338e4af8f
+    size: 885735
+    cloud:
+      remote_storage:
+        etag: 08f890bedaf7fc8a031001
+        version_id: '1737123066513528'
+  - relpath: raw/pv_defection/dataset_1/images/016R.jpg
+    md5: 3957196b93efc459a831e1b37452ca86
+    size: 890221
+    cloud:
+      remote_storage:
+        etag: 08818c98cdf7fc8a031001
+        version_id: '1737123038627329'
+  - relpath: raw/pv_defection/dataset_1/images/017R.jpg
+    md5: a55d0885d5ea70880b96cbcd0b379512
+    size: 892124
+    cloud:
+      remote_storage:
+        etag: 08db97f9d9f7fc8a031001
+        version_id: '1737123065383899'
+  - relpath: raw/pv_defection/dataset_1/images/018R.jpg
+    md5: 166fd15998a023e94993d9e58514b453
+    size: 895760
+    cloud:
+      remote_storage:
+        etag: 08f3beb8d1f7fc8a031001
+        version_id: '1737123047546739'
+  - relpath: raw/pv_defection/dataset_1/images/019R.jpg
+    md5: 1ba87b87dc6b88d289cbaaced158d750
+    size: 894002
+    cloud:
+      remote_storage:
+        etag: 08dadeaddaf7fc8a031001
+        version_id: '1737123066244954'
+  - relpath: raw/pv_defection/dataset_1/images/020R.jpg
+    md5: 18e5bfe642d55488ab4403d71ed1a939
+    size: 891224
+    cloud:
+      remote_storage:
+        etag: 08f6a99ed9f7fc8a031001
+        version_id: '1737123063895286'
+  - relpath: raw/pv_defection/dataset_1/images/021R.jpg
+    md5: 0e390ee87193696300e39551d24a6f65
+    size: 889369
+    cloud:
+      remote_storage:
+        etag: 08baa1bddaf7fc8a031001
+        version_id: '1737123066499258'
+  - relpath: raw/pv_defection/dataset_1/images/022R.jpg
+    md5: dbf691d02d5d8c4ac6fea8664cdc222d
+    size: 892638
+    cloud:
+      remote_storage:
+        etag: 08fb9f86daf7fc8a031001
+        version_id: '1737123065597947'
+  - relpath: raw/pv_defection/dataset_1/images/023R.jpg
+    md5: 2b940ab98ae21b2b0f324a5f11a331c1
+    size: 895566
+    cloud:
+      remote_storage:
+        etag: 08dbadc2cbf7fc8a031001
+        version_id: '1737123035125467'
+  - relpath: raw/pv_defection/dataset_1/images/024R.jpg
+    md5: 0be0ed1e2e1d6cadf24ef456a0dd61ff
+    size: 896505
+    cloud:
+      remote_storage:
+        etag: 08938ce1d1f7fc8a031001
+        version_id: '1737123048211987'
+  - relpath: raw/pv_defection/dataset_1/images/025R.jpg
+    md5: 5c11289a382ee5c64fdcfe02fa6d352d
+    size: 895955
+    cloud:
+      remote_storage:
+        etag: 08d1ebd2d4f7fc8a031001
+        version_id: '1737123054269905'
+  - relpath: raw/pv_defection/dataset_1/images/026R.jpg
+    md5: 68cf138246844142c603108a1738a054
+    size: 896278
+    cloud:
+      remote_storage:
+        etag: 08cbb8d3daf7fc8a031001
+        version_id: '1737123066862667'
+  - relpath: raw/pv_defection/dataset_1/images/027R.jpg
+    md5: b33a522aa4941b33d14128c5d310859b
+    size: 896232
+    cloud:
+      remote_storage:
+        etag: 08e0b2b2d5f7fc8a031001
+        version_id: '1737123055835488'
+  - relpath: raw/pv_defection/dataset_1/images/028R.jpg
+    md5: f747c55efa2cf556955500ef81d1b328
+    size: 897352
+    cloud:
+      remote_storage:
+        etag: 08bdfcb2d8f7fc8a031001
+        version_id: '1737123062136381'
+  - relpath: raw/pv_defection/dataset_1/images/029R.jpg
+    md5: 0eedf2cd7f896dd05e67626c2644cd6a
+    size: 898468
+    cloud:
+      remote_storage:
+        etag: 08e3afc2d5f7fc8a031001
+        version_id: '1737123056097251'
+  - relpath: raw/pv_defection/dataset_1/images/030R.jpg
+    md5: 622475419eaf379c4a0baa5741f1fc45
+    size: 899220
+    cloud:
+      remote_storage:
+        etag: 08f89bbad9f7fc8a031001
+        version_id: '1737123064352248'
+  - relpath: raw/pv_defection/dataset_1/images/031R.jpg
+    md5: 69f3efca9823d6fb0266d8d5aeb7f965
+    size: 907405
+    cloud:
+      remote_storage:
+        etag: 08f8b3fad9f7fc8a031001
+        version_id: '1737123065403896'
+  - relpath: raw/pv_defection/dataset_1/images/032R.jpg
+    md5: b91112a1b91042c924580d325d49bdee
+    size: 910869
+    cloud:
+      remote_storage:
+        etag: 08d1ecfcccf7fc8a031001
+        version_id: '1737123038180945'
+  - relpath: raw/pv_defection/dataset_1/images/033R.jpg
+    md5: 6edceccebbf7e756bc372ae24182b6d6
+    size: 900375
+    cloud:
+      remote_storage:
+        etag: 08fdd4d0d2f7fc8a031001
+        version_id: '1737123050039933'
+  - relpath: raw/pv_defection/dataset_1/images/034R.jpg
+    md5: e0f71c5f86ca4b9e45a14e365e831032
+    size: 907786
+    cloud:
+      remote_storage:
+        etag: 08afe6efd8f7fc8a031001
+        version_id: '1737123063132975'
+  - relpath: raw/pv_defection/dataset_1/images/035R.jpg
+    md5: 2959ec06b56ea3eef9f38f507899e07e
+    size: 905957
+    cloud:
+      remote_storage:
+        etag: 08e6fcc1d1f7fc8a031001
+        version_id: '1737123047702118'
+  - relpath: raw/pv_defection/dataset_1/images/036R.jpg
+    md5: 9affff7dcc1eafd007b19de6aa71101e
+    size: 907168
+    cloud:
+      remote_storage:
+        etag: 08b4c798d1f7fc8a031001
+        version_id: '1737123047023540'
+  - relpath: raw/pv_defection/dataset_1/images/037R.jpg
+    md5: 7877e874815bb1ba034f9753635567a3
+    size: 896890
+    cloud:
+      remote_storage:
+        etag: 0890c99ad9f7fc8a031001
+        version_id: '1737123063833744'
+  - relpath: raw/pv_defection/dataset_1/images/038R.jpg
+    md5: e41d4fb1bd27bc4754561911385b5577
+    size: 895167
+    cloud:
+      remote_storage:
+        etag: 08e4c197d8f7fc8a031001
+        version_id: '1737123061686500'
+  - relpath: raw/pv_defection/dataset_1/images/039R.jpg
+    md5: 4a2b8d8d3901b1a8aa9d06fae3d8c0cb
+    size: 892099
+    cloud:
+      remote_storage:
+        etag: 08aecbc2daf7fc8a031001
+        version_id: '1737123066586542'
+  - relpath: raw/pv_defection/dataset_1/images/040R.jpg
+    md5: 22c9afaf56bbb7396da116b0a4a797e2
+    size: 891415
+    cloud:
+      remote_storage:
+        etag: 08cbf0a7d9f7fc8a031001
+        version_id: '1737123064051787'
+  - relpath: raw/pv_defection/dataset_1/images/041R.jpg
+    md5: cc1b58160f7d05763107669750e64432
+    size: 891940
+    cloud:
+      remote_storage:
+        etag: 08dfdfc1ccf7fc8a031001
+        version_id: '1737123037212639'
+  - relpath: raw/pv_defection/dataset_1/images/042R.jpg
+    md5: 13346aa90c18938523e6b1cb72ce1a65
+    size: 887058
+    cloud:
+      remote_storage:
+        etag: 088984bfd2f7fc8a031001
+        version_id: '1737123049751049'
+  - relpath: raw/pv_defection/dataset_1/images/043R.jpg
+    md5: 27c601ecfce8bcad27d4f158c5b4f083
+    size: 883112
+    cloud:
+      remote_storage:
+        etag: 08ceefbfd2f7fc8a031001
+        version_id: '1737123049764814'
+  - relpath: raw/pv_defection/dataset_1/images/044R.jpg
+    md5: 3b4c47c9e97807b558b74567b2cba834
+    size: 882855
+    cloud:
+      remote_storage:
+        etag: 08a0f8c5d8f7fc8a031001
+        version_id: '1737123062447136'
+  - relpath: raw/pv_defection/dataset_1/images/045R.jpg
+    md5: 1aa922e3370d6380a28765eff0a2bfa4
+    size: 887138
+    cloud:
+      remote_storage:
+        etag: 088ecab3cef7fc8a031001
+        version_id: '1737123041174798'
+  - relpath: raw/pv_defection/dataset_1/images/046R.jpg
+    md5: bd6067ecc6c73aacd7f6e58b6e1811ed
+    size: 888057
+    cloud:
+      remote_storage:
+        etag: 08be9f9fd9f7fc8a031001
+        version_id: '1737123063910334'
+  - relpath: raw/pv_defection/dataset_1/images/047R.jpg
+    md5: 281f75f2288f57aca37f300e49b15883
+    size: 889341
+    cloud:
+      remote_storage:
+        etag: 08fbbcfbd8f7fc8a031001
+        version_id: '1737123063324283'
+  - relpath: raw/pv_defection/dataset_1/images/048R.jpg
+    md5: 22ee28db849d01c5a938203f97c49726
+    size: 890133
+    cloud:
+      remote_storage:
+        etag: 0886f3a4daf7fc8a031001
+        version_id: '1737123066100102'
+  - relpath: raw/pv_defection/dataset_1/images/049R.jpg
+    md5: 1c6b598df051560209d646168e3f9fa3
+    size: 890296
+    cloud:
+      remote_storage:
+        etag: 08ec8697d9f7fc8a031001
+        version_id: '1737123063776108'
+  - relpath: raw/pv_defection/dataset_1/images/050R.jpg
+    md5: bef5de53381d903d6a4b6bfb9d8637c3
+    size: 888876
+    cloud:
+      remote_storage:
+        etag: 08b5d195d1f7fc8a031001
+        version_id: '1737123046975669'
+  - relpath: raw/pv_defection/dataset_1/images/051R.jpg
+    md5: bfd15fd7978fe8deb1b856e87db2fa1f
+    size: 888045
+    cloud:
+      remote_storage:
+        etag: 08ebc6dfd2f7fc8a031001
+        version_id: '1737123050283883'
+  - relpath: raw/pv_defection/dataset_1/images/052R.jpg
+    md5: 555495b0d2359b0ebee187b383d922b7
+    size: 887915
+    cloud:
+      remote_storage:
+        etag: 08ddaa9bd3f7fc8a031001
+        version_id: '1737123051263325'
+  - relpath: raw/pv_defection/dataset_1/images/053R.jpg
+    md5: 08d74bfc74a1f7b7f75ee72ffb93d212
+    size: 884665
+    cloud:
+      remote_storage:
+        etag: 08a2d8ded9f7fc8a031001
+        version_id: '1737123064949794'
+  - relpath: raw/pv_defection/dataset_1/images/054R.jpg
+    md5: 001113ae2efc94c84c0902f93143e756
+    size: 886879
+    cloud:
+      remote_storage:
+        etag: 08c6f9bbd2f7fc8a031001
+        version_id: '1737123049700550'
+  - relpath: raw/pv_defection/dataset_1/images/055R.jpg
+    md5: 091bd93c8cd03a6501750984e0efdd2c
+    size: 890558
+    cloud:
+      remote_storage:
+        etag: 08f0e8c0daf7fc8a031001
+        version_id: '1737123066557552'
+  - relpath: raw/pv_defection/dataset_1/images/056R.jpg
+    md5: 56a6233c570ce4413ebdf535ae20aea0
+    size: 893147
+    cloud:
+      remote_storage:
+        etag: 089ace8dd8f7fc8a031001
+        version_id: '1737123061524250'
+  - relpath: raw/pv_defection/dataset_1/images/057R.jpg
+    md5: e27aa564691f07ed4ad1595562894c0e
+    size: 890199
+    cloud:
+      remote_storage:
+        etag: 08f2b2aed9f7fc8a031001
+        version_id: '1737123064158578'
+  - relpath: raw/pv_defection/dataset_1/images/058R.jpg
+    md5: 69ff7b25e6dc18274208b2db820314f0
+    size: 892508
+    cloud:
+      remote_storage:
+        etag: 08cfd7fcd0f7fc8a031001
+        version_id: '1737123046566863'
+  - relpath: raw/pv_defection/dataset_1/images/059R.jpg
+    md5: ae705c7166aeb10e402535ed28048a99
+    size: 899147
+    cloud:
+      remote_storage:
+        etag: 089486b7d5f7fc8a031001
+        version_id: '1737123055911700'
+  - relpath: raw/pv_defection/dataset_1/images/060R.jpg
+    md5: 6c0eebe6872a9b43fb693cb76dacfba0
+    size: 901701
+    cloud:
+      remote_storage:
+        etag: 08f3fec7d9f7fc8a031001
+        version_id: '1737123064577907'
+  - relpath: raw/pv_defection/dataset_1/images/061R.jpg
+    md5: 71548b9c67dc0632fc62a2a9f97c2f6e
+    size: 897818
+    cloud:
+      remote_storage:
+        etag: 08e9a6c0d3f7fc8a031001
+        version_id: '1737123051869033'
+  - relpath: raw/pv_defection/dataset_1/images/062R.jpg
+    md5: dead03dc417fdaa0d9dece49f4ea146a
+    size: 897062
+    cloud:
+      remote_storage:
+        etag: 08c6ec80d9f7fc8a031001
+        version_id: '1737123063412294'
+  - relpath: raw/pv_defection/dataset_1/images/063R.jpg
+    md5: f26898e7a3bef63ab06de6249ba67334
+    size: 895203
+    cloud:
+      remote_storage:
+        etag: 08e2b1edd1f7fc8a031001
+        version_id: '1737123048413410'
+  - relpath: raw/pv_defection/dataset_1/images/064R.jpg
+    md5: 700ce61822927f979851e1f3a493f70b
+    size: 894401
+    cloud:
+      remote_storage:
+        etag: 08bba3bad8f7fc8a031001
+        version_id: '1737123062256059'
+  - relpath: raw/pv_defection/dataset_1/images/065R.jpg
+    md5: 8b67c7db51413a01711048b9dba73620
+    size: 895068
+    cloud:
+      remote_storage:
+        etag: 08d6dbf1d8f7fc8a031001
+        version_id: '1737123063164374'
+  - relpath: raw/pv_defection/dataset_1/images/066R.jpg
+    md5: 211c4cd139d054a7d58259dbfe1e4749
+    size: 896746
+    cloud:
+      remote_storage:
+        etag: 08f1dcf8d3f7fc8a031001
+        version_id: '1737123052793457'
+  - relpath: raw/pv_defection/dataset_1/images/067R.jpg
+    md5: 3b5df0208bd0e7ad413205aa99cd97c6
+    size: 899401
+    cloud:
+      remote_storage:
+        etag: 08f698e5d1f7fc8a031001
+        version_id: '1737123048279158'
+  - relpath: raw/pv_defection/dataset_1/images/068R.jpg
+    md5: 0a3fdf2b04708e24118a24eefc3c91f5
+    size: 899410
+    cloud:
+      remote_storage:
+        etag: 089e85bbd3f7fc8a031001
+        version_id: '1737123051782814'
+  - relpath: raw/pv_defection/dataset_1/images/069R.jpg
+    md5: b7057b0dd9b1ee8db07bdf7cbeca9d8f
+    size: 899955
+    cloud:
+      remote_storage:
+        etag: 08a5a2afd9f7fc8a031001
+        version_id: '1737123064172837'
+  - relpath: raw/pv_defection/dataset_1/images/070R.jpg
+    md5: 6ea188c8e45ee610874f470b44c23856
+    size: 903603
+    cloud:
+      remote_storage:
+        etag: 0883b095d9f7fc8a031001
+        version_id: '1737123063748611'
+  - relpath: raw/pv_defection/dataset_1/images/071R.jpg
+    md5: 07503272eaa15f57d0f09bea4eddfa1f
+    size: 898455
+    cloud:
+      remote_storage:
+        etag: 08cc98edd8f7fc8a031001
+        version_id: '1737123063090252'
+  - relpath: raw/pv_defection/dataset_1/images/072R.jpg
+    md5: 4328d538b5332c4645c48694ba17a5aa
+    size: 891683
+    cloud:
+      remote_storage:
+        etag: 0897efabd4f7fc8a031001
+        version_id: '1737123053631383'
+  - relpath: raw/pv_defection/dataset_1/images/073R.jpg
+    md5: 2dd9612068d3b5a6317f5fae6e20e2fb
+    size: 890620
+    cloud:
+      remote_storage:
+        etag: 08b1d8fed2f7fc8a031001
+        version_id: '1737123050794033'
+  - relpath: raw/pv_defection/dataset_1/images/074R.jpg
+    md5: ed50607aa3035e694ae8613b62db7d1f
+    size: 892478
+    cloud:
+      remote_storage:
+        etag: 08fdb4a4daf7fc8a031001
+        version_id: '1737123066092157'
+  - relpath: raw/pv_defection/dataset_1/images/075R.jpg
+    md5: 58c55bce379fccba5b591baa23edf7fb
+    size: 893252
+    cloud:
+      remote_storage:
+        etag: 08b7f7e5d3f7fc8a031001
+        version_id: '1737123052485559'
+  - relpath: raw/pv_defection/dataset_1/images/076R.jpg
+    md5: 74c8fa14dbc067e4503702dfc20f27c2
+    size: 889307
+    cloud:
+      remote_storage:
+        etag: 08c28ebacbf7fc8a031001
+        version_id: '1737123034990402'
+  - relpath: raw/pv_defection/dataset_1/images/077R.jpg
+    md5: 18d138df3cd0198d75caf0457073496d
+    size: 892599
+    cloud:
+      remote_storage:
+        etag: 0892bfb9d2f7fc8a031001
+        version_id: '1737123049660306'
+  - relpath: raw/pv_defection/dataset_1/images/078R.jpg
+    md5: e67c91e32710cf863d69829ec2a5fe51
+    size: 889966
+    cloud:
+      remote_storage:
+        etag: 08aaceccd1f7fc8a031001
+        version_id: '1737123047876394'
+  - relpath: raw/pv_defection/dataset_1/images/079R.jpg
+    md5: 160a7d98046f3786702074c87fab89fb
+    size: 889553
+    cloud:
+      remote_storage:
+        etag: 08adbafad8f7fc8a031001
+        version_id: '1737123063307565'
+  - relpath: raw/pv_defection/dataset_1/images/080R.jpg
+    md5: 92a07012c9b9241ae7a4d9832b496f19
+    size: 893198
+    cloud:
+      remote_storage:
+        etag: 08f3c69fd8f7fc8a031001
+        version_id: '1737123061818227'
+  - relpath: raw/pv_defection/dataset_1/images/081R.jpg
+    md5: 68ccc9cbd65305e457cbcff97ca191ef
+    size: 898603
+    cloud:
+      remote_storage:
+        etag: 08df86b3d3f7fc8a031001
+        version_id: '1737123051651935'
+  - relpath: raw/pv_defection/dataset_1/images/082R.jpg
+    md5: 9a837adf75aa2dcfddb3e15634c2f1b1
+    size: 900588
+    cloud:
+      remote_storage:
+        etag: 08c7b4d6d3f7fc8a031001
+        version_id: '1737123052231239'
+  - relpath: raw/pv_defection/dataset_1/images/083R.jpg
+    md5: 96584c4f930f5cb1cd06388c645203fc
+    size: 901208
+    cloud:
+      remote_storage:
+        etag: 089cd8aac8f7fc8a031001
+        version_id: '1737123028446236'
+  - relpath: raw/pv_defection/dataset_1/images/084R.jpg
+    md5: 8091aa73b04be7f11125151cf6f6cb5b
+    size: 901664
+    cloud:
+      remote_storage:
+        etag: 08e1cfd9daf7fc8a031001
+        version_id: '1737123066963937'
+  - relpath: raw/pv_defection/dataset_1/images/085R.jpg
+    md5: 6ce190894c05b6247820ae7e1aff768a
+    size: 901070
+    cloud:
+      remote_storage:
+        etag: 08efe79ad5f7fc8a031001
+        version_id: '1737123055449071'
+  - relpath: raw/pv_defection/dataset_1/images/086R.jpg
+    md5: ed368ba56441c269ca8314959bfcccd0
+    size: 897166
+    cloud:
+      remote_storage:
+        etag: 0880bfc8d2f7fc8a031001
+        version_id: '1737123049906048'
+  - relpath: raw/pv_defection/dataset_1/images/087R.jpg
+    md5: ea62e5bef73a6d1a4da3ef909e1a89a6
+    size: 896393
+    cloud:
+      remote_storage:
+        etag: 08a8a5d9d1f7fc8a031001
+        version_id: '1737123048084136'
+  - relpath: raw/pv_defection/dataset_1/images/088R.jpg
+    md5: 147983e219886dc8b1a5808f96d11670
+    size: 899404
+    cloud:
+      remote_storage:
+        etag: 08e5fadfdaf7fc8a031001
+        version_id: '1737123067067749'
+  - relpath: raw/pv_defection/dataset_1/images/089R.jpg
+    md5: 6967efabbc994537ef93a5080b17e32d
+    size: 898607
+    cloud:
+      remote_storage:
+        etag: 089997cacbf7fc8a031001
+        version_id: '1737123035253657'
+  - relpath: raw/pv_defection/dataset_1/images/090R.jpg
+    md5: f093a31732b7dad1debadb76967dfce9
+    size: 894476
+    cloud:
+      remote_storage:
+        etag: 08beefedcdf7fc8a031001
+        version_id: '1737123040032702'
+  - relpath: raw/pv_defection/dataset_1/images/091R.jpg
+    md5: 6477488e5d81814a2f724326ba660ebd
+    size: 892838
+    cloud:
+      remote_storage:
+        etag: 0895f984d9f7fc8a031001
+        version_id: '1737123063479445'
+  - relpath: raw/pv_defection/dataset_1/images/092R.jpg
+    md5: 2b51ce4c8cfe01ad41dca798342e287b
+    size: 897184
+    cloud:
+      remote_storage:
+        etag: 08f19391d6f7fc8a031001
+        version_id: '1737123057388017'
+  - relpath: raw/pv_defection/dataset_1/images/093R.jpg
+    md5: 1c1ff7d405bb6393d34818a0a87280fb
+    size: 896000
+    cloud:
+      remote_storage:
+        etag: 08efb782daf7fc8a031001
+        version_id: '1737123065535471'
+  - relpath: raw/pv_defection/dataset_1/images/094R.jpg
+    md5: 50c40c2a8e87a3ae772db7a89ccf1631
+    size: 890994
+    cloud:
+      remote_storage:
+        etag: 08b1cb8ed4f7fc8a031001
+        version_id: '1737123053151665'
+  - relpath: raw/pv_defection/dataset_1/images/095R.jpg
+    md5: d9598a3f726e64e6d698fa510a7aecd4
+    size: 893075
+    cloud:
+      remote_storage:
+        etag: 0884e7bed2f7fc8a031001
+        version_id: '1737123049747332'
+  - relpath: raw/pv_defection/dataset_1/images/096R.jpg
+    md5: dfca55ce927f0b5048013d7e6c5e59c5
+    size: 895678
+    cloud:
+      remote_storage:
+        etag: 08fafff5d9f7fc8a031001
+        version_id: '1737123065331706'
+  - relpath: raw/pv_defection/dataset_1/images/097R.jpg
+    md5: b9352a13f215fbbd3e075c6a08af5df2
+    size: 891341
+    cloud:
+      remote_storage:
+        etag: 08bc97f8d8f7fc8a031001
+        version_id: '1737123063270332'
+  - relpath: raw/pv_defection/dataset_1/images/098R.jpg
+    md5: 55893ee6a658deeaf1a3b63dddd17e69
+    size: 891240
+    cloud:
+      remote_storage:
+        etag: 08c183d0d7f7fc8a031001
+        version_id: '1737123060515265'
+  - relpath: raw/pv_defection/dataset_1/images/099R.jpg
+    md5: a10cfab14afcf5b007f0fbd65f19c8a7
+    size: 897572
+    cloud:
+      remote_storage:
+        etag: 08e3c6f4d8f7fc8a031001
+        version_id: '1737123063210851'
+  - relpath: raw/pv_defection/dataset_1/images/100R.jpg
+    md5: 24e6fd7970fbd90c61767edc3fadd1ab
+    size: 898500
+    cloud:
+      remote_storage:
+        etag: 08e4d0dcd9f7fc8a031001
+        version_id: '1737123064916068'
+  - relpath: raw/pv_defection/dataset_1/images/101R.jpg
+    md5: 7e8335cbb6ff761d00977cafef936a54
+    size: 897205
+    cloud:
+      remote_storage:
+        etag: 08afc38ddaf7fc8a031001
+        version_id: '1737123065717167'
+  - relpath: raw/pv_defection/dataset_1/images/102R.jpg
+    md5: d8502cc4d7b6ad71c3b6c067d084d372
+    size: 894153
+    cloud:
+      remote_storage:
+        etag: 08cde7c2ccf7fc8a031001
+        version_id: '1737123037230029'
+  - relpath: raw/pv_defection/dataset_1/images/103R.jpg
+    md5: e904f317ca863619ec9e667676387145
+    size: 893125
+    cloud:
+      remote_storage:
+        etag: 08faa8f7d7f7fc8a031001
+        version_id: '1737123061159034'
+  - relpath: raw/pv_defection/dataset_1/images/104R.jpg
+    md5: 4ffff263f7e5454e2cc9e989bbca9063
+    size: 894616
+    cloud:
+      remote_storage:
+        etag: 08c78595d9f7fc8a031001
+        version_id: '1737123063743175'
+  - relpath: raw/pv_defection/dataset_1/images/105R.jpg
+    md5: 21179e5b6de9a5f4963f5ed5360a76ea
+    size: 893207
+    cloud:
+      remote_storage:
+        etag: 08e0bcbdd1f7fc8a031001
+        version_id: '1737123047628384'
+  - relpath: raw/pv_defection/dataset_1/images/106R.jpg
+    md5: 3988ea1fd405932c9dd311de381e5643
+    size: 889366
+    cloud:
+      remote_storage:
+        etag: 08dfcddfd8f7fc8a031001
+        version_id: '1737123062867679'
+  - relpath: raw/pv_defection/dataset_1/images/107R.jpg
+    md5: 7456b06b70cfd96fbbc88d9a3c044c0c
+    size: 888200
+    cloud:
+      remote_storage:
+        etag: 08a8f3a0ccf7fc8a031001
+        version_id: '1737123036674472'
+  - relpath: raw/pv_defection/dataset_1/images/108R.jpg
+    md5: d254ac97867df7232413b7653df7c753
+    size: 894096
+    cloud:
+      remote_storage:
+        etag: 08d9bcbfd2f7fc8a031001
+        version_id: '1737123049758297'
+  - relpath: raw/pv_defection/dataset_1/images/109R.jpg
+    md5: 0b2047113f879cc70ae4c4fa5776d6a4
+    size: 891185
+    cloud:
+      remote_storage:
+        etag: 08cbc592daf7fc8a031001
+        version_id: '1737123065799371'
+  - relpath: raw/pv_defection/dataset_1/images/110R.jpg
+    md5: faa7d66c8ffad29d8482e989bdb8c8de
+    size: 889827
+    cloud:
+      remote_storage:
+        etag: 08cb98bad4f7fc8a031001
+        version_id: '1737123053866059'
+  - relpath: raw/pv_defection/dataset_1/images/111R.jpg
+    md5: b092d6783c49da634f0e6e0d63ce2552
+    size: 892815
+    cloud:
+      remote_storage:
+        etag: 08b5eba3cef7fc8a031001
+        version_id: '1737123040916917'
+  - relpath: raw/pv_defection/dataset_1/images/112R.jpg
+    md5: 200a7b930ba1a88964bf5993b14322ec
+    size: 895506
+    cloud:
+      remote_storage:
+        etag: 08e896abd4f7fc8a031001
+        version_id: '1737123053620072'
+  - relpath: raw/pv_defection/dataset_1/images/113R.jpg
+    md5: dac0cc76cc1e16fce58a5ce8f3a8422f
+    size: 895158
+    cloud:
+      remote_storage:
+        etag: 08a0c5e8d8f7fc8a031001
+        version_id: '1737123063014048'
+  - relpath: raw/pv_defection/dataset_1/images/114R.jpg
+    md5: 110ee9c657764d5b50be3c9711677709
+    size: 894308
+    cloud:
+      remote_storage:
+        etag: 08abc6e2d2f7fc8a031001
+        version_id: '1737123050332971'
+  - relpath: raw/pv_defection/dataset_1/images/115R.jpg
+    md5: 02905f95f0971c710b6f697049c8bf11
+    size: 897009
+    cloud:
+      remote_storage:
+        etag: 08e29dbbdaf7fc8a031001
+        version_id: '1737123066466018'
+  - relpath: raw/pv_defection/dataset_1/images/116R.jpg
+    md5: b6a87fd0db4ea94bdcb78f6203c95c6a
+    size: 897097
+    cloud:
+      remote_storage:
+        etag: 08b9eecad4f7fc8a031001
+        version_id: '1737123054139193'
+  - relpath: raw/pv_defection/dataset_1/images/117R.jpg
+    md5: 78fb7526db5a9147efe1aee942521e2a
+    size: 899633
+    cloud:
+      remote_storage:
+        etag: 08ad94ead9f7fc8a031001
+        version_id: '1737123065137709'
+  - relpath: raw/pv_defection/dataset_1/images/118R.jpg
+    md5: 1bb79db11d2f3aa317d54f4875ea4eb6
+    size: 898135
+    cloud:
+      remote_storage:
+        etag: 08e9c1b1ccf7fc8a031001
+        version_id: '1737123036946665'
+  - relpath: raw/pv_defection/dataset_1/images/119R.jpg
+    md5: 61d5273f6f33908662a1203fd951e9e5
+    size: 896132
+    cloud:
+      remote_storage:
+        etag: 08cca1c2daf7fc8a031001
+        version_id: '1737123066581196'
+  - relpath: raw/pv_defection/dataset_1/images/120R.jpg
+    md5: d088d0efa16e66d40284a02f22827b23
+    size: 906556
+    cloud:
+      remote_storage:
+        etag: 08c1e690d7f7fc8a031001
+        version_id: '1737123059479361'
+  - relpath: raw/pv_defection/dataset_2/.DS_Store
+    md5: 19eede83840442e348b446a9d942f4a9
+    size: 6148
+    cloud:
+      remote_storage:
+        etag: 08f0d1fac4f7fc8a031001
+        version_id: '1737123021367536'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154039.json
+    md5: 800ed1bae2abe3124a2ae626d2c92d30
+    size: 10658
+    cloud:
+      remote_storage:
+        etag: 0880d5c4c5f7fc8a031001
+        version_id: '1737123022580352'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154139.json
+    md5: eba4fe0b2556485731d3b311bcd12b28
+    size: 21360
+    cloud:
+      remote_storage:
+        etag: 08aab0b2c5f7fc8a031001
+        version_id: '1737123022280746'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154201.json
+    md5: c982e6cfd9f9daf8a542122f33f99d0b
+    size: 24629
+    cloud:
+      remote_storage:
+        etag: 08b6edaec5f7fc8a031001
+        version_id: '1737123022223030'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154239.json
+    md5: 2676a886f9bfbe60b8ecee5de94507f4
+    size: 23155
+    cloud:
+      remote_storage:
+        etag: 08a2c3abc5f7fc8a031001
+        version_id: '1737123022168482'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154245.json
+    md5: 857add097c47a91d23b813efa4fbe9e4
+    size: 20101
+    cloud:
+      remote_storage:
+        etag: 08cb82b0c5f7fc8a031001
+        version_id: '1737123022242123'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154305.json
+    md5: af535c95f4ee2d7eb50536a12d68ebce
+    size: 22859
+    cloud:
+      remote_storage:
+        etag: 08dfc2abc5f7fc8a031001
+        version_id: '1737123022168415'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154327.json
+    md5: c177c62a76063984cd052ebeddcd504c
+    size: 26277
+    cloud:
+      remote_storage:
+        etag: 08f3f6acc5f7fc8a031001
+        version_id: '1737123022191475'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154451.json
+    md5: 35bfbf03124f56c7add0c6f78551b232
+    size: 23422
+    cloud:
+      remote_storage:
+        etag: 08899eeac5f7fc8a031001
+        version_id: '1737123023195913'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154509.json
+    md5: 59b4d0444758ad6f46af519df0b96420
+    size: 27411
+    cloud:
+      remote_storage:
+        etag: 0883c9b0c5f7fc8a031001
+        version_id: '1737123022251139'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154513.json
+    md5: c71b1781cc4d47bb7fdec7b429e7e592
+    size: 27439
+    cloud:
+      remote_storage:
+        etag: 08faa9afc5f7fc8a031001
+        version_id: '1737123022230778'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154519.json
+    md5: a729cfc5a4f05f15f4a4233b5f57997b
+    size: 26762
+    cloud:
+      remote_storage:
+        etag: 08adbbf2c5f7fc8a031001
+        version_id: '1737123023330733'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154523.json
+    md5: 31f73f19b907a8160040042b10ecac0c
+    size: 27031
+    cloud:
+      remote_storage:
+        etag: 08fceda7c5f7fc8a031001
+        version_id: '1737123022108412'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154531.json
+    md5: a34ec4cfe10e795df8a5361fdbaf396a
+    size: 29636
+    cloud:
+      remote_storage:
+        etag: 08b08db0c5f7fc8a031001
+        version_id: '1737123022243504'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154541.json
+    md5: f83cbe8ef61816a152d83a3f641f4092
+    size: 25049
+    cloud:
+      remote_storage:
+        etag: 08d899d3c5f7fc8a031001
+        version_id: '1737123022818520'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154549.json
+    md5: 6e5e3901c89c182580b5dd0add7abbb5
+    size: 27146
+    cloud:
+      remote_storage:
+        etag: 08da93afc5f7fc8a031001
+        version_id: '1737123022227930'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154609.json
+    md5: c32d61a1d6f05b0255df399fee51801b
+    size: 25935
+    cloud:
+      remote_storage:
+        etag: 08ce87a7c5f7fc8a031001
+        version_id: '1737123022095310'
+  - relpath: raw/pv_defection/dataset_2/annotations/20180630_154617.json
+    md5: 325b0b5bff249abaf55b9a94f7db1687
+    size: 26204
+    cloud:
+      remote_storage:
+        etag: 08eca8f3c5f7fc8a031001
+        version_id: '1737123023344748'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154039.jpg
+    md5: 4a70a8424f9a03bca2e2b7237f5b592f
+    size: 779306
+    cloud:
+      remote_storage:
+        etag: 08c689ffcaf7fc8a031001
+        version_id: '1737123034023110'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154139.jpg
+    md5: 8e0185ee2dae9cced642fc759cc1475b
+    size: 770569
+    cloud:
+      remote_storage:
+        etag: 08ceedf7caf7fc8a031001
+        version_id: '1737123033904846'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154201.jpg
+    md5: 9de9fcfc3f594c6971015b6faf199807
+    size: 776712
+    cloud:
+      remote_storage:
+        etag: 08a1eac1caf7fc8a031001
+        version_id: '1737123033019681'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154239.jpg
+    md5: e2d46454525af160d913f53b59afb7f1
+    size: 750681
+    cloud:
+      remote_storage:
+        etag: 08c9dc97cbf7fc8a031001
+        version_id: '1737123034426953'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154245.jpg
+    md5: 093f60fd87ffcfad00e99c3ac3b1514b
+    size: 772679
+    cloud:
+      remote_storage:
+        etag: 08a1d788cbf7fc8a031001
+        version_id: '1737123034180513'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154305.jpg
+    md5: 75a1d8f398289c10dc41b1fff24fd149
+    size: 759709
+    cloud:
+      remote_storage:
+        etag: 08e0a2f9caf7fc8a031001
+        version_id: '1737123033928032'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154327.jpg
+    md5: 201423592045cb0e7dcc17dc72fb55ba
+    size: 774895
+    cloud:
+      remote_storage:
+        etag: 08a382d4caf7fc8a031001
+        version_id: '1737123033317667'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154451.jpg
+    md5: d21b6eb68d809b09a001bebef8188cf8
+    size: 761004
+    cloud:
+      remote_storage:
+        etag: 088bcecdcaf7fc8a031001
+        version_id: '1737123033212683'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154509.jpg
+    md5: 63dfc8ef265ff0c613cddbecd5dc6224
+    size: 741478
+    cloud:
+      remote_storage:
+        etag: 08f3a4f6caf7fc8a031001
+        version_id: '1737123033879155'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154513.jpg
+    md5: 39123f13edfb8c25647c620498dc16f0
+    size: 756523
+    cloud:
+      remote_storage:
+        etag: 08eddcbbcbf7fc8a031001
+        version_id: '1737123035016813'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154519.jpg
+    md5: d1013205f8f2820646868cb9c7065309
+    size: 750020
+    cloud:
+      remote_storage:
+        etag: 08b3ffcdcaf7fc8a031001
+        version_id: '1737123033218995'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154523.jpg
+    md5: 36eabf6f744151d3e796c3eff2f4765d
+    size: 746567
+    cloud:
+      remote_storage:
+        etag: 08b0baa4cbf7fc8a031001
+        version_id: '1737123034635568'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154531.jpg
+    md5: 2c6b6433f45bff1e85ff23c238ffcd2f
+    size: 746238
+    cloud:
+      remote_storage:
+        etag: 08df86bfcaf7fc8a031001
+        version_id: '1737123032974175'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154541.jpg
+    md5: 7e212818f223e15bead5506205e44105
+    size: 734695
+    cloud:
+      remote_storage:
+        etag: 08afaa96caf7fc8a031001
+        version_id: '1737123032306991'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154549.jpg
+    md5: e17fcc2e97d98ecce482a07faa272115
+    size: 738606
+    cloud:
+      remote_storage:
+        etag: 0892b6d4caf7fc8a031001
+        version_id: '1737123033324306'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154609.jpg
+    md5: 0172a49665fa9f15f53ac1d1fd9e7149
+    size: 741071
+    cloud:
+      remote_storage:
+        etag: 08fceedacaf7fc8a031001
+        version_id: '1737123033429884'
+  - relpath: raw/pv_defection/dataset_2/images/20180630_154617.jpg
+    md5: 4c9e329873a1a96e92b517bcf9be186e
+    size: 739429
+    cloud:
+      remote_storage:
+        etag: 0881e5fccaf7fc8a031001
+        version_id: '1737123033985665'
