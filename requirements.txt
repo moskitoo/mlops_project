@@ -216,7 +216,6 @@ pycparser==2.22
 pydot==3.0.4
 PyDrive2==1.21.3
 pygit2==1.17.0
-Pygments==2.19.0
 pygtrie==2.5.0
 pyOpenSSL==24.2.1
 pyparsing==3.2.1
