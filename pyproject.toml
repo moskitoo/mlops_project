@@ -30,4 +30,6 @@ line-length = 120
 
 [tool.coverage.run]
 omit = ["tests/*",
-"/Users/runner/work/mlops_project/mlops_project/config-3.py"]
+"/Users/runner/work/mlops_project/mlops_project/config-3.py",
+"/Users/runner/work/mlops_project/mlops_project/config.py",
+"/Users/runner/work/mlops_project/mlops_project/config-2.py",]
