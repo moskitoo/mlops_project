@@ -11,6 +11,7 @@ import typer
 # from detectron2.data import DatasetCatalog, MetadataCatalog
 # from detectron2.structures import BoxMode
 from torch.utils.data import Dataset
+from utils.dataset_yaml_setup import create_dataset_config
 
 
 class MyDataset(Dataset):
@@ -146,6 +147,11 @@ def preprocess(
 
     process_files(train_files, source_images_dir, source_annotations_dir, train_folder, train_annotations_path)
     process_files(val_files, source_images_dir, source_annotations_dir, val_folder, val_annotations_path)
+
+    directory_name = output_folder.name
+    yaml_file_path = output_folder / f"{directory_name}.yaml"
+
+    create_dataset_config(yaml_file_path)
 
 
 def get_data_dicts(img_dir: Path) -> List[Dict]:
