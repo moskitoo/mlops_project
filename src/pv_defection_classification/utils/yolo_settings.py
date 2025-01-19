@@ -23,7 +23,9 @@ def update_yolo_settings(data_path: str = None) -> None:
         except (FileNotFoundError, json.JSONDecodeError):
             settings = {}
 
+        data_path = os.path.join(os.getcwd(), str(data_path.parents[1]))
         settings["datasets_dir"] = data_path or os.path.join(os.getcwd(), "data")
+
         logger.info(f"Setting datasets directory to: {settings['datasets_dir']}")
 
         with open(settings_path, 'w') as file:
