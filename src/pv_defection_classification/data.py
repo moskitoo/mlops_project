@@ -3,7 +3,7 @@ import os
 import random
 import shutil
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Any
 
 import cv2
 import typer
@@ -196,7 +196,7 @@ def get_data_dicts(img_dir: Path) -> List[Dict]:
     return dataset_dicts
 
 
-def get_metadata(data_path: Path = Path("data/processed/pv_defection")) -> Tuple[DatasetCatalog, MetadataCatalog]:
+def get_metadata(data_path: Path = Path("data/processed/pv_defection")) -> Tuple[Any, Any]:
     """Register datasets and return catalogs.
 
     Args:
