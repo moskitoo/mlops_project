@@ -4,6 +4,7 @@ import random
 import shutil
 from pathlib import Path
 from typing import Dict, List, Tuple
+from PIL import Image
 
 import cv2
 import typer
@@ -62,14 +63,14 @@ def process_files(
     target_dir: Path,
     processed_annotations_dir: Path,
 ) -> None:
-    """Process image files and generate annotations in VGG format.
+    """Process image files and generate annotations in normalized format.
 
     Args:
         files (List[str]): List of image file names to process.
         source_images_dir (Path): Directory containing source images.
         source_annotations_dir (Path): Directory containing source annotations.
         target_dir (Path): Target directory to save processed files.
-        annotations_output_path (Path): Path to save the annotations JSON file.
+        processed_annotations_dir (Path): Path to save the processed annotation files.
     """
     os.makedirs(target_dir, exist_ok=True)
     os.makedirs(processed_annotations_dir, exist_ok=True)
@@ -80,6 +81,9 @@ def process_files(
         source_image_path = source_images_dir / filename
         destination_image_path = target_dir / filename
         shutil.copy(source_image_path, destination_image_path)
+
+        img = Image.open(source_image_path)
+        img_width, img_height = img.size
 
         json_path = source_annotations_dir / f"{Path(filename).stem}.json"
         with open(json_path, encoding="utf-8") as file:
@@ -94,10 +98,10 @@ def process_files(
 
             is_defected = bool(instance.get("defected_module", False))
             annotation.append(int(is_defected))
-            annotation.append(instance["center"]["x"])
-            annotation.append(instance["center"]["y"])
-            annotation.append(abs(instance["corners"][0]["x"] - instance["corners"][1]["x"]))
-            annotation.append(abs(instance["corners"][0]["y"] - instance["corners"][3]["y"]))
+            annotation.append(instance["center"]["x"] / img_width)
+            annotation.append(instance["center"]["y"] / img_height)
+            annotation.append(abs(instance["corners"][0]["x"] - instance["corners"][1]["x"]) / img_width)
+            annotation.append(abs(instance["corners"][0]["y"] - instance["corners"][3]["y"]) / img_height)
 
             total_modules += 1
             if is_defected:
@@ -109,6 +113,8 @@ def process_files(
 
         save_annotations(annotations, processed_annotations_file_path)
     print(f"Processed {len(files)} files. Total modules: {total_modules}, Defected: {total_defected}")
+
+
 
 
 def preprocess(
