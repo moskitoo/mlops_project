@@ -7,8 +7,9 @@ from typing import Dict, List, Tuple
 
 import cv2
 import typer
-from detectron2.data import DatasetCatalog, MetadataCatalog
-from detectron2.structures import BoxMode
+
+# from detectron2.data import DatasetCatalog, MetadataCatalog
+# from detectron2.structures import BoxMode
 from torch.utils.data import Dataset
 
 
@@ -44,8 +45,13 @@ def save_annotations(annotations: Dict[str, Dict], output_path: Path) -> None:
         annotations (Dict[str, Dict]): Dictionary of annotations to save.
         output_path (Path): Path to save the JSON file.
     """
-    with open(output_path, "w", encoding="utf-8") as file:
-        json.dump(annotations, file, indent=4)
+    # with open(output_path, "w", encoding="utf-8") as file:
+    #     json.dump(annotations, file, indent=4)
+    with open(output_path, "w") as f:
+        for annotation in annotations:
+            # Format each row: first number as integer, rest as floats with 6 decimal places
+            line = f"{int(annotation[0])} {' '.join(f'{x:.6f}' for x in annotation[1:])}\n"
+            f.write(line)
 
 
 def process_files(
@@ -53,7 +59,7 @@ def process_files(
     source_images_dir: Path,
     source_annotations_dir: Path,
     target_dir: Path,
-    annotations_output_path: Path,
+    processed_annotations_dir: Path,
 ) -> None:
     """Process image files and generate annotations in VGG format.
 
@@ -65,7 +71,7 @@ def process_files(
         annotations_output_path (Path): Path to save the annotations JSON file.
     """
     os.makedirs(target_dir, exist_ok=True)
-    annotations: Dict[str, Dict] = {}
+    os.makedirs(processed_annotations_dir, exist_ok=True)
 
     total_modules, total_defected = 0, 0
 
@@ -80,40 +86,27 @@ def process_files(
 
         instances = img_annotations.get("instances", [])
 
-        filesize = str(os.path.getsize(destination_image_path))
-        img_new_anns = {
-            "fileref": "",
-            "size": filesize,
-            "filename": filename,
-            "base64_img_data": "",
-            "file_attributes": {},
-            "regions": {},
-        }
+        annotations: List[List[int | float]] = []
 
-        for i, instance in enumerate(instances):
+        for instance in instances:
+            annotation: List[int | float] = []
+
             is_defected = bool(instance.get("defected_module", False))
-            class_id = int(is_defected)
-
-            region = {
-                "shape_attributes": {
-                    "name": "rect",
-                    "x": instance["corners"][1]["x"],
-                    "y": instance["corners"][1]["y"],
-                    "width": abs(instance["corners"][0]["x"] - instance["corners"][1]["x"]),
-                    "height": abs(instance["corners"][0]["y"] - instance["corners"][3]["y"]),
-                },
-                "region_attributes": {"class": class_id},
-            }
-
-            img_new_anns["regions"][str(i)] = region
+            annotation.append(int(is_defected))
+            annotation.append(instance["center"]["x"])
+            annotation.append(instance["center"]["y"])
+            annotation.append(abs(instance["corners"][0]["x"] - instance["corners"][1]["x"]))
+            annotation.append(abs(instance["corners"][0]["y"] - instance["corners"][3]["y"]))
 
             total_modules += 1
             if is_defected:
                 total_defected += 1
 
-        annotations[img_new_anns["filename"] + filesize] = img_new_anns
+            annotations.append(annotation)
 
-    save_annotations(annotations, annotations_output_path)
+        processed_annotations_file_path = processed_annotations_dir / f"{Path(filename).stem}.txt"
+
+        save_annotations(annotations, processed_annotations_file_path)
     print(f"Processed {len(files)} files. Total modules: {total_modules}, Defected: {total_defected}")
 
 
@@ -133,10 +126,10 @@ def preprocess(
     """
     random.seed(random_seed)
 
-    train_folder = output_folder / "train"
-    val_folder = output_folder / "val"
-    train_annotations_path = train_folder / "via_region_data.json"
-    val_annotations_path = val_folder / "via_region_data.json"
+    train_folder = output_folder / "images" / "train"
+    val_folder = output_folder / "images" / "val"
+    train_annotations_path = output_folder / "labels" / "train"
+    val_annotations_path = output_folder / "labels" / "val"
 
     source_images_dir = raw_data_path / "images"
     source_annotations_dir = raw_data_path / "annotations"
@@ -186,7 +179,7 @@ def get_data_dicts(img_dir: Path) -> List[Dict]:
                         anno["shape_attributes"]["width"],
                         anno["shape_attributes"]["height"],
                     ],
-                    "bbox_mode": BoxMode.XYWH_ABS,
+                    # "bbox_mode": BoxMode.XYWH_ABS,
                     "category_id": anno["region_attributes"]["class"],
                 }
                 for anno in v["regions"].values()
@@ -196,20 +189,20 @@ def get_data_dicts(img_dir: Path) -> List[Dict]:
     return dataset_dicts
 
 
-def get_metadata(data_path: Path = Path("data/processed/pv_defection")) -> Tuple[DatasetCatalog, MetadataCatalog]:
-    """Register datasets and return catalogs.
+# def get_metadata(data_path: Path = Path("data/processed/pv_defection")) -> Tuple[DatasetCatalog, MetadataCatalog]:
+#     """Register datasets and return catalogs.
 
-    Args:
-        data_path (Path): Path to the processed data.
+#     Args:
+#         data_path (Path): Path to the processed data.
 
-    Returns:
-        Tuple[DatasetCatalog, MetadataCatalog]: Registered catalogs.
-    """
-    for split in ["train", "val"]:
-        path = data_path / split
-        DatasetCatalog.register(f"pv_module_{split}", lambda split=split: get_data_dicts(path))
-        MetadataCatalog.get(f"pv_module_{split}").set(thing_classes=["pv_module", "pv_module_defected"])
-    return DatasetCatalog, MetadataCatalog
+#     Returns:
+#         Tuple[DatasetCatalog, MetadataCatalog]: Registered catalogs.
+#     """
+#     for split in ["train", "val"]:
+#         path = data_path / split
+#         DatasetCatalog.register(f"pv_module_{split}", lambda split=split: get_data_dicts(path))
+#         MetadataCatalog.get(f"pv_module_{split}").set(thing_classes=["pv_module", "pv_module_defected"])
+#     return DatasetCatalog, MetadataCatalog
 
 
 if __name__ == "__main__":

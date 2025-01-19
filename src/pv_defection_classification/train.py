@@ -3,11 +3,11 @@ from datetime import datetime
 from pathlib import Path
 
 import typer
-from balloon_db import get_baloon_metadata
-from detectron2.engine import DefaultTrainer
+# from balloon_db import get_baloon_metadata
+# from detectron2.engine import DefaultTrainer
 from model import *
 
-from data import get_metadata
+# from data import get_metadata
 
 import wandb
 
