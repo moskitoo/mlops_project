@@ -41,64 +41,64 @@ def train_model(
         no return, logs and checkpoints are stored under /models/<timestamp>
 
     """
-    model = YOLO("yolo11n.yaml")
+    # model = YOLO("yolo11n.yaml")
 
-    model = YOLO("yolo11n.pt")
+    # model = YOLO("yolo11n.pt")
 
-    update_yolo_settings(data_path)
+    # update_yolo_settings(data_path)
 
-    os.makedirs(output_dir, exist_ok=True)
+    # os.makedirs(output_dir, exist_ok=True)
 
-    results = model.train(data=data_path, epochs=3)
+    # results = model.train(data=data_path, epochs=3)
 
-    # Evaluate the model's performance on the validation set
-    results = model.val()
+    # # Evaluate the model's performance on the validation set
+    # results = model.val()
 
-    # Export the model to PyTorch format
-    success = model.export()
-    # Export the model to ONNX format
-    success = model.export(format="onnx")
+    # # Export the model to PyTorch format
+    # success = model.export()
+    # # Export the model to ONNX format
+    # success = model.export(format="onnx")
 
-    # with wandb.init(
-    #     project="pv_defection",
-    #     entity="hndrkjs-danmarks-tekniske-universitet-dtu",
-    #     name=f"{timestamp}",
-    #     sync_tensorboard=True,
-    # ) as run:
-    #     artifact = wandb.Artifact(
-    #         type="model",
-    #         name="run-%s-model" % wandb.run.id,
-    #         metadata={
-    #             "format": {"type": "detectron_model"},
-    #             "timestamp": timestamp,
-    #         },
-    #     )
+    with wandb.init(
+        project="pv_defection",
+        entity="hndrkjs-danmarks-tekniske-universitet-dtu",
+        name=f"{timestamp}",
+        sync_tensorboard=True,
+    ) as run:
+        artifact = wandb.Artifact(
+            type="model",
+            name="run-%s-model" % wandb.run.id,
+            metadata={
+                "format": {"type": "detectron_model"},
+                "timestamp": timestamp,
+            },
+        )
 
-        # model = YOLO("yolo11n.yaml")
+        model = YOLO("yolo11n.yaml")
 
-        # model = YOLO("yolo11n.pt")
+        model = YOLO("yolo11n.pt")
 
-        # update_yolo_settings()
+        update_yolo_settings()
 
-        # os.makedirs(output_dir, exist_ok=True)
+        os.makedirs(output_dir, exist_ok=True)
 
-        # results = model.train(data=data_path, epochs=3)
+        results = model.train(data=data_path, epochs=3)
 
-        # # Evaluate the model's performance on the validation set
-        # results = model.val()
+        # Evaluate the model's performance on the validation set
+        results = model.val()
 
-        # # Export the model to PyTorch format
-        # success = model.export()
-        # # Export the model to ONNX format
-        # success = model.export(format="onnx")
+        # Export the model to PyTorch format
+        success = model.export()
+        # Export the model to ONNX format
+        success = model.export(format="onnx")
 
-        # artifact.add_file(f"models/{timestamp}/model_final.pth")
-        # run.log_artifact(artifact)
-        # run.link_artifact(
-        #     artifact=artifact,
-        #     target_path="hndrkjs-danmarks-tekniske-universitet-dtu-org/wandb-registry-mlops final project/trained-detectron2-model",
-        # )
-        # run.finish()
+        artifact.add_file(f"models/{timestamp}/model_final.pth")
+        run.log_artifact(artifact)
+        run.link_artifact(
+            artifact=artifact,
+            target_path="hndrkjs-danmarks-tekniske-universitet-dtu-org/wandb-registry-mlops final project/trained-detectron2-model",
+        )
+        run.finish()
 
 
 if __name__ == "__main__":

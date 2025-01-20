@@ -9,8 +9,6 @@ from PIL import Image
 import cv2
 import typer
 
-# from detectron2.data import DatasetCatalog, MetadataCatalog
-# from detectron2.structures import BoxMode
 from torch.utils.data import Dataset
 from utils.dataset_yaml_setup import create_dataset_config
 
@@ -47,8 +45,6 @@ def save_annotations(annotations: Dict[str, Dict], output_path: Path) -> None:
         annotations (Dict[str, Dict]): Dictionary of annotations to save.
         output_path (Path): Path to save the JSON file.
     """
-    # with open(output_path, "w", encoding="utf-8") as file:
-    #     json.dump(annotations, file, indent=4)
     with open(output_path, "w") as f:
         for annotation in annotations:
             # Format each row: first number as integer, rest as floats with 6 decimal places
@@ -191,7 +187,6 @@ def get_data_dicts(img_dir: Path) -> List[Dict]:
                         anno["shape_attributes"]["width"],
                         anno["shape_attributes"]["height"],
                     ],
-                    # "bbox_mode": BoxMode.XYWH_ABS,
                     "category_id": anno["region_attributes"]["class"],
                 }
                 for anno in v["regions"].values()
@@ -199,23 +194,6 @@ def get_data_dicts(img_dir: Path) -> List[Dict]:
         }
         dataset_dicts.append(record)
     return dataset_dicts
-
-
-# def get_metadata(data_path: Path = Path("data/processed/pv_defection")) -> Tuple[DatasetCatalog, MetadataCatalog]:
-#     """Register datasets and return catalogs.
-
-#     Args:
-#         data_path (Path): Path to the processed data.
-
-#     Returns:
-#         Tuple[DatasetCatalog, MetadataCatalog]: Registered catalogs.
-#     """
-#     for split in ["train", "val"]:
-#         path = data_path / split
-#         DatasetCatalog.register(f"pv_module_{split}", lambda split=split: get_data_dicts(path))
-#         MetadataCatalog.get(f"pv_module_{split}").set(thing_classes=["pv_module", "pv_module_defected"])
-#     return DatasetCatalog, MetadataCatalog
-
 
 if __name__ == "__main__":
     typer.run(preprocess)
