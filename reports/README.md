@@ -254,7 +254,7 @@ For the data processing component, we created four unit tests and two integratio
 >
 > Answer:
 
---- question 9 fill here ---
+In our project, we made use of both branches and PRs. We created new branches for each new feature we wanted to develop. We encountered some issues with commit and PR frequency, but this project taught us how important it is to regularly save modifications and merge them to ensure that everyone stays on the same page. We added branch protection in the later phase of our project when we moved from local development to the cloud. At that stage, our project consisted of many nodes, and an incorrect push to the main branch could trigger a cascade of events in the pipeline, wasting our time. However, we are aware that in more advanced projects, especially in a real production environment, branch protection is crucial from day one. The risks are even higher, for example, the GCP tokens that we pay for with our own money. :D
 
 ### Question 10
 
