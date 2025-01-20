@@ -265,7 +265,7 @@ def test_preprocess(setup_dirs, monkeypatch):
     # Verify logger was called
     assert mock_logger.info.called
     assert mock_random.called
-
+#added skip
 @pytest.mark.skipif(not os.path.exists("data"), reason="Data files not found")
 def test_preprocess_error_handling(setup_dirs, monkeypatch):
     source_images_dir, source_annotations_dir, _, _ = setup_dirs
