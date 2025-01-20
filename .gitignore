@@ -181,3 +181,5 @@ data/
 models/
 /data
 runs/
+
+src/pv_defection_classification/train_initialisation.py
