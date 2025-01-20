@@ -98,10 +98,10 @@ def process_files(
 
             is_defected = bool(instance.get("defected_module", False))
             annotation.append(int(is_defected))
-            annotation.append(instance["center"]["x"] / img_width)
-            annotation.append(instance["center"]["y"] / img_height)
-            annotation.append(abs(instance["corners"][0]["x"] - instance["corners"][1]["x"]) / img_width)
-            annotation.append(abs(instance["corners"][0]["y"] - instance["corners"][3]["y"]) / img_height)
+            annotation.append(max(0.0, min(instance["center"]["x"] / img_width, 1.0)))
+            annotation.append(max(0.0, min(instance["center"]["y"] / img_height, 1.0)))
+            annotation.append(max(0.0, min(abs(instance["corners"][0]["x"] - instance["corners"][1]["x"]) / img_width, 1.0)))
+            annotation.append(max(0.0, min(abs(instance["corners"][0]["y"] - instance["corners"][3]["y"]) / img_height, 1.0)))
 
             total_modules += 1
             if is_defected:

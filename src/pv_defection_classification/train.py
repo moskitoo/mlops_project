@@ -1,17 +1,13 @@
+import logging
 import os
 from datetime import datetime
 from pathlib import Path
 
 import typer
-import wandb
-
-# from balloon_db import get_baloon_metadata
-# from detectron2.engine import DefaultTrainer
-# from model import *
-
-# from data import get_metadata
 from ultralytics import YOLO
 from utils.yolo_settings import update_yolo_settings
+
+import wandb
 
 # default values
 batch_size = 2
@@ -21,6 +17,8 @@ number_of_classes = 2
 
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 output_dir = f"models/{timestamp}"
+
+logging.getLogger("ultralytics").setLevel(logging.CRITICAL)
 
 
 def train_model(
@@ -43,7 +41,6 @@ def train_model(
         no return, logs and checkpoints are stored under /models/<timestamp>
 
     """
-
     model = YOLO("yolo11n.yaml")
 
     model = YOLO("yolo11n.pt")
@@ -62,12 +59,6 @@ def train_model(
     # Export the model to ONNX format
     success = model.export(format="onnx")
 
-
-
-
-
-
-
     # with wandb.init(
     #     project="pv_defection",
     #     entity="hndrkjs-danmarks-tekniske-universitet-dtu",
@@ -83,43 +74,31 @@ def train_model(
     #         },
     #     )
 
-    #     # model = get_model(number_of_classes)
-    #     # model.SOLVER.IMS_PER_BATCH = batch_size
-    #     # model.SOLVER.BASE_LR = learning_rate
-    #     # model.SOLVER.MAX_ITER = max_iteration
-    #     # model.SOLVER.STEPS = []
-    #     # model.OUTPUT_DIR = output_dir
+        # model = YOLO("yolo11n.yaml")
 
-    #     model = YOLO("yolo11n.yaml")
+        # model = YOLO("yolo11n.pt")
 
-    #     model = YOLO("yolo11n.pt")
+        # update_yolo_settings()
 
-    #     update_yolo_settings()
+        # os.makedirs(output_dir, exist_ok=True)
 
-    #     os.makedirs(output_dir, exist_ok=True)
+        # results = model.train(data=data_path, epochs=3)
 
-    #     # MetadataCatalog, DatasetCatalog = get_metadata(data_path)
-    #     # trainer = DefaultTrainer(model)
-    #     # trainer.resume_or_load(resume=False)
-    #     # trainer.train()
+        # # Evaluate the model's performance on the validation set
+        # results = model.val()
 
-    #     results = model.train(data=data_path, epochs=3)
+        # # Export the model to PyTorch format
+        # success = model.export()
+        # # Export the model to ONNX format
+        # success = model.export(format="onnx")
 
-    #     # Evaluate the model's performance on the validation set
-    #     results = model.val()
-
-    #     # Export the model to PyTorch format
-    #     success = model.export()
-    #     # Export the model to ONNX format
-    #     success = model.export(format="onnx")
-
-    #     artifact.add_file(f"models/{timestamp}/model_final.pth")
-    #     run.log_artifact(artifact)
-    #     run.link_artifact(
-    #         artifact=artifact,
-    #         target_path="hndrkjs-danmarks-tekniske-universitet-dtu-org/wandb-registry-mlops final project/trained-detectron2-model",
-    #     )
-    #     run.finish()
+        # artifact.add_file(f"models/{timestamp}/model_final.pth")
+        # run.log_artifact(artifact)
+        # run.link_artifact(
+        #     artifact=artifact,
+        #     target_path="hndrkjs-danmarks-tekniske-universitet-dtu-org/wandb-registry-mlops final project/trained-detectron2-model",
+        # )
+        # run.finish()
 
 
 if __name__ == "__main__":
