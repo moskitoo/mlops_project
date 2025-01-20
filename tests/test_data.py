@@ -2,7 +2,7 @@ import json
 import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock
-
+import os
 import pytest
 from PIL import Image
 
@@ -28,7 +28,6 @@ def setup_dirs():
 
     # Cleanup the temporary directory
     test_dir.cleanup()
-
 
 @pytest.fixture
 def create_sample_image(setup_dirs):
@@ -61,7 +60,7 @@ def create_sample_annotation(setup_dirs):
         json.dump(annotation_data, f)
     return annotation_path
 
-
+@pytest.mark.skipif(not os.path.exists("data"), reason="Data files not found")
 def test_process_files(setup_dirs, create_sample_image, create_sample_annotation, monkeypatch):
     source_images_dir, source_annotations_dir, target_dir, processed_annotations_dir = setup_dirs
 
@@ -85,7 +84,7 @@ def test_process_files(setup_dirs, create_sample_image, create_sample_annotation
     processed_annotation_path = processed_annotations_dir / "test_image.txt"
     assert processed_annotation_path.exists()
 
-
+@pytest.mark.skipif(not os.path.exists("data"), reason="Data files not found")
 def test_process_files_with_invalid_json(setup_dirs, monkeypatch):
     source_images_dir, source_annotations_dir, target_dir, processed_annotations_dir = setup_dirs
     mock_logger = MagicMock()
@@ -120,7 +119,7 @@ def test_process_files_with_invalid_json(setup_dirs, monkeypatch):
     # Check logger error
     mock_logger.error.assert_called()
 
-
+@pytest.mark.skipif(not os.path.exists("data"), reason="Data files not found")
 def test_process_files_with_missing_instances(setup_dirs, monkeypatch):
     source_images_dir, source_annotations_dir, target_dir, processed_annotations_dir = setup_dirs
     mock_logger = MagicMock()
@@ -155,7 +154,7 @@ def test_process_files_with_missing_instances(setup_dirs, monkeypatch):
     with open(processed_annotation_path) as f:
         assert f.read() == ""
 
-
+@pytest.mark.skipif(not os.path.exists("data"), reason="Data files not found")
 def test_process_files_with_corrupt_image(setup_dirs, monkeypatch):
     source_images_dir, source_annotations_dir, target_dir, processed_annotations_dir = setup_dirs
     mock_logger = MagicMock()
@@ -185,7 +184,7 @@ def test_process_files_with_corrupt_image(setup_dirs, monkeypatch):
     # Check logger error
     mock_logger.error.assert_called()
 
-
+@pytest.mark.skipif(not os.path.exists("data"), reason="Data files not found")
 def test_preprocess(setup_dirs, monkeypatch):
     # Unpack the directories from setup_dirs
     source_images_dir, source_annotations_dir, _, _ = setup_dirs
@@ -267,7 +266,7 @@ def test_preprocess(setup_dirs, monkeypatch):
     assert mock_logger.info.called
     assert mock_random.called
 
-
+@pytest.mark.skipif(not os.path.exists("data"), reason="Data files not found")
 def test_preprocess_error_handling(setup_dirs, monkeypatch):
     source_images_dir, source_annotations_dir, _, _ = setup_dirs
 
