@@ -2,8 +2,6 @@ import logging
 import os
 from datetime import datetime
 from pathlib import Path
-
-import torch
 import typer
 from ultralytics import YOLO
 from utils.yolo_settings import update_yolo_settings
