@@ -44,8 +44,13 @@ jobs:
           pip install -r requirements_dev.txt
           pip list
 
-
       - name: Run tests & coverage
         run: |
           coverage run -m pytest tests/
-          coverage report -m
+          coverage report -m      
+
+      - name: Ruff check
+        run: ruff check .
+        
+      - name: Ruff format
+        run: ruff format .
