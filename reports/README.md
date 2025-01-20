@@ -143,7 +143,13 @@ s242954, s243575, s242529, s242672, s243600
 >
 > Answer:
 
---- question 3 fill here ---
+In this project, we utilized the PyTorch-based Ultralytics package to implement the YOLO model (version 11) for object detection. This package simplifies the process of training and evaluation, reducing boilerplate code similarly to PyTorch Lightning.
+
+We used pretrained YOLO models on the COCO dataset as a base and leveraged Ultralytics' built-in features for metrics logging, report generation, and model exporting. The models were exported in PyTorch (.pth) and ONNX (.onnx) formats for deployment.
+
+The package offers seamless integration with Weights & Biases (W&B), enabling effective tracking of experiments and model versions. Results were stored in organized directories, ensuring reproducibility and easy collaboration.
+
+We initially considered Detectron2 but chose Ultralytics due to its active maintenance, popularity, and ease of debugging. The extensive documentation and community support made it a practical choice for our needs.
 
 ## Coding environment
 
