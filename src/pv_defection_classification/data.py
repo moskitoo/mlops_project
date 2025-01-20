@@ -12,7 +12,6 @@ from PIL import Image
 if __name__ == "__main__":
     # When run as script, add src to Python path
     import sys
-    from pathlib import Path
 
     src_path = str(Path(__file__).parent.parent)
     sys.path.append(src_path)

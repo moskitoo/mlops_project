@@ -82,15 +82,15 @@ def train_model(
 
         os.makedirs(output_dir, exist_ok=True)
 
-        results = model.train(data=data_path, epochs=3)
+        model.train(data=data_path, epochs=3)
 
         # Evaluate the model's performance on the validation set
-        results = model.val()
+        model.val()
 
         # Export the model to PyTorch format
-        success = model.export()
+        model.export()
         # Export the model to ONNX format
-        success = model.export(format="onnx")
+        model.export(format="onnx")
 
         artifact.add_file(f"models/{timestamp}/model_final.pth")
         run.log_artifact(artifact)
