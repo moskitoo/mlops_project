@@ -221,7 +221,10 @@ In larger projects, even within a team of our size, proper documentation is cruc
 >
 > Answer:
 
---- question 7 fill here ---
+In total we have implemented X tests.
+
+For the data processing component, we created four unit tests and two integration tests. The unit tests focused on handling cases of missing or corrupted data during processing, ensuring that the raw dataset was correctly transformed into the YOLO format. The integration tests verified that the overall structure of the processed dataset met the required format and organization needed for the training step of our pipeline.
+
 
 ### Question 8
 
