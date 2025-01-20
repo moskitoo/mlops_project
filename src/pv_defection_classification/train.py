@@ -49,7 +49,7 @@ def train_model(
 
     os.makedirs(output_dir, exist_ok=True)
 
-    results = model.train(data=data_path, epochs=3)
+    results = model.train(data=data_path, epochs=3, batch=batch_size, device="cpu", imgsz=320)
 
     # Evaluate the model's performance on the validation set
     results = model.val()
