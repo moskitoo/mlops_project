@@ -83,17 +83,17 @@ def train_model(
 
         os.makedirs(output_dir, exist_ok=True)
 
-        results = model.train(data=data_path, epochs=3,project = output_dir,save = True)
+        model.train(data=data_path, epochs=3, project=output_dir, save=True)
 
         # Evaluate the model's performance on the validation set
-        results = model.val()
+        model.val()
 
         # Export the model to PyTorch format
         # Export the model to ONNX format
         success = model.export(format="onnx")
         output_paths = str(Path(success).parent)
         artifact.add_file(success)
-        artifact.add_file(output_paths+"/last.pt")
+        artifact.add_file(output_paths + "/last.pt")
         run.log_artifact(artifact)
         run.link_artifact(
             artifact=artifact,

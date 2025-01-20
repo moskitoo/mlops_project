@@ -3,10 +3,10 @@ name: Unit Tests
 on:
   push:
     branches:
-      - '**'
+      - main
   pull_request:
     branches:
-      - '**'
+      - main
 
 jobs:
   test:
@@ -50,3 +50,13 @@ jobs:
         run: |
           coverage run -m pytest tests/
           coverage report -m
+
+      - name: Install Ruff
+        run: |
+          pip install ruff
+
+      - name: Ruff check
+        run: ruff check .
+
+      - name: Ruff format
+        run: ruff format .

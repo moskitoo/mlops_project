@@ -2,7 +2,7 @@ import json
 import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock
-import os
+
 import pytest
 from PIL import Image
 
@@ -28,6 +28,7 @@ def setup_dirs():
 
     # Cleanup the temporary directory
     test_dir.cleanup()
+
 
 @pytest.fixture
 def create_sample_image(setup_dirs):
@@ -60,6 +61,7 @@ def create_sample_annotation(setup_dirs):
         json.dump(annotation_data, f)
     return annotation_path
 
+
 def test_process_files(setup_dirs, create_sample_image, create_sample_annotation, monkeypatch):
     source_images_dir, source_annotations_dir, target_dir, processed_annotations_dir = setup_dirs
 
@@ -82,6 +84,7 @@ def test_process_files(setup_dirs, create_sample_image, create_sample_annotation
     # Check if the processed annotation file was created
     processed_annotation_path = processed_annotations_dir / "test_image.txt"
     assert processed_annotation_path.exists()
+
 
 def test_process_files_with_invalid_json(setup_dirs, monkeypatch):
     source_images_dir, source_annotations_dir, target_dir, processed_annotations_dir = setup_dirs
@@ -116,6 +119,7 @@ def test_process_files_with_invalid_json(setup_dirs, monkeypatch):
 
     # Check logger error
     mock_logger.error.assert_called()
+
 
 def test_process_files_with_missing_instances(setup_dirs, monkeypatch):
     source_images_dir, source_annotations_dir, target_dir, processed_annotations_dir = setup_dirs
@@ -180,6 +184,7 @@ def test_process_files_with_corrupt_image(setup_dirs, monkeypatch):
 
     # Check logger error
     mock_logger.error.assert_called()
+
 
 def test_preprocess(setup_dirs, monkeypatch):
     # Unpack the directories from setup_dirs
@@ -261,7 +266,8 @@ def test_preprocess(setup_dirs, monkeypatch):
     # Verify logger was called
     assert mock_logger.info.called
     assert mock_random.called
-#added skip
+
+
 def test_preprocess_error_handling(setup_dirs, monkeypatch):
     source_images_dir, source_annotations_dir, _, _ = setup_dirs
 
