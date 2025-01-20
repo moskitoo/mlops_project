@@ -183,3 +183,4 @@ models/
 runs/
 
 src/pv_defection_classification/train_initialisation.py
+src/pv_defection_classification/yolo_log.py
