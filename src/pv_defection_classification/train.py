@@ -78,7 +78,7 @@ def train_model(
 
         model = YOLO("yolo11n.pt")
 
-        update_yolo_settings()
+        update_yolo_settings(data_path)
 
         os.makedirs(output_dir, exist_ok=True)
 
