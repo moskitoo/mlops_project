@@ -269,7 +269,10 @@ In our project, we made use of both branches and PRs. We created new branches fo
 >
 > Answer:
 
---- question 10 fill here ---
+We used DVC in the early stages as an easy way to access data for development. It allowed us to retrieve the processed dataset stored on GCP with a single command, eliminating the need to process it repeatedly, such as when working on our Docker container.
+
+[sth about data changes]
+
 
 ### Question 11
 
