@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 
+import torch
 import typer
 from ultralytics import YOLO
 from utils.yolo_settings import update_yolo_settings
@@ -27,6 +28,7 @@ def train_model(
     max_iteration: int = max_iteration,
     number_of_classes: int = number_of_classes,
     data_path: Path = "data/processed/pv_defection/pv_defection.yaml",
+    # data_path: Path = "data/processed/pv_defection",
 ):
     """
     this function creates the model and trains the model
@@ -62,6 +64,7 @@ def train_model(
     with wandb.init(
         project="pv_defection",
         entity="hndrkjs-danmarks-tekniske-universitet-dtu",
+        # entity= "amirkfir93-danmarks-tekniske-universitet-dtu",
         name=f"{timestamp}",
         sync_tensorboard=True,
     ) as run:
@@ -82,17 +85,15 @@ def train_model(
 
         os.makedirs(output_dir, exist_ok=True)
 
-        model.train(data=data_path, epochs=3)
+        model.train(data=data_path, epochs=3,project = output_dir,save = True)
 
         # Evaluate the model's performance on the validation set
         model.val()
 
-        # Export the model to PyTorch format
-        model.export()
-        # Export the model to ONNX format
         model.export(format="onnx")
-
-        artifact.add_file(f"models/{timestamp}/model_final.pth")
+        output_paths = str(Path(success).parent)
+        artifact.add_file(success)
+        artifact.add_file(output_paths+"/last.pt")
         run.log_artifact(artifact)
         run.link_artifact(
             artifact=artifact,
