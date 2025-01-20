@@ -1,9 +1,9 @@
 import yaml
-
+from pathlib import Path
 
 def create_dataset_config(
     output_file='dataset.yaml',
-    root_path='./pv_defection',
+    root_path=str(Path.cwd() / "data/processed/pv_defection"),
     train_path='images/train',
     val_path='images/val',
     test_path='',
