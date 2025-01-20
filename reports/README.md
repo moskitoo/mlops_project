@@ -200,7 +200,9 @@ We initially considered Detectron2 but chose Ultralytics due to its active maint
 >
 > Answer:
 
---- question 6 fill here ---
+In our project, we used Ruff to manage code quality and formatting. We incorporated ruff check and ruff format as steps in our continuous integration process to ensure compliance with PEP 8. We maintained the basic settings, only increasing the line length to 120, as specified in the exercises. For type checking, we used MyPy. Code documentation, including docstrings and inline comments, was reviewed using GitHub Copilot.
+
+In larger projects, even within a team of our size, proper documentation is crucial, especially when integrating different parts of the project. In our case, collaboration was slightly easier because everyone had completed the exercises and was familiar with the tools used across the project. However, in other scenarios where such prior knowledge might not be available, clear documentation can be extremely helpful.
 
 ## Version control
 
