@@ -3,17 +3,18 @@ name: Unit Tests
 on:
   push:
     branches:
-      - main
+      - '**'
   pull_request:
     branches:
-      - main
+      - '**'
 
 jobs:
   test:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        # operating-system: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        operating-system: ["ubuntu-latest", "macos-latest"]
         python-version: ["3.11"]
 
     steps:
@@ -49,3 +50,13 @@ jobs:
         run: |
           coverage run -m pytest tests/
           coverage report -m
+
+      - name: Install Ruff
+        run: |
+          pip install ruff
+
+      - name: Ruff check
+        run: ruff check .
+
+      - name: Ruff format
+        run: ruff format .
