@@ -10,7 +10,7 @@ steps:
     'dockerfiles/train_cpu.dockerfile'
   ]
 - name: 'gcr.io/cloud-builders/docker'
-  id: 'Push container image'
+  id: 'Push container image '
   args: [
     'push',
     'europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME'
