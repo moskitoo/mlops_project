@@ -95,5 +95,5 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Submit build
-        run: gcloud builds submit --config .github/vertex_ai_train.yaml
+        run: gcloud builds submit --config .github/vertex_ai_train_cpu.yaml
 
