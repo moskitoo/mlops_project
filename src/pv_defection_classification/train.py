@@ -1,17 +1,19 @@
 from pathlib import Path
-from ultralytics import settings
-from google.cloud import storage
-from dotenv import load_dotenv
+
 import typer
-from model import load_pretrained_model, save_model
+from dotenv import load_dotenv
+from google.cloud import storage
+# from ultralytics import settings
+
+# from model import load_pretrained_model, save_model
 import wandb
-from utils.yolo_settings import update_yolo_settings
+from utils.update_yolo_settings import update_yolo_settings
 
 # Ensure the .env file has the wandb API key and the path to the GCP credentials
 load_dotenv()
 
-# Update Ultralytics settings for wandb
-settings.update({"wandb": True})
+# # Update Ultralytics settings for wandb
+# settings.update({"wandb": True})
 
 BATCH_SIZE = 32
 LEARNING_RATE = 0.01
@@ -67,6 +69,13 @@ def train_model(
     """
     try:
         update_yolo_settings(data_path)
+
+        from ultralytics import settings
+
+        # Update Ultralytics settings for wandb
+        settings.update({"wandb": True})
+
+        from model import load_pretrained_model, save_model
 
         # Load YOLO model
         print("Initializing YOLO model...")
