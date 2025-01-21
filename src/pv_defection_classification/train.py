@@ -21,7 +21,8 @@ def train_model(
     learning_rate: float = learning_rate,
     max_iteration: int = max_iteration,
     optimizer: str = "AdamW",
-    data_path: Path = Path("data/processed/pv_defection/pv_defection.yaml"),
+    data_path: Path = Path("gs://test-pv-2/data/processed/pv_defection/pv_defection.yaml")
+    #data_path: Path = Path("data/processed/pv_defection/pv_defection.yaml"),
     model_config: Path = Path("yolo11n.yaml"),
     enable_wandb: bool = True,
 ):
