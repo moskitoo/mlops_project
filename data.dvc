@@ -291,44 +291,44 @@ outs:
     md5: d088d0efa16e66d40284a02f22827b23
     size: 906556
   - relpath: processed/pv_defection/images/train/20180630_154039.jpg
-    md5: 4a70a8424f9a03bca2e2b7237f5b592f
-    size: 779306
+    md5: d2e6cf41cc0219dec4e9326d0ae937e2
+    size: 336570
   - relpath: processed/pv_defection/images/train/20180630_154139.jpg
-    md5: 8e0185ee2dae9cced642fc759cc1475b
-    size: 770569
+    md5: 6fee819051c88d5c45487290e51dd8b4
+    size: 316505
   - relpath: processed/pv_defection/images/train/20180630_154201.jpg
-    md5: 9de9fcfc3f594c6971015b6faf199807
-    size: 776712
+    md5: 2555bc8cfaff29af439dc505500ec68f
+    size: 328356
   - relpath: processed/pv_defection/images/train/20180630_154239.jpg
-    md5: e2d46454525af160d913f53b59afb7f1
-    size: 750681
+    md5: 7bf560a82114f63a3992a7074effe8ec
+    size: 269895
   - relpath: processed/pv_defection/images/train/20180630_154245.jpg
-    md5: 093f60fd87ffcfad00e99c3ac3b1514b
-    size: 772679
+    md5: d07ae39ccc812507f42d6ab2b2b176a4
+    size: 321828
   - relpath: processed/pv_defection/images/train/20180630_154305.jpg
-    md5: 75a1d8f398289c10dc41b1fff24fd149
-    size: 759709
+    md5: 79b73625460a31bdac5edfd39ca114d7
+    size: 294509
   - relpath: processed/pv_defection/images/train/20180630_154451.jpg
-    md5: d21b6eb68d809b09a001bebef8188cf8
-    size: 761004
+    md5: 7048044c7d1eba81b5d2e3971e02b775
+    size: 293712
   - relpath: processed/pv_defection/images/train/20180630_154509.jpg
-    md5: 63dfc8ef265ff0c613cddbecd5dc6224
-    size: 741478
+    md5: 8e8bc605c6575e3ee34441ad02d1d182
+    size: 245388
   - relpath: processed/pv_defection/images/train/20180630_154519.jpg
-    md5: d1013205f8f2820646868cb9c7065309
-    size: 750020
+    md5: 8f02af864efe71af2fc3f49641420fbc
+    size: 266990
   - relpath: processed/pv_defection/images/train/20180630_154531.jpg
-    md5: 2c6b6433f45bff1e85ff23c238ffcd2f
-    size: 746238
+    md5: 6ce3907c1ea3f0af415cd3466376f21e
+    size: 259142
   - relpath: processed/pv_defection/images/train/20180630_154541.jpg
-    md5: 7e212818f223e15bead5506205e44105
-    size: 734695
+    md5: c2441e6810f0ef5d3a008f1f0bc295b0
+    size: 231149
   - relpath: processed/pv_defection/images/train/20180630_154549.jpg
-    md5: e17fcc2e97d98ecce482a07faa272115
-    size: 738606
+    md5: c4a926c8b8ecd286056d9546b45bcf8d
+    size: 237534
   - relpath: processed/pv_defection/images/train/20180630_154609.jpg
-    md5: 0172a49665fa9f15f53ac1d1fd9e7149
-    size: 741071
+    md5: fa06f971f5ce634c7e899ef78821516a
+    size: 240949
   - relpath: processed/pv_defection/images/val/002R.jpg
     md5: 1caf871ce14c5092dcd76dfeaae63a12
     size: 908064
@@ -402,17 +402,20 @@ outs:
     md5: 21179e5b6de9a5f4963f5ed5360a76ea
     size: 893207
   - relpath: processed/pv_defection/images/val/20180630_154327.jpg
-    md5: 201423592045cb0e7dcc17dc72fb55ba
-    size: 774895
+    md5: b2016bdcb4fcff2dd06e26c45bb80e19
+    size: 320448
   - relpath: processed/pv_defection/images/val/20180630_154513.jpg
-    md5: 39123f13edfb8c25647c620498dc16f0
-    size: 756523
+    md5: 99a4cbcd00806623f227f18ff7eb0ae0
+    size: 281794
   - relpath: processed/pv_defection/images/val/20180630_154523.jpg
-    md5: 36eabf6f744151d3e796c3eff2f4765d
-    size: 746567
+    md5: b12178dc4c49edebb1414c5537944291
+    size: 260228
   - relpath: processed/pv_defection/images/val/20180630_154617.jpg
-    md5: 4c9e329873a1a96e92b517bcf9be186e
-    size: 739429
+    md5: 43ed8a7a0f51583f5af2a991642d869f
+    size: 245535
+  - relpath: processed/pv_defection/labels/train.cache
+    md5: 4a128ddfa8a9158c22ab025221544718
+    size: 109066
   - relpath: processed/pv_defection/labels/train/001R.txt
     md5: 0dc1b65544a574276294500be99a36fa
     size: 1254
@@ -740,6 +743,9 @@ outs:
   - relpath: processed/pv_defection/labels/train/20180630_154609.txt
     md5: bf845d4a382f342ac9a708fa5dc98d7c
     size: 3230
+  - relpath: processed/pv_defection/labels/val.cache
+    md5: a937423cea2cdbcc4f82650ea8b94b7d
+    size: 30420
   - relpath: processed/pv_defection/labels/val/002R.txt
     md5: 96c29746827a78745226294dc0169350
     size: 1558
@@ -827,6 +833,837 @@ outs:
   - relpath: processed/pv_defection/pv_defection.yaml
     md5: f8efb5a7b4ea19965056b16362569a73
     size: 99
+  - relpath: processed/pv_defection_gcp_mounted/images/train/001R.jpg
+    md5: 6b760d3ceddc8f69785712661c5be1d3
+    size: 904584
+  - relpath: processed/pv_defection_gcp_mounted/images/train/003R.jpg
+    md5: 787c5d218aa3912a1fa6a6714ee39705
+    size: 905944
+  - relpath: processed/pv_defection_gcp_mounted/images/train/005R.jpg
+    md5: bfee7bd0e9b833b11a3f3dfd0ada8997
+    size: 895729
+  - relpath: processed/pv_defection_gcp_mounted/images/train/006R.jpg
+    md5: 3a43c8136ddfbe376e262a02cfc3c1c3
+    size: 893827
+  - relpath: processed/pv_defection_gcp_mounted/images/train/007R.jpg
+    md5: dac4de647efc6ffdf35e65edb995a546
+    size: 895664
+  - relpath: processed/pv_defection_gcp_mounted/images/train/009R.jpg
+    md5: 8683b2b66b19f328cda8c9b05af9aa61
+    size: 897414
+  - relpath: processed/pv_defection_gcp_mounted/images/train/010R.jpg
+    md5: 43cfc34894a16a955ae81136e30a54f3
+    size: 895583
+  - relpath: processed/pv_defection_gcp_mounted/images/train/011R.jpg
+    md5: 98cc77fa03c0a1c0d26a03bcbefd942c
+    size: 893553
+  - relpath: processed/pv_defection_gcp_mounted/images/train/012R.jpg
+    md5: c6cd85e1febd50bbccd05e2677afdb9d
+    size: 890987
+  - relpath: processed/pv_defection_gcp_mounted/images/train/014R.jpg
+    md5: a95c5abcbfdbe56c0d32cc669f9401f1
+    size: 883466
+  - relpath: processed/pv_defection_gcp_mounted/images/train/015R.jpg
+    md5: 6b865e8e36c65ab16917ce5338e4af8f
+    size: 885735
+  - relpath: processed/pv_defection_gcp_mounted/images/train/016R.jpg
+    md5: 3957196b93efc459a831e1b37452ca86
+    size: 890221
+  - relpath: processed/pv_defection_gcp_mounted/images/train/018R.jpg
+    md5: 166fd15998a023e94993d9e58514b453
+    size: 895760
+  - relpath: processed/pv_defection_gcp_mounted/images/train/019R.jpg
+    md5: 1ba87b87dc6b88d289cbaaced158d750
+    size: 894002
+  - relpath: processed/pv_defection_gcp_mounted/images/train/020R.jpg
+    md5: 18e5bfe642d55488ab4403d71ed1a939
+    size: 891224
+  - relpath: processed/pv_defection_gcp_mounted/images/train/021R.jpg
+    md5: 0e390ee87193696300e39551d24a6f65
+    size: 889369
+  - relpath: processed/pv_defection_gcp_mounted/images/train/023R.jpg
+    md5: 2b940ab98ae21b2b0f324a5f11a331c1
+    size: 895566
+  - relpath: processed/pv_defection_gcp_mounted/images/train/024R.jpg
+    md5: 0be0ed1e2e1d6cadf24ef456a0dd61ff
+    size: 896505
+  - relpath: processed/pv_defection_gcp_mounted/images/train/025R.jpg
+    md5: 5c11289a382ee5c64fdcfe02fa6d352d
+    size: 895955
+  - relpath: processed/pv_defection_gcp_mounted/images/train/026R.jpg
+    md5: 68cf138246844142c603108a1738a054
+    size: 896278
+  - relpath: processed/pv_defection_gcp_mounted/images/train/027R.jpg
+    md5: b33a522aa4941b33d14128c5d310859b
+    size: 896232
+  - relpath: processed/pv_defection_gcp_mounted/images/train/028R.jpg
+    md5: f747c55efa2cf556955500ef81d1b328
+    size: 897352
+  - relpath: processed/pv_defection_gcp_mounted/images/train/029R.jpg
+    md5: 0eedf2cd7f896dd05e67626c2644cd6a
+    size: 898468
+  - relpath: processed/pv_defection_gcp_mounted/images/train/031R.jpg
+    md5: 69f3efca9823d6fb0266d8d5aeb7f965
+    size: 907405
+  - relpath: processed/pv_defection_gcp_mounted/images/train/032R.jpg
+    md5: b91112a1b91042c924580d325d49bdee
+    size: 910869
+  - relpath: processed/pv_defection_gcp_mounted/images/train/033R.jpg
+    md5: 6edceccebbf7e756bc372ae24182b6d6
+    size: 900375
+  - relpath: processed/pv_defection_gcp_mounted/images/train/034R.jpg
+    md5: e0f71c5f86ca4b9e45a14e365e831032
+    size: 907786
+  - relpath: processed/pv_defection_gcp_mounted/images/train/035R.jpg
+    md5: 2959ec06b56ea3eef9f38f507899e07e
+    size: 905957
+  - relpath: processed/pv_defection_gcp_mounted/images/train/037R.jpg
+    md5: 7877e874815bb1ba034f9753635567a3
+    size: 896890
+  - relpath: processed/pv_defection_gcp_mounted/images/train/038R.jpg
+    md5: e41d4fb1bd27bc4754561911385b5577
+    size: 895167
+  - relpath: processed/pv_defection_gcp_mounted/images/train/039R.jpg
+    md5: 4a2b8d8d3901b1a8aa9d06fae3d8c0cb
+    size: 892099
+  - relpath: processed/pv_defection_gcp_mounted/images/train/040R.jpg
+    md5: 22c9afaf56bbb7396da116b0a4a797e2
+    size: 891415
+  - relpath: processed/pv_defection_gcp_mounted/images/train/041R.jpg
+    md5: cc1b58160f7d05763107669750e64432
+    size: 891940
+  - relpath: processed/pv_defection_gcp_mounted/images/train/042R.jpg
+    md5: 13346aa90c18938523e6b1cb72ce1a65
+    size: 887058
+  - relpath: processed/pv_defection_gcp_mounted/images/train/044R.jpg
+    md5: 3b4c47c9e97807b558b74567b2cba834
+    size: 882855
+  - relpath: processed/pv_defection_gcp_mounted/images/train/045R.jpg
+    md5: 1aa922e3370d6380a28765eff0a2bfa4
+    size: 887138
+  - relpath: processed/pv_defection_gcp_mounted/images/train/046R.jpg
+    md5: bd6067ecc6c73aacd7f6e58b6e1811ed
+    size: 888057
+  - relpath: processed/pv_defection_gcp_mounted/images/train/047R.jpg
+    md5: 281f75f2288f57aca37f300e49b15883
+    size: 889341
+  - relpath: processed/pv_defection_gcp_mounted/images/train/048R.jpg
+    md5: 22ee28db849d01c5a938203f97c49726
+    size: 890133
+  - relpath: processed/pv_defection_gcp_mounted/images/train/051R.jpg
+    md5: bfd15fd7978fe8deb1b856e87db2fa1f
+    size: 888045
+  - relpath: processed/pv_defection_gcp_mounted/images/train/052R.jpg
+    md5: 555495b0d2359b0ebee187b383d922b7
+    size: 887915
+  - relpath: processed/pv_defection_gcp_mounted/images/train/054R.jpg
+    md5: 001113ae2efc94c84c0902f93143e756
+    size: 886879
+  - relpath: processed/pv_defection_gcp_mounted/images/train/055R.jpg
+    md5: 091bd93c8cd03a6501750984e0efdd2c
+    size: 890558
+  - relpath: processed/pv_defection_gcp_mounted/images/train/056R.jpg
+    md5: 56a6233c570ce4413ebdf535ae20aea0
+    size: 893147
+  - relpath: processed/pv_defection_gcp_mounted/images/train/057R.jpg
+    md5: e27aa564691f07ed4ad1595562894c0e
+    size: 890199
+  - relpath: processed/pv_defection_gcp_mounted/images/train/058R.jpg
+    md5: 69ff7b25e6dc18274208b2db820314f0
+    size: 892508
+  - relpath: processed/pv_defection_gcp_mounted/images/train/059R.jpg
+    md5: ae705c7166aeb10e402535ed28048a99
+    size: 899147
+  - relpath: processed/pv_defection_gcp_mounted/images/train/060R.jpg
+    md5: 6c0eebe6872a9b43fb693cb76dacfba0
+    size: 901701
+  - relpath: processed/pv_defection_gcp_mounted/images/train/061R.jpg
+    md5: 71548b9c67dc0632fc62a2a9f97c2f6e
+    size: 897818
+  - relpath: processed/pv_defection_gcp_mounted/images/train/062R.jpg
+    md5: dead03dc417fdaa0d9dece49f4ea146a
+    size: 897062
+  - relpath: processed/pv_defection_gcp_mounted/images/train/066R.jpg
+    md5: 211c4cd139d054a7d58259dbfe1e4749
+    size: 896746
+  - relpath: processed/pv_defection_gcp_mounted/images/train/067R.jpg
+    md5: 3b5df0208bd0e7ad413205aa99cd97c6
+    size: 899401
+  - relpath: processed/pv_defection_gcp_mounted/images/train/069R.jpg
+    md5: b7057b0dd9b1ee8db07bdf7cbeca9d8f
+    size: 899955
+  - relpath: processed/pv_defection_gcp_mounted/images/train/070R.jpg
+    md5: 6ea188c8e45ee610874f470b44c23856
+    size: 903603
+  - relpath: processed/pv_defection_gcp_mounted/images/train/072R.jpg
+    md5: 4328d538b5332c4645c48694ba17a5aa
+    size: 891683
+  - relpath: processed/pv_defection_gcp_mounted/images/train/075R.jpg
+    md5: 58c55bce379fccba5b591baa23edf7fb
+    size: 893252
+  - relpath: processed/pv_defection_gcp_mounted/images/train/076R.jpg
+    md5: 74c8fa14dbc067e4503702dfc20f27c2
+    size: 889307
+  - relpath: processed/pv_defection_gcp_mounted/images/train/077R.jpg
+    md5: 18d138df3cd0198d75caf0457073496d
+    size: 892599
+  - relpath: processed/pv_defection_gcp_mounted/images/train/078R.jpg
+    md5: e67c91e32710cf863d69829ec2a5fe51
+    size: 889966
+  - relpath: processed/pv_defection_gcp_mounted/images/train/079R.jpg
+    md5: 160a7d98046f3786702074c87fab89fb
+    size: 889553
+  - relpath: processed/pv_defection_gcp_mounted/images/train/080R.jpg
+    md5: 92a07012c9b9241ae7a4d9832b496f19
+    size: 893198
+  - relpath: processed/pv_defection_gcp_mounted/images/train/081R.jpg
+    md5: 68ccc9cbd65305e457cbcff97ca191ef
+    size: 898603
+  - relpath: processed/pv_defection_gcp_mounted/images/train/082R.jpg
+    md5: 9a837adf75aa2dcfddb3e15634c2f1b1
+    size: 900588
+  - relpath: processed/pv_defection_gcp_mounted/images/train/083R.jpg
+    md5: 96584c4f930f5cb1cd06388c645203fc
+    size: 901208
+  - relpath: processed/pv_defection_gcp_mounted/images/train/084R.jpg
+    md5: 8091aa73b04be7f11125151cf6f6cb5b
+    size: 901664
+  - relpath: processed/pv_defection_gcp_mounted/images/train/085R.jpg
+    md5: 6ce190894c05b6247820ae7e1aff768a
+    size: 901070
+  - relpath: processed/pv_defection_gcp_mounted/images/train/086R.jpg
+    md5: ed368ba56441c269ca8314959bfcccd0
+    size: 897166
+  - relpath: processed/pv_defection_gcp_mounted/images/train/087R.jpg
+    md5: ea62e5bef73a6d1a4da3ef909e1a89a6
+    size: 896393
+  - relpath: processed/pv_defection_gcp_mounted/images/train/088R.jpg
+    md5: 147983e219886dc8b1a5808f96d11670
+    size: 899404
+  - relpath: processed/pv_defection_gcp_mounted/images/train/090R.jpg
+    md5: f093a31732b7dad1debadb76967dfce9
+    size: 894476
+  - relpath: processed/pv_defection_gcp_mounted/images/train/092R.jpg
+    md5: 2b51ce4c8cfe01ad41dca798342e287b
+    size: 897184
+  - relpath: processed/pv_defection_gcp_mounted/images/train/093R.jpg
+    md5: 1c1ff7d405bb6393d34818a0a87280fb
+    size: 896000
+  - relpath: processed/pv_defection_gcp_mounted/images/train/095R.jpg
+    md5: d9598a3f726e64e6d698fa510a7aecd4
+    size: 893075
+  - relpath: processed/pv_defection_gcp_mounted/images/train/096R.jpg
+    md5: dfca55ce927f0b5048013d7e6c5e59c5
+    size: 895678
+  - relpath: processed/pv_defection_gcp_mounted/images/train/097R.jpg
+    md5: b9352a13f215fbbd3e075c6a08af5df2
+    size: 891341
+  - relpath: processed/pv_defection_gcp_mounted/images/train/098R.jpg
+    md5: 55893ee6a658deeaf1a3b63dddd17e69
+    size: 891240
+  - relpath: processed/pv_defection_gcp_mounted/images/train/099R.jpg
+    md5: a10cfab14afcf5b007f0fbd65f19c8a7
+    size: 897572
+  - relpath: processed/pv_defection_gcp_mounted/images/train/100R.jpg
+    md5: 24e6fd7970fbd90c61767edc3fadd1ab
+    size: 898500
+  - relpath: processed/pv_defection_gcp_mounted/images/train/101R.jpg
+    md5: 7e8335cbb6ff761d00977cafef936a54
+    size: 897205
+  - relpath: processed/pv_defection_gcp_mounted/images/train/102R.jpg
+    md5: d8502cc4d7b6ad71c3b6c067d084d372
+    size: 894153
+  - relpath: processed/pv_defection_gcp_mounted/images/train/104R.jpg
+    md5: 4ffff263f7e5454e2cc9e989bbca9063
+    size: 894616
+  - relpath: processed/pv_defection_gcp_mounted/images/train/106R.jpg
+    md5: 3988ea1fd405932c9dd311de381e5643
+    size: 889366
+  - relpath: processed/pv_defection_gcp_mounted/images/train/107R.jpg
+    md5: 7456b06b70cfd96fbbc88d9a3c044c0c
+    size: 888200
+  - relpath: processed/pv_defection_gcp_mounted/images/train/108R.jpg
+    md5: d254ac97867df7232413b7653df7c753
+    size: 894096
+  - relpath: processed/pv_defection_gcp_mounted/images/train/109R.jpg
+    md5: 0b2047113f879cc70ae4c4fa5776d6a4
+    size: 891185
+  - relpath: processed/pv_defection_gcp_mounted/images/train/110R.jpg
+    md5: faa7d66c8ffad29d8482e989bdb8c8de
+    size: 889827
+  - relpath: processed/pv_defection_gcp_mounted/images/train/111R.jpg
+    md5: b092d6783c49da634f0e6e0d63ce2552
+    size: 892815
+  - relpath: processed/pv_defection_gcp_mounted/images/train/112R.jpg
+    md5: 200a7b930ba1a88964bf5993b14322ec
+    size: 895506
+  - relpath: processed/pv_defection_gcp_mounted/images/train/113R.jpg
+    md5: dac0cc76cc1e16fce58a5ce8f3a8422f
+    size: 895158
+  - relpath: processed/pv_defection_gcp_mounted/images/train/114R.jpg
+    md5: 110ee9c657764d5b50be3c9711677709
+    size: 894308
+  - relpath: processed/pv_defection_gcp_mounted/images/train/115R.jpg
+    md5: 02905f95f0971c710b6f697049c8bf11
+    size: 897009
+  - relpath: processed/pv_defection_gcp_mounted/images/train/116R.jpg
+    md5: b6a87fd0db4ea94bdcb78f6203c95c6a
+    size: 897097
+  - relpath: processed/pv_defection_gcp_mounted/images/train/117R.jpg
+    md5: 78fb7526db5a9147efe1aee942521e2a
+    size: 899633
+  - relpath: processed/pv_defection_gcp_mounted/images/train/118R.jpg
+    md5: 1bb79db11d2f3aa317d54f4875ea4eb6
+    size: 898135
+  - relpath: processed/pv_defection_gcp_mounted/images/train/119R.jpg
+    md5: 61d5273f6f33908662a1203fd951e9e5
+    size: 896132
+  - relpath: processed/pv_defection_gcp_mounted/images/train/120R.jpg
+    md5: d088d0efa16e66d40284a02f22827b23
+    size: 906556
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154039.jpg
+    md5: d2e6cf41cc0219dec4e9326d0ae937e2
+    size: 336570
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154139.jpg
+    md5: 6fee819051c88d5c45487290e51dd8b4
+    size: 316505
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154201.jpg
+    md5: 2555bc8cfaff29af439dc505500ec68f
+    size: 328356
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154239.jpg
+    md5: 7bf560a82114f63a3992a7074effe8ec
+    size: 269895
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154245.jpg
+    md5: d07ae39ccc812507f42d6ab2b2b176a4
+    size: 321828
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154305.jpg
+    md5: 79b73625460a31bdac5edfd39ca114d7
+    size: 294509
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154451.jpg
+    md5: 7048044c7d1eba81b5d2e3971e02b775
+    size: 293712
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154509.jpg
+    md5: 8e8bc605c6575e3ee34441ad02d1d182
+    size: 245388
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154519.jpg
+    md5: 8f02af864efe71af2fc3f49641420fbc
+    size: 266990
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154531.jpg
+    md5: 6ce3907c1ea3f0af415cd3466376f21e
+    size: 259142
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154541.jpg
+    md5: c2441e6810f0ef5d3a008f1f0bc295b0
+    size: 231149
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154549.jpg
+    md5: c4a926c8b8ecd286056d9546b45bcf8d
+    size: 237534
+  - relpath: processed/pv_defection_gcp_mounted/images/train/20180630_154609.jpg
+    md5: fa06f971f5ce634c7e899ef78821516a
+    size: 240949
+  - relpath: processed/pv_defection_gcp_mounted/images/val/002R.jpg
+    md5: 1caf871ce14c5092dcd76dfeaae63a12
+    size: 908064
+  - relpath: processed/pv_defection_gcp_mounted/images/val/004R.jpg
+    md5: 13f025d02cf5ff97460ab5eaf3903d7d
+    size: 901817
+  - relpath: processed/pv_defection_gcp_mounted/images/val/008R.jpg
+    md5: 9dfd4816572781412514ae054c7ece48
+    size: 895529
+  - relpath: processed/pv_defection_gcp_mounted/images/val/013R.jpg
+    md5: 9611387007243a697635bc0cdd8a823f
+    size: 886320
+  - relpath: processed/pv_defection_gcp_mounted/images/val/017R.jpg
+    md5: a55d0885d5ea70880b96cbcd0b379512
+    size: 892124
+  - relpath: processed/pv_defection_gcp_mounted/images/val/022R.jpg
+    md5: dbf691d02d5d8c4ac6fea8664cdc222d
+    size: 892638
+  - relpath: processed/pv_defection_gcp_mounted/images/val/030R.jpg
+    md5: 622475419eaf379c4a0baa5741f1fc45
+    size: 899220
+  - relpath: processed/pv_defection_gcp_mounted/images/val/036R.jpg
+    md5: 9affff7dcc1eafd007b19de6aa71101e
+    size: 907168
+  - relpath: processed/pv_defection_gcp_mounted/images/val/043R.jpg
+    md5: 27c601ecfce8bcad27d4f158c5b4f083
+    size: 883112
+  - relpath: processed/pv_defection_gcp_mounted/images/val/049R.jpg
+    md5: 1c6b598df051560209d646168e3f9fa3
+    size: 890296
+  - relpath: processed/pv_defection_gcp_mounted/images/val/050R.jpg
+    md5: bef5de53381d903d6a4b6bfb9d8637c3
+    size: 888876
+  - relpath: processed/pv_defection_gcp_mounted/images/val/053R.jpg
+    md5: 08d74bfc74a1f7b7f75ee72ffb93d212
+    size: 884665
+  - relpath: processed/pv_defection_gcp_mounted/images/val/063R.jpg
+    md5: f26898e7a3bef63ab06de6249ba67334
+    size: 895203
+  - relpath: processed/pv_defection_gcp_mounted/images/val/064R.jpg
+    md5: 700ce61822927f979851e1f3a493f70b
+    size: 894401
+  - relpath: processed/pv_defection_gcp_mounted/images/val/065R.jpg
+    md5: 8b67c7db51413a01711048b9dba73620
+    size: 895068
+  - relpath: processed/pv_defection_gcp_mounted/images/val/068R.jpg
+    md5: 0a3fdf2b04708e24118a24eefc3c91f5
+    size: 899410
+  - relpath: processed/pv_defection_gcp_mounted/images/val/071R.jpg
+    md5: 07503272eaa15f57d0f09bea4eddfa1f
+    size: 898455
+  - relpath: processed/pv_defection_gcp_mounted/images/val/073R.jpg
+    md5: 2dd9612068d3b5a6317f5fae6e20e2fb
+    size: 890620
+  - relpath: processed/pv_defection_gcp_mounted/images/val/074R.jpg
+    md5: ed50607aa3035e694ae8613b62db7d1f
+    size: 892478
+  - relpath: processed/pv_defection_gcp_mounted/images/val/089R.jpg
+    md5: 6967efabbc994537ef93a5080b17e32d
+    size: 898607
+  - relpath: processed/pv_defection_gcp_mounted/images/val/091R.jpg
+    md5: 6477488e5d81814a2f724326ba660ebd
+    size: 892838
+  - relpath: processed/pv_defection_gcp_mounted/images/val/094R.jpg
+    md5: 50c40c2a8e87a3ae772db7a89ccf1631
+    size: 890994
+  - relpath: processed/pv_defection_gcp_mounted/images/val/103R.jpg
+    md5: e904f317ca863619ec9e667676387145
+    size: 893125
+  - relpath: processed/pv_defection_gcp_mounted/images/val/105R.jpg
+    md5: 21179e5b6de9a5f4963f5ed5360a76ea
+    size: 893207
+  - relpath: processed/pv_defection_gcp_mounted/images/val/20180630_154327.jpg
+    md5: b2016bdcb4fcff2dd06e26c45bb80e19
+    size: 320448
+  - relpath: processed/pv_defection_gcp_mounted/images/val/20180630_154513.jpg
+    md5: 99a4cbcd00806623f227f18ff7eb0ae0
+    size: 281794
+  - relpath: processed/pv_defection_gcp_mounted/images/val/20180630_154523.jpg
+    md5: b12178dc4c49edebb1414c5537944291
+    size: 260228
+  - relpath: processed/pv_defection_gcp_mounted/images/val/20180630_154617.jpg
+    md5: 43ed8a7a0f51583f5af2a991642d869f
+    size: 245535
+  - relpath: processed/pv_defection_gcp_mounted/labels/train.cache
+    md5: 4a128ddfa8a9158c22ab025221544718
+    size: 109066
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/001R.txt
+    md5: 0dc1b65544a574276294500be99a36fa
+    size: 1254
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/003R.txt
+    md5: b2613bbaf1cd71d6dc7a839c63fff603
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/005R.txt
+    md5: 29d22878597a0e351caa38adb42acf82
+    size: 1444
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/006R.txt
+    md5: 282cf1b9898c0ec8a799d6d07edb075a
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/007R.txt
+    md5: 9be9edd3a65672aff094cfb7e4805e32
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/009R.txt
+    md5: c85c73d825bb399d0364c23adf63a709
+    size: 1596
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/010R.txt
+    md5: b08d745c38baf965a2d587a61ce21572
+    size: 1444
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/011R.txt
+    md5: fcf81e878bcb7454ef7e309cfc4a5acd
+    size: 1596
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/012R.txt
+    md5: 9bcffd04d3e479cea24762b530eaf931
+    size: 1634
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/014R.txt
+    md5: cff64670e0a3755566f1fd85ab6239d7
+    size: 1444
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/015R.txt
+    md5: 68daab08b756e46e139ee11a67659b2a
+    size: 1596
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/016R.txt
+    md5: a1a614904d3989742c8528421e127dac
+    size: 1596
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/018R.txt
+    md5: f7d0684c1745a2f9915c51d6d27fa749
+    size: 1596
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/019R.txt
+    md5: 66e677c0bfbb3a51fc001717b4d640b7
+    size: 1558
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/020R.txt
+    md5: 0277820650983eac62bfba909d1080ae
+    size: 1596
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/021R.txt
+    md5: e22ca7d6314ac073c675d3e5ef88ea91
+    size: 1520
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/023R.txt
+    md5: 6e37495d5d7cbf3bf7016aed8bf67c4b
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/024R.txt
+    md5: ae518a27dd52b484193438a161f9c932
+    size: 1558
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/025R.txt
+    md5: 6ac33b524f57c207071ff2801d07386c
+    size: 1520
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/026R.txt
+    md5: 242ae38f20101d5c88de83182bdeb13b
+    size: 1406
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/027R.txt
+    md5: 02f657680c909a8cc110b17a6ce6f9f6
+    size: 1520
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/028R.txt
+    md5: 1ab988d287463a3ae17aaa93381edaac
+    size: 1520
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/029R.txt
+    md5: fd0c42d635deebcfa01df88db16dc444
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/031R.txt
+    md5: eab9c28e9783004c7dcee452d4c81777
+    size: 608
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/032R.txt
+    md5: 37fcada8e7b8242fd6031a826734124e
+    size: 608
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/033R.txt
+    md5: 36221fae00ef252717271b29e736c492
+    size: 912
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/034R.txt
+    md5: b5e3bfdaaad67e069bd9e0368107d7f5
+    size: 1026
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/035R.txt
+    md5: 7d5bc781df52d4922304c3eee6de45ac
+    size: 912
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/037R.txt
+    md5: 0456d2a1c24a48eebec4000ef6624164
+    size: 1178
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/038R.txt
+    md5: c66960dc6047def6abcbc70850a1c0d9
+    size: 1292
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/039R.txt
+    md5: 4bfc92003790051bad3fc856d78648c9
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/040R.txt
+    md5: 45b6776e5ab8b8fe276e0030918747c6
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/041R.txt
+    md5: 9ec540773fa2fbbc4f90484c6f6520fd
+    size: 1444
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/042R.txt
+    md5: 5dc66d4727b7da4df639171fd6e64e91
+    size: 1292
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/044R.txt
+    md5: 3ee29b241f3b13afd6c80244ec92d526
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/045R.txt
+    md5: 166562b56a6ae99f54a612768a95859a
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/046R.txt
+    md5: fa3571de88ef3fef68ae996b55f99ca9
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/047R.txt
+    md5: 60f9616ae88c66cebc338a3738aed072
+    size: 1216
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/048R.txt
+    md5: 6fa143561e511bc168027e4fa81f2413
+    size: 1178
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/051R.txt
+    md5: 4235b39397e84a3b36c7d7aa0e4edf90
+    size: 1254
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/052R.txt
+    md5: 10296316994a584ec80d07603869785f
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/054R.txt
+    md5: 982a77e04bb26fe6a06176d7b4486179
+    size: 1520
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/055R.txt
+    md5: 5cc91906a6d4602aa43d40c0974ba41e
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/056R.txt
+    md5: 1871cefcdfa92700581b1fc83c753b38
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/057R.txt
+    md5: f836c53e47f351d7bf3c504ed59c28b9
+    size: 1178
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/058R.txt
+    md5: 2584c535b6a5e76f21f29c7d743d9fc3
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/059R.txt
+    md5: c6e36a0bbeb27062ed173682eddbc1a8
+    size: 1254
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/060R.txt
+    md5: 3f7fe0d7386b3fb61eecdebf3522e4f3
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/061R.txt
+    md5: 216d255a8c8321ee8750b2abed0656f5
+    size: 1558
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/062R.txt
+    md5: 3e1d74b6bb3ffc8b052f95bfe4cccf31
+    size: 1406
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/066R.txt
+    md5: bcdd161fbdfe2819a2612b71bc4fa254
+    size: 950
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/067R.txt
+    md5: c95d0b5f7c576b93215fa1917b9bc4fa
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/069R.txt
+    md5: 69a18e0450b94882932f077e8ccf646e
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/070R.txt
+    md5: fba6545d932ac21ce5e95762067857e4
+    size: 1292
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/072R.txt
+    md5: da02c76ee9feb1000f3ac904505fbc9f
+    size: 1406
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/075R.txt
+    md5: 7464848f3077dd0701a0c271c07bd51a
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/076R.txt
+    md5: 668f0c1cd4b4d23c1eb24edc8b7e1a71
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/077R.txt
+    md5: 65d8722640a371099149c2fd5f418322
+    size: 1178
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/078R.txt
+    md5: 65f9e3feaa74c1fb4a966fb629ab6265
+    size: 1292
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/079R.txt
+    md5: 7d873775000d48cae868313d858ee5b8
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/080R.txt
+    md5: afc3264b6d3f8397f34ee5dcf2e98a1d
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/081R.txt
+    md5: cdd7541b1f7aaee076294406a363a0aa
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/082R.txt
+    md5: a13f6bbb8ec529ed182115662ee3a57f
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/083R.txt
+    md5: aa261f63c73c61c810b0d0d1e2ba88f9
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/084R.txt
+    md5: 4bc3f23739a916c1fb60645eef1db2fd
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/085R.txt
+    md5: 668c571dbed9c1657706e29703dc2457
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/086R.txt
+    md5: ff8dd08916333a45b7bb8518bfdf1ef9
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/087R.txt
+    md5: b251a32afb6d2f30f9dd995757f3ae35
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/088R.txt
+    md5: 3c6315c1557de0b2da2fba5096f5bcf6
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/090R.txt
+    md5: 3ae8ea37e48a510e21c7a7c3583ad712
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/092R.txt
+    md5: 765d0a89bff68a8f29281e7d2677b40e
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/093R.txt
+    md5: 26ced8e4efe485b2d3c6a1a49b058986
+    size: 1292
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/095R.txt
+    md5: aa2af617e6ab48480698afc7c4658823
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/096R.txt
+    md5: 63225e6a00fdf0d8fe7638d5beb1ec95
+    size: 1406
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/097R.txt
+    md5: 90247e66bb8c4102fac17f4546242300
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/098R.txt
+    md5: 613b9477c3e23977c8b751e8521ae003
+    size: 1520
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/099R.txt
+    md5: d176317bfbb7bdbb22e968ec30e4e91c
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/100R.txt
+    md5: 1b63baf02ee6e4663ab5dcbc5957963a
+    size: 1254
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/101R.txt
+    md5: a33abdeb5df8ba34ba69865121b4db19
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/102R.txt
+    md5: 0418cef3cccc988326557d1633326eb8
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/104R.txt
+    md5: 928783948d452f0fad3acdfdcdd1e2da
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/106R.txt
+    md5: 731a7e77cc37d8a14a6a41842a3a33af
+    size: 1216
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/107R.txt
+    md5: 94ae0307932b8bdb570ce71ade799fe8
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/108R.txt
+    md5: e481b94be04dba401207c667298773df
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/109R.txt
+    md5: 31e27729e1f6e63f7f9be92967360a95
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/110R.txt
+    md5: d4b9988fd04c56475d53912188b42488
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/111R.txt
+    md5: 6243c32f4e33f5f2be65203d1c7e55d0
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/112R.txt
+    md5: 319bb54d944cbfe41342b53d517c01c1
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/113R.txt
+    md5: 5d305b445278055956d4fdc81b088c71
+    size: 1254
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/114R.txt
+    md5: ec7f286da3001bce4a903a3851f445e1
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/115R.txt
+    md5: c8a1abb839e7af5f9faff6fd1d711e05
+    size: 1292
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/116R.txt
+    md5: d4543ec922a336f52ff169987f1d6400
+    size: 1292
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/117R.txt
+    md5: 41e20e8e72f44664f3adc58ae8849032
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/118R.txt
+    md5: 375cae56069dfeab1f23f47f12c504f1
+    size: 1444
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/119R.txt
+    md5: 519874485800055bf100bb44ac68a3a8
+    size: 1254
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/120R.txt
+    md5: 304038d162e1eae0421fd2d4c937a7b1
+    size: 950
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154039.txt
+    md5: cf5f22eb64ac5dd554deb3b7dba720cd
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154139.txt
+    md5: af7a163ad805d693b19f58288d22b562
+    size: 2660
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154201.txt
+    md5: f573d2fd527f8a5bac45320479058f9d
+    size: 3078
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154239.txt
+    md5: 26784b0eb9fce5f9f7ec720e50888c0c
+    size: 2888
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154245.txt
+    md5: 92743b948156d7ae9cebab3eda50b105
+    size: 2508
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154305.txt
+    md5: 1107e06795bf985cebad028c10e3d9e6
+    size: 2850
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154451.txt
+    md5: a5e88fbb42792b44c41632d5ad5396c5
+    size: 2926
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154509.txt
+    md5: bf2d024e83e274d698d805ce1f4f010f
+    size: 3420
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154519.txt
+    md5: 9fd6ce48705c170360e29870a26f77b2
+    size: 3344
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154531.txt
+    md5: c175e61a60a4098f77ea09fc6cbbda0a
+    size: 3686
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154541.txt
+    md5: c0abb1078c826796ab2dbf404f2e3454
+    size: 3116
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154549.txt
+    md5: 81f79ad5f9b6f82c491ec4b98ac2542d
+    size: 3382
+  - relpath: processed/pv_defection_gcp_mounted/labels/train/20180630_154609.txt
+    md5: bf845d4a382f342ac9a708fa5dc98d7c
+    size: 3230
+  - relpath: processed/pv_defection_gcp_mounted/labels/val.cache
+    md5: a937423cea2cdbcc4f82650ea8b94b7d
+    size: 30420
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/002R.txt
+    md5: 96c29746827a78745226294dc0169350
+    size: 1558
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/004R.txt
+    md5: 1163697d7cd5da29100e69df3a3c95a3
+    size: 1406
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/008R.txt
+    md5: 018ae25d51032da507b5813e2f30cbf3
+    size: 1558
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/013R.txt
+    md5: e611edce560b7e5c10c5ac107a26faa8
+    size: 1520
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/017R.txt
+    md5: 7187304aafa9677f5b4288290b6af3e1
+    size: 1368
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/022R.txt
+    md5: a8c168ddf1961ba18705d6a0f9983e29
+    size: 1596
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/030R.txt
+    md5: ee8532bc6d4d2248fe046b3eda61922e
+    size: 1482
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/036R.txt
+    md5: efd6c25488397c0e0ec082804e05d955
+    size: 950
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/043R.txt
+    md5: 6e18b1560a1d908d3a2bd4cedf46f373
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/049R.txt
+    md5: 2b754e113a2bb726c7aaac2e8cf092ca
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/050R.txt
+    md5: bae49bb087b83a2c1459b46e793f4426
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/053R.txt
+    md5: 86f9c1b30a13e064abf1688e866c3041
+    size: 1558
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/063R.txt
+    md5: 330e7885361fb3ebf9239b5b184bb105
+    size: 1482
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/064R.txt
+    md5: 7abdd9b1913a37679429e8f34c11784a
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/065R.txt
+    md5: 554097b1add5b28d749c57db9a6cf84a
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/068R.txt
+    md5: 169abd589de11ffc3c250d2e3a65e423
+    size: 1520
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/071R.txt
+    md5: e1119c84bcfe4417f943411b2d35eadd
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/073R.txt
+    md5: 9c3f97677431d4a38301f4476c7749d4
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/074R.txt
+    md5: 2e879047472e8cd1ac02396b96ba32ef
+    size: 1330
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/089R.txt
+    md5: 1e2685632e99106055a6af5360d9c696
+    size: 1520
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/091R.txt
+    md5: 3d70a793905f52b2b1097c7368ec2049
+    size: 1292
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/094R.txt
+    md5: 2e7f0eb4dbd7def8084eed0669dfe3c2
+    size: 950
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/103R.txt
+    md5: 59e173eb8cdff012d7a844b2c260086b
+    size: 1520
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/105R.txt
+    md5: 42d7fabdea7c52b42baf6732c78ec284
+    size: 1140
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/20180630_154327.txt
+    md5: 2d0fcbf7daa6e3d69245c8304430e073
+    size: 3268
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/20180630_154513.txt
+    md5: 2c6153e86c1e425c759f86ebaffab50b
+    size: 3420
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/20180630_154523.txt
+    md5: dd462be16910c9ae04e1bd50001db800
+    size: 3382
+  - relpath: processed/pv_defection_gcp_mounted/labels/val/20180630_154617.txt
+    md5: cab403d46290e70ad354d9d427166cd4
+    size: 3268
+  - relpath: processed/pv_defection_gcp_mounted/pv_defection.yaml
+    md5: e3c16e4bc3bc76b1411bbab0031362f9
+    size: 127
   - relpath: raw/.gitkeep
     md5: d41d8cd98f00b204e9800998ecf8427e
     size: 0
