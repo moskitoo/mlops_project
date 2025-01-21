@@ -13,6 +13,7 @@ BUCKET_NAME = "yolo_model_storage"
 MODEL_NAME = "pv_defection_classification_model.pt"
 MODEL_FILE_NAME = "pv_defection_model.pt"
 
+
 def download_model_from_gcp():
     """Download the model from GCP bucket."""
     client = storage.Client()
@@ -26,10 +27,9 @@ def download_model_from_gcp():
     return onnx_path
 
 
-@bentoml.service #(resources={"cpu": 2}, traffic={'timeout': '60'})
+@bentoml.service  # (resources={"cpu": 2}, traffic={'timeout': '60'})
 class PVClassificationService:
     def __init__(self) -> None:
-
         # Download model from GCP bucket
         onnx_path = download_model_from_gcp()
 
@@ -48,11 +48,10 @@ class PVClassificationService:
                 try:
                     self.class_labels = yaml.safe_load(file)
                 except Exception:
-                    self.class_labels = {0:'working', 1:'defected'}
+                    self.class_labels = {0: "working", 1: "defected"}
         except Exception:
-            self.class_labels = {0:'working', 1:'defected'}
+            self.class_labels = {0: "working", 1: "defected"}
 
-    
     def draw_detections(self, img, box, score, class_id):
         """
         Draws bounding boxes and labels on the input image based on the detected objects.
@@ -76,7 +75,7 @@ class PVClassificationService:
         cv2.rectangle(img, (int(x1), int(y1)), (int(x1 + w), int(y1 + h)), color, 2)
 
         # Create the label text with class name and score
-        try: 
+        try:
             detected_object = self.class_labels[class_id]
         except Exception:
             detected_object = "Unknown"
@@ -97,7 +96,7 @@ class PVClassificationService:
 
         # Draw the label text on the image
         cv2.putText(img, label, (label_x, label_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
-    
+
     def preprocess(self, image: np.ndarray) -> List:
         """
         Preprocess the input image for inference.
@@ -109,11 +108,11 @@ class PVClassificationService:
             List: List containing the preprocessed image.
         """
         image = np.array(image).astype(np.float32)
-        image = cv2.resize(image, (640, 640 ))
+        image = cv2.resize(image, (640, 640))
         image = np.transpose(image, (2, 0, 1))
         image = np.expand_dims(image, axis=0).astype(np.float32)
         return image
-    
+
     def postprocess(self, input: np.ndarray, output: np.ndarray) -> np.ndarray:
         """
         Postprocess the inference result.
@@ -182,11 +181,13 @@ class PVClassificationService:
 
         # Return the modified input image
         return input
-        
-    @bentoml.api(batchable=False,
-                    batch_dim=(0, 0),
-                    max_batch_size=8,
-                    max_latency_ms=1000,)
+
+    @bentoml.api(
+        batchable=False,
+        batch_dim=(0, 0),
+        max_batch_size=8,
+        max_latency_ms=1000,
+    )
     def detect_and_predict(self, input: np.ndarray) -> np.ndarray:
         """
         Detect and predict the defective PV modules in the input image.
@@ -206,8 +207,8 @@ class PVClassificationService:
         preprocess_image = self.preprocess(input)
 
         inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
-        
+
         # Post-processing draws the detected bounding boxes on the input image
         postprocess_image = self.postprocess(image_resized, inference_result)
-        
+
         return postprocess_image

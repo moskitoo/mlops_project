@@ -18,13 +18,14 @@ LEARNING_RATE = 0.01
 MAX_ITERATION = 100
 OUTPUT_DIR = Path("models")
 RUN_FOLDER_NAME = "current_run"
-RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME  
+RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME
 GCP_BUCKET_NAME = "yolo_model_storage"
 GCP_MODEL_NAME = "pv_defection_classification_model.pt"
 
 # Configure W&B
 wandb.login()
 wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu")
+
 
 def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_name: str):
     """
@@ -46,6 +47,7 @@ def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_nam
         print(f"Failed to upload model to GCP: {e}")
         raise
 
+
 def train_model(
     batch_size: int = BATCH_SIZE,
     learning_rate: float = LEARNING_RATE,
@@ -66,7 +68,7 @@ def train_model(
     try:
         update_yolo_settings(data_path)
 
-        # Load YOLO model 
+        # Load YOLO model
         print("Initializing YOLO model...")
         model = load_pretrained_model(config_path=Path("yolo11n.yaml"))
 
@@ -77,13 +79,13 @@ def train_model(
             epochs=max_iteration,
             batch=batch_size,
             lr0=learning_rate,
-            project=str(OUTPUT_DIR), 
-            name=RUN_FOLDER_NAME,  
+            project=str(OUTPUT_DIR),
+            name=RUN_FOLDER_NAME,
             save=True,
             verbose=True,
         )
 
-        # Save the trained model 
+        # Save the trained model
         best_model_path = RUN_FOLDER / "weights" / "best.pt"
         if not best_model_path.exists():
             raise FileNotFoundError(f"'best.pt' not found at {best_model_path}")
@@ -103,6 +105,7 @@ def train_model(
     except Exception as e:
         print(f"An error occurred during training: {e}")
         raise
+
 
 if __name__ == "__main__":
     typer.run(train_model)
