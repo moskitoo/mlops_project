@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import typer
 from model import load_pretrained_model, save_model
 import wandb
+from utils.yolo_settings import update_yolo_settings
 
 # Ensure the .env file has the wandb API key and the path to the GCP credentials
 load_dotenv()
@@ -63,6 +64,8 @@ def train_model(
         enable_wandb (bool): Whether to enable W&B logging.
     """
     try:
+        update_yolo_settings(data_path)
+
         # Load YOLO model 
         print("Initializing YOLO model...")
         model = load_pretrained_model(config_path=Path("yolo11n.yaml"))
