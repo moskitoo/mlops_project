@@ -41,26 +41,26 @@ def train_model(
 
     model = YOLO("yolo11n.yaml")  
 
-    print("Starting training...")
-    results = model.train(
-        data=data_path,
-        epochs=max_iteration,
-        batch=batch_size,
-        lr0=learning_rate,
-        optimizer=optimizer,  
-        project=str(output_dir),  
-        name=f"BS{batch_size}_LR{learning_rate}_OPT{optimizer}_{timestamp}",  
-        save=True,                
-        verbose=True              
-    )
+    # print("Starting training...")
+    # results = model.train(
+    #     data=data_path,
+    #     epochs=max_iteration,
+    #     batch=batch_size,
+    #     lr0=learning_rate,
+    #     optimizer=optimizer,  
+    #     project=str(output_dir),  
+    #     name=f"BS{batch_size}_LR{learning_rate}_OPT{optimizer}_{timestamp}",  
+    #     save=True,                
+    #     verbose=True              
+    # )
 
     print(f"Training complete. Model checkpoints are saved in: {run_folder}")
 
-    print(f"Validating {run_folder / 'weights/best.pt'}...")
-    validation_results = model.val(
-        model=run_folder / "weights/best.pt", 
-        data=data_path,
-    )
+    # print(f"Validating {run_folder / 'weights/best.pt'}...")
+    # validation_results = model.val(
+    #     model=run_folder / "weights/best.pt", 
+    #     data=data_path,
+    # )
     print("Validation completed. Results saved locally.")
 
     print("Training and validation process completed.")

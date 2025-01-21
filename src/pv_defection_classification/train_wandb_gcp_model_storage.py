@@ -10,7 +10,7 @@ load_dotenv()
 settings.update({"wandb": True})
 batch_size = 32
 learning_rate = 0.01
-max_iteration = 100
+max_iteration = 2
 output_dir = Path("models")
 run_folder_name = "current_run"
 run_folder = output_dir / run_folder_name  
