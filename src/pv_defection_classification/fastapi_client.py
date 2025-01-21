@@ -1,7 +1,6 @@
 import requests
 import numpy as np
 from PIL import Image
-from io import BytesIO
 
 # Open or create your PIL Image
 image = Image.open('data/processed/pv_defection/train/20180630_154039.jpg')  # Replace with your image path

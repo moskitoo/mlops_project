@@ -47,9 +47,9 @@ class PVClassificationService:
             with open("yolo_class_label.yaml", "r") as file:
                 try:
                     self.class_labels = yaml.safe_load(file)
-                except Exception as e:
+                except Exception:
                     self.class_labels = {0:'working', 1:'defected'}
-        except Exception as e:
+        except Exception:
             self.class_labels = {0:'working', 1:'defected'}
 
     

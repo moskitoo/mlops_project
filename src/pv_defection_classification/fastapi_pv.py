@@ -4,8 +4,7 @@ from contextlib import asynccontextmanager
 import onnxruntime
 import numpy as np
 import cv2
-from typing import List, Generator
-import copy
+from typing import List
 import yaml
 from google.cloud import storage
 from ultralytics import YOLO
@@ -86,7 +85,7 @@ def draw_detections(self, img, box, score, class_id):
     # Create the label text with class name and score
     try: 
         detected_object = self.class_labels[class_id]
-    except Exception as e:
+    except Exception:
         detected_object = "Unknown"
 
     label = f"{detected_object}: {score:.2f}"
