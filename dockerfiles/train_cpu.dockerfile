@@ -24,8 +24,6 @@ WORKDIR /ultralytics
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY src ./src/
-COPY data/raw ./data/raw 
-#COPY . .
 
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
@@ -37,9 +35,20 @@ RUN pip install --upgrade pip && \
 RUN pip install uv
 RUN uv pip install --system -e ".[export]" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-first-match
 
+# Copy GCP credentials
+COPY gcp_auth/ gcp_auth/
+ENV GOOGLE_APPLICATION_CREDENTIALS=gcp_auth/gcloud_service_key.json
+
+# COPY data/raw ./data/raw 
+RUN dvc init --no-scm
+COPY .dvc/config .dvc/config
+COPY *.dvc ./
+RUN dvc config core.no_scm true
+RUN dvc pull
+
 ADD https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt .
 
-RUN python src/pv_defection_classification/data.py
-RUN python src/pv_defection_classification/data.py --raw-data-path data/raw/pv_defection/dataset_1
+# RUN python src/pv_defection_classification/data.py
+# RUN python src/pv_defection_classification/data.py --raw-data-path data/raw/pv_defection/dataset_1
 
 CMD ["python", "-u", "src/pv_defection_classification/train.py"]

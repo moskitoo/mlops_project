@@ -181,3 +181,4 @@ data/
 models/
 /data
 runs/
+gcp_auth/
