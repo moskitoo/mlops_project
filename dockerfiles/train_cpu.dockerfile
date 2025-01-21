@@ -36,8 +36,8 @@ RUN pip install uv
 RUN uv pip install --system -e ".[export]" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-first-match
 
 # Copy GCP credentials
-COPY gcp_auth/ gcp_auth/
-ENV GOOGLE_APPLICATION_CREDENTIALS=gcp_auth/gcloud_service_key.json
+# COPY gcp_auth/ gcp_auth/
+# ENV GOOGLE_APPLICATION_CREDENTIALS=gcp_auth/gcloud_service_key.json
 
 # COPY data/raw ./data/raw 
 RUN dvc init --no-scm
