@@ -26,7 +26,6 @@ def download_model_from_gcp():
     return onnx_path
 
 
-
 @bentoml.service #(resources={"cpu": 2}, traffic={'timeout': '60'})
 class PVClassificationService:
     def __init__(self) -> None:

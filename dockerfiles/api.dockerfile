@@ -6,7 +6,7 @@ FROM python:3.11-slim AS base
 WORKDIR /bento
 
 RUN apt update && \
-    apt install --no-install-recommends -y build-essential gcc && \
+    apt install --no-install-recommends -y build-essential gcc libgl1 libglib2.0-0 && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 COPY src src/
@@ -19,4 +19,4 @@ COPY pyproject.toml pyproject.toml
 RUN pip install -r requirements.txt --no-cache-dir --verbose
 RUN pip install . --no-deps --no-cache-dir --verbose
 
-CMD ["bentoml", "serve", "bentoml_service:PVClassificationService"]
+ENTRYPOINT ["bentoml", "serve", "src.pv_defection_classification.bentoml_service:PVClassificationService"]
