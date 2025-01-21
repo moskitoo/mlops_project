@@ -7,7 +7,7 @@ from google.cloud import storage
 
 # from model import load_pretrained_model, save_model
 import wandb
-from utils.update_yolo_settings import update_yolo_settings
+# from utils.update_yolo_settings import update_yolo_settings
 
 # Ensure the .env file has the wandb API key and the path to the GCP credentials
 load_dotenv()
