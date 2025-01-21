@@ -78,7 +78,7 @@ class PVClassificationService:
         # Create the label text with class name and score
         try: 
             detected_object = self.class_labels[class_id]
-        except Exception as e:
+        except Exception:
             detected_object = "Unknown"
 
         label = f"{detected_object}: {score:.2f}"
