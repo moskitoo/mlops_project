@@ -85,7 +85,6 @@ def train_model(
         output_paths = str(Path(success).parent)
         artifact.add_file(success)
         artifact.add_file(output_paths + "/last.pt")
-        artifact.add_file(output_paths + "/last.pt")
         run.log_artifact(artifact)
         run.link_artifact(
             artifact=artifact,
