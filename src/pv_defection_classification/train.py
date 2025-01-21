@@ -11,7 +11,7 @@ load_dotenv()
 
 batch_size = 32
 learning_rate = 0.01
-max_iteration = 2
+max_iteration = 100
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 output_dir = Path("models")
 entity_name = "hndrkjs-danmarks-tekniske-universitet-dtu"  
