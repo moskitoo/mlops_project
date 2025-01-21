@@ -2,7 +2,7 @@
 FROM python:3.11-slim AS base
 
 #ENV GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_SERVICE_KEY }}
-
+EXPOSE 3000
 WORKDIR /bento
 
 RUN apt update && \
