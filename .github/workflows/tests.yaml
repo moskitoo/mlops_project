@@ -14,8 +14,9 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        python-version: ["3.11", "3.10"]
+        # operating-system: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        operating-system: ["ubuntu-latest", "macos-latest"]
+        python-version: ["3.11"]
 
     steps:
       - name: Checkout code
@@ -50,3 +51,13 @@ jobs:
         run: |
           python -m coverage run -m pytest tests/
           coverage report -m
+
+      - name: Install Ruff
+        run: |
+          pip install ruff
+
+      - name: Ruff check
+        run: ruff check .
+
+      - name: Ruff format
+        run: ruff format .

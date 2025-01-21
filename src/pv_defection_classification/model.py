@@ -2,7 +2,8 @@ from detectron2 import model_zoo
 from detectron2.config import get_cfg
 import torch
 
-def get_model(Num_Classes : int = 1) -> get_cfg:
+
+def get_model(Num_Classes: int = 1) -> get_cfg:
     """
     this function creates FRCNN model from detectron2 ecosystem
 
@@ -18,10 +19,11 @@ def get_model(Num_Classes : int = 1) -> get_cfg:
     cfg.DATASETS.TRAIN = ("pv_module_train",)
     cfg.DATASETS.TEST = ()
     cfg.DATALOADER.NUM_WORKERS = 2
-    cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml")  # Let training initialize from model zoo
+    cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url(
+        "COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"
+    )  # Let training initialize from model zoo
     cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128
     cfg.MODEL.ROI_HEADS.NUM_CLASSES = Num_Classes
-    cfg.MODEL.DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+    cfg.MODEL.DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
     return cfg
-
