@@ -68,7 +68,7 @@ def train_model(
         enable_wandb (bool): Whether to enable W&B logging.
     """
     try:
-        update_yolo_settings(data_path)
+        # update_yolo_settings(data_path)
 
         from ultralytics import settings
 
