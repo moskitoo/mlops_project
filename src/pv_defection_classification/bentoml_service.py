@@ -23,7 +23,6 @@ def download_model_from_gcp():
     bucket = client.bucket(BUCKET_NAME)
     blob = bucket.blob(MODEL_FILE_NAME)
     blob.download_to_filename(MODEL_FILE_NAME)
-    print(f"Model {MODEL_FILE_NAME} downloaded from GCP bucket {BUCKET_NAME}.")
 
 @bentoml.service #(resources={"cpu": 2}, traffic={'timeout': '60'})
 class PVClassificationService:
