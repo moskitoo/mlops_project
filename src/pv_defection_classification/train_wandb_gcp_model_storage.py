@@ -47,8 +47,8 @@ def train_model(
         data_path: Path, path to the YOLO dataset configuration file
         enable_wandb: bool, whether to enable W&B logging.
     """
-    os.makedirs(run_folder, exist_ok=True)  
-    print(f"Output directory: {run_folder}")
+    # os.makedirs(run_folder, exist_ok=True)  
+    # print(f"Output directory: {run_folder}")
 
     model = YOLO("yolo11n.yaml")
 
