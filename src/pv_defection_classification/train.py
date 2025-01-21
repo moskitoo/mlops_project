@@ -69,7 +69,7 @@ def train_model(
 
         # Start training
         print("Starting training...")
-        results = model.train(
+        model.train(
             data=data_path,
             epochs=max_iteration,
             batch=batch_size,
