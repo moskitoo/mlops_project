@@ -20,11 +20,11 @@ logging.getLogger("ultralytics").setLevel(logging.CRITICAL)
 
 
 def train_model(
-    use_config: bool = True, #if True get configs from file
     batch_size: int = batch_size,
     learning_rate: float = learning_rate,
     data_path: Path = "data/processed/pv_defection/pv_defection.yaml",
     epochs: int = 20,
+    ctx: typer.Context = None,
 ):
     """
     this function creates the model and trains the model
@@ -38,6 +38,13 @@ def train_model(
         no return, logs and checkpoints are stored under /models/<timestamp>
 
     """
+    if ctx is None or not any(ctx.get_parameter_source(param).name == 'COMMANDLINE' for param in ctx.params):
+        print("No arguments were provided for training.\nConfigurations will be loaded from configs/config.yaml")
+        use_config = True,  #if True get configs from file
+
+    else:
+        print(f"Arguments received for training: {ctx.params}")
+        use_config = False
 
     if use_config:
         # Load configuration using Hydra
