@@ -1,19 +1,17 @@
 import os
 from datetime import datetime
 from pathlib import Path
-
-import typer
-from ultralytics import YOLO, settings
-from dotenv import load_dotenv
 import wandb
+import typer
+from dotenv import load_dotenv
+
+from model import load_pretrained_model, save_model
 
 load_dotenv()
 
-settings.update({"wandb": True})
-
 batch_size = 32
 learning_rate = 0.01
-max_iteration = 100
+max_iteration = 2
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 output_dir = Path("models")
 entity_name = "hndrkjs-danmarks-tekniske-universitet-dtu"  
@@ -24,23 +22,27 @@ def train_model(
     max_iteration: int = max_iteration,
     optimizer: str = "AdamW", 
     data_path: Path = Path("data/processed/pv_defection/pv_defection.yaml"),
-    enable_wandb: bool = True,  
+    model_config: Path = Path("yolo11n.yaml"),
+    enable_wandb: bool = True,
 ):
     """
-    Train a YOLO model and perform validation.
+    Train a YOLO model.
 
     Args:
-        batch_size: int, size of training batch
-        learning_rate: float, initial learning rate
-        max_iteration: int, maximum number of iterations
-        optimizer: str, the optimizer to use for training
-        data_path: Path, path to the YOLO dataset configuration file
-        enable_wandb: bool, whether to enable W&B logging.
+        batch_size (int): Size of training batch.
+        learning_rate (float): Initial learning rate.
+        max_iteration (int): Maximum number of iterations.
+        optimizer (str): Optimizer to use for training.
+        data_path (Path): Path to the YOLO dataset configuration file.
+        model_config (Path): Path to the YOLO model configuration file.
+        enable_wandb (bool): Whether to enable W&B logging.
     """
-    run_folder = output_dir / timestamp  
-    os.makedirs(run_folder, exist_ok=True)
+    run_folder = output_dir / timestamp
+    weights_folder = run_folder / "weights"
+    weights_folder.mkdir(parents=True, exist_ok=True)
     print(f"Output directory: {run_folder}")
 
+    # Initialize W&B
     if enable_wandb:
         wandb.init(
             project="models",
@@ -54,33 +56,28 @@ def train_model(
             },
         )
 
-    model = YOLO("yolo11n.yaml")  
+    # Load YOLO model
+    model = load_pretrained_model(config_path=model_config)
 
+    # Training
     print("Starting training...")
-    results = model.train(
+    model.train(
         data=data_path,
         epochs=max_iteration,
         batch=batch_size,
         lr0=learning_rate,
-        optimizer=optimizer,  
-        project=str(output_dir),  
-        name=f"pv_defevtion_model_{timestamp}",  
-        save=True,                
-        verbose=True              
+        optimizer=optimizer,
+        project=str(output_dir),
+        name=f"pv_defection_model_{timestamp}",
+        save=True,
     )
 
-    print(f"Training complete. Model checkpoints are saved in: {run_folder}")
+    # Save model
+    save_model(model, weights_folder / "best.pt")
+    print("Training complete. Model checkpoints are saved in:", run_folder)
 
-    print(f"Validating {run_folder / 'weights/best.pt'}...")
-    validation_results = model.val(
-        model=run_folder / "weights/best.pt", 
-        data=data_path,
-    )
-    print("Validation completed. Results saved locally.")
     if enable_wandb:
         wandb.finish()
-
-    print("Training and validation process completed.")
 
 
 if __name__ == "__main__":

@@ -1,27 +1,36 @@
-from detectron2 import model_zoo
-from detectron2.config import get_cfg
-import torch
+from ultralytics import YOLO
+from pathlib import Path
 
-def get_model(Num_Classes : int = 1) -> get_cfg:
+
+def load_pretrained_model(config_path: Path, weights_path: Path = None):
     """
-    this function creates FRCNN model from detectron2 ecosystem
+    Load a YOLO model, optionally with pretrained weights.
 
     Args:
-        Num_Classes: int, number of classes (no +1 needed for background)
+        config_path (Path): Path to the YOLO model configuration file.
+        weights_path (Path, optional): Path to pretrained weights.
 
     Returns:
-        cfg: detectron2 model rcnn
-
+        YOLO: The initialized YOLO model.
     """
-    cfg = get_cfg()
-    cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"))
-    cfg.DATASETS.TRAIN = ("pv_module_train",)
-    cfg.DATASETS.TEST = ()
-    cfg.DATALOADER.NUM_WORKERS = 2
-    cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml")  # Let training initialize from model zoo
-    cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128
-    cfg.MODEL.ROI_HEADS.NUM_CLASSES = Num_Classes
-    cfg.MODEL.DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
+    if weights_path:
+        print(f"Loading pretrained weights from {weights_path}...")
+        model = YOLO(weights_path)
+    else:
+        print(f"Loading model from configuration {config_path}...")
+        model = YOLO(config_path)
 
-    return cfg
+    return model
 
+
+def save_model(model, output_path: Path):
+    """
+    Save the YOLO model to the specified path.
+
+    Args:
+        model (YOLO): The YOLO model to save.
+        output_path (Path): Path to save the model.
+    """
+    print(f"Saving model to {output_path}...")
+    output_path.parent.mkdir(parents=True, exist_ok=True)  
+    model.save(str(output_path))
