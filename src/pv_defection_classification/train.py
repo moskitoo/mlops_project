@@ -14,7 +14,7 @@ settings.update({"wandb": True})
 
 BATCH_SIZE = 32
 LEARNING_RATE = 0.01
-MAX_ITERATION = 2
+MAX_ITERATION = 100
 OUTPUT_DIR = Path("models")
 RUN_FOLDER_NAME = "current_run"
 RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME  
