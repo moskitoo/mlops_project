@@ -1,21 +1,17 @@
 import bentoml
-from ultralytics import YOLO
-import onnx
 import onnxruntime
 import numpy as np
 import cv2
-import glob
-from pydantic import BaseModel, Field
-from PIL import Image
-from typing import Any, Dict, List
+from typing import List
 import copy
 import yaml
 from google.cloud import storage
+from ultralytics import YOLO
 
 
-BUCKET_NAME = "gcp_monitoring_exercise"
-MODEL_NAME = "bert-base-cased"
-MODEL_FILE_NAME = "bert_sentiment_model.pt"
+BUCKET_NAME = "yolo_model_storage"
+MODEL_NAME = "pv_defection_best_model.pth"
+MODEL_FILE_NAME = "pv_defection_model.pt"
 
 def download_model_from_gcp():
     """Download the model from GCP bucket."""
@@ -24,10 +20,21 @@ def download_model_from_gcp():
     blob = bucket.blob(MODEL_FILE_NAME)
     blob.download_to_filename(MODEL_FILE_NAME)
 
+    model = YOLO(MODEL_FILE_NAME)
+    onnx_path = model.export(format="onnx")
+
+    return onnx_path
+
+
+
 @bentoml.service #(resources={"cpu": 2}, traffic={'timeout': '60'})
 class PVClassificationService:
     def __init__(self) -> None:
-        self.model = onnxruntime.InferenceSession("yolo11n.onnx")
+
+        # Download model from GCP bucket
+        onnx_path = download_model_from_gcp()
+
+        self.model = onnxruntime.InferenceSession(onnx_path)
         self.model_inputs = self.model.get_inputs()
 
         self.img_width = 640

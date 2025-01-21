@@ -2,8 +2,6 @@ import bentoml
 import numpy as np
 from PIL import Image
 import cv2
-import base64
-from io import BytesIO
 
 
 if __name__ == "__main__":
