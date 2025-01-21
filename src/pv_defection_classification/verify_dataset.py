@@ -1,5 +1,5 @@
 from detectron2.utils.visualizer import Visualizer
-from detectron2.data import DatasetCatalog, MetadataCatalog
+from detectron2.data import MetadataCatalog
 from data import get_metadata, get_data_dicts
 import cv2
 import random

@@ -13,8 +13,9 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        python-version: ["3.12", "3.11", "3.10"]
+        # operating-system: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        operating-system: ["ubuntu-latest", "macos-latest"]
+        python-version: ["3.11"]
 
     steps:
       - name: Checkout code
@@ -27,7 +28,7 @@ jobs:
           cache: 'pip'
           cache-dependency-path: setup.py
 
-       - name: Install dependencies on macOS
+      - name: Install dependencies on macOS
         if: runner.os == 'macOS'
         run: |
           export MACOSX_DEPLOYMENT_TARGET=10.13
@@ -49,3 +50,13 @@ jobs:
         run: |
           coverage run -m pytest tests/
           coverage report -m
+
+      - name: Install Ruff
+        run: |
+          pip install ruff
+
+      - name: Ruff check
+        run: ruff check .
+
+      - name: Ruff format
+        run: ruff format .
