@@ -32,5 +32,5 @@ def save_model(model, output_path: Path):
         output_path (Path): Path to save the model.
     """
     print(f"Saving model to {output_path}...")
-    output_path.parent.mkdir(parents=True, exist_ok=True)  
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     model.save(str(output_path))
