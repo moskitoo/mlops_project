@@ -13,13 +13,14 @@ learning_rate = 0.01
 max_iteration = 100
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 output_dir = Path("models")
-entity_name = "hndrkjs-danmarks-tekniske-universitet-dtu"  
+entity_name = "hndrkjs-danmarks-tekniske-universitet-dtu"
+
 
 def train_model(
     batch_size: int = batch_size,
     learning_rate: float = learning_rate,
     max_iteration: int = max_iteration,
-    optimizer: str = "AdamW", 
+    optimizer: str = "AdamW",
     data_path: Path = Path("data/processed/pv_defection/pv_defection.yaml"),
     model_config: Path = Path("yolo11n.yaml"),
     enable_wandb: bool = True,

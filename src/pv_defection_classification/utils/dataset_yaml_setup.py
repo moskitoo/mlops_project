@@ -1,5 +1,5 @@
 import yaml
-from pathlib import Path
+
 
 def create_dataset_config(
     output_file="dataset.yaml",

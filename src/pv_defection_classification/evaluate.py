@@ -26,9 +26,9 @@ def evaluate_model(
 
     print("Available metrics:", dir(results))
 
-    if hasattr(results, 'results_dict'):
+    if hasattr(results, "results_dict"):
         print("Results dictionary:", results.results_dict)
-    elif hasattr(results, 'maps'):
+    elif hasattr(results, "maps"):
         print("Mean average precision (mAP):", results.maps)
     else:
         print("No recognized metrics available.")

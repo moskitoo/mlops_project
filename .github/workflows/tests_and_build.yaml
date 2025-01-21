@@ -49,6 +49,16 @@ jobs:
           coverage run -m pytest tests/
           coverage report -m
 
+      - name: Install Ruff
+        run: |
+          pip install ruff
+
+      - name: Ruff check
+        run: ruff check .
+
+      - name: Ruff format
+        run: ruff format .
+
   build:
     needs: test
     # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
