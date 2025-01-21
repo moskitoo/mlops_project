@@ -20,11 +20,11 @@ logging.getLogger("ultralytics").setLevel(logging.CRITICAL)
 
 
 def train_model(
+    use_config: bool = True, #if True get configs from file
     batch_size: int = batch_size,
     learning_rate: float = learning_rate,
     data_path: Path = "data/processed/pv_defection/pv_defection.yaml",
     epochs: int = 20,
-    use_config: bool = True, #if True get configs from file
 ):
     """
     this function creates the model and trains the model
