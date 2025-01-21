@@ -8,7 +8,22 @@ import glob
 from pydantic import BaseModel, Field
 from PIL import Image
 from typing import Any, Dict, List
+import copy
+import yaml
+from google.cloud import storage
 
+
+BUCKET_NAME = "gcp_monitoring_exercise"
+MODEL_NAME = "bert-base-cased"
+MODEL_FILE_NAME = "bert_sentiment_model.pt"
+
+def download_model_from_gcp():
+    """Download the model from GCP bucket."""
+    client = storage.Client()
+    bucket = client.bucket(BUCKET_NAME)
+    blob = bucket.blob(MODEL_FILE_NAME)
+    blob.download_to_filename(MODEL_FILE_NAME)
+    print(f"Model {MODEL_FILE_NAME} downloaded from GCP bucket {BUCKET_NAME}.")
 
 @bentoml.service #(resources={"cpu": 2}, traffic={'timeout': '60'})
 class PVClassificationService:
@@ -22,6 +37,15 @@ class PVClassificationService:
         self.input_height = self.model_inputs[0].shape[3]
         self.confidence_thres = 0.5
         self.iou_thres = 0.5
+
+        try:
+            with open("yolo_class_label.yaml", "r") as file:
+                try:
+                    self.class_labels = yaml.safe_load(file)
+                except Exception as e:
+                    self.class_labels = {0:'working', 1:'defected'}
+        except Exception as e:
+            self.class_labels = {0:'working', 1:'defected'}
 
     
     def draw_detections(self, img, box, score, class_id):
@@ -47,7 +71,12 @@ class PVClassificationService:
         cv2.rectangle(img, (int(x1), int(y1)), (int(x1 + w), int(y1 + h)), color, 2)
 
         # Create the label text with class name and score
-        label = f"{'test'}: {score:.2f}"
+        try: 
+            detected_object = self.class_labels[class_id]
+        except Exception as e:
+            detected_object = "Unknown"
+
+        label = f"{detected_object}: {score:.2f}"
 
         # Calculate the dimensions of the label text
         (label_width, label_height), _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
@@ -144,15 +173,14 @@ class PVClassificationService:
             class_id = class_ids[i]
 
             # Draw the detection on the input image
-            self.draw_detections(self.img, box, score, class_id)
+            self.draw_detections(input, box, score, class_id)
 
         # Return the modified input image
         return input
-
-    
-    @bentoml.api(batchable=True,
+        
+    @bentoml.api(batchable=False,
                     batch_dim=(0, 0),
-                    max_batch_size=128,
+                    max_batch_size=8,
                     max_latency_ms=1000,)
     def detect_and_predict(self, input: np.ndarray) -> np.ndarray:
         """
@@ -164,10 +192,17 @@ class PVClassificationService:
         Returns:
             Dict: Dictionary containing the prediction results.
         """
+        # Copy the input image to avoid modifying the original
+        input_copy = copy.deepcopy(input)
+        image = np.array(input_copy).astype(np.float32)
+        image_resized = cv2.resize(image, (640, 640))
+
+        # Process the input image and perform inference
         preprocess_image = self.preprocess(input)
 
         inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
-
-        postprocess_image = self.postprocess(input, inference_result)
-
+        
+        # Post-processing draws the detected bounding boxes on the input image
+        postprocess_image = self.postprocess(image_resized, inference_result)
+        
         return postprocess_image
