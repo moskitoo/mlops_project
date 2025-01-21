@@ -48,7 +48,7 @@ jobs:
 
       - name: Run tests & coverage
         run: |
-          coverage run -m pytest tests/
+          python -m coverage run -m pytest tests/
           coverage report -m
 
       - name: Install Ruff
