@@ -7,7 +7,7 @@ steps:
     '-t',
     'europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME',
     '-f',
-    'dockerfiles/train_cpu.dockerfile'
+    'dockerfiles/train_gpu.dockerfile'
   ]
 - name: 'gcr.io/cloud-builders/docker'
   id: 'Push container image '
@@ -18,4 +18,4 @@ steps:
 options:
   logging: CLOUD_LOGGING_ONLY
 substitutions:
-  _IMAGE_NAME: 'train_cpu'
+  _IMAGE_NAME: 'train_gpu'
