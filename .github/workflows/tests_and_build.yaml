@@ -27,7 +27,7 @@ jobs:
           cache: 'pip'
           cache-dependency-path: setup.py
 
-       - name: Install dependencies on macOS
+      - name: Install dependencies on macOS
         if: runner.os == 'macOS'
         run: |
           export MACOSX_DEPLOYMENT_TARGET=10.13
@@ -44,17 +44,16 @@ jobs:
           pip install -r requirements_dev.txt
           pip list
 
-
       - name: Run tests & coverage
         run: |
           coverage run -m pytest tests/
           coverage report -m
 
-    build:
-      needs: test
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-      runs-on: ubuntu-latest
-      steps:
+  build:
+    needs: test
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
