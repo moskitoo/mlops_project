@@ -23,6 +23,14 @@ RUN apt-get update && \
 # Security updates
 RUN apt upgrade --no-install-recommends -y openssl tar
 
+# Install google cloud sdk
+RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
+    | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    apt-get update -y && \
+    apt-get install -y google-cloud-cli && \
+    gcloud --version
+
 # Create working directory
 WORKDIR /app
 
@@ -42,7 +50,8 @@ RUN uv pip install --system -e ".[export]" tensorrt-cu12 "albumentations>=1.4.6"
 
 ADD https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt .
 
-# RUN python src/pv_defection_classification/data.py
-# RUN python src/pv_defection_classification/data.py --raw-data-path data/raw/pv_defection/dataset_1
+ENV GOOGLE_APPLICATION_CREDENTIALS="/root/.config/gcloud/application_default_credentials.json"
+RUN mkdir -p /root/.config/gcloud
+RUN gcloud --version && gsutil --version
 
 CMD ["python", "-u", "src/pv_defection_classification/train.py"]
