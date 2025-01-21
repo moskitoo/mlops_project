@@ -1,105 +1,82 @@
-import logging
-import os
 from datetime import datetime
 from pathlib import Path
-import typer
-from ultralytics import YOLO
-from utils.yolo_settings import update_yolo_settings
-
 import wandb
+import typer
+from dotenv import load_dotenv
 
-# default values
-batch_size = 2
-learning_rate = 0.00025
-max_iteration = 2
-number_of_classes = 2
+from model import load_pretrained_model, save_model
 
+load_dotenv()
+
+batch_size = 32
+learning_rate = 0.01
+max_iteration = 100
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-output_dir = f"models/{timestamp}"
-
-logging.getLogger("ultralytics").setLevel(logging.CRITICAL)
-
+output_dir = Path("models")
+entity_name = "hndrkjs-danmarks-tekniske-universitet-dtu"  
 
 def train_model(
     batch_size: int = batch_size,
     learning_rate: float = learning_rate,
     max_iteration: int = max_iteration,
-    number_of_classes: int = number_of_classes,
-    data_path: Path = "data/processed/pv_defection/pv_defection.yaml",
-    # data_path: Path = "data/processed/pv_defection",
+    optimizer: str = "AdamW", 
+    data_path: Path = Path("data/processed/pv_defection/pv_defection.yaml"),
+    model_config: Path = Path("yolo11n.yaml"),
+    enable_wandb: bool = True,
 ):
     """
-    this function creates the model and trains the model
+    Train a YOLO model.
 
     Args:
-        batch_size: int, size of training batch
-        learning_rate: float, initial learning rate
-        max_iteration: int, maximum number of iterations
-        number_of_classes: int, number of classes (no +1 needed for background)
-
-    Returns:
-        no return, logs and checkpoints are stored under /models/<timestamp>
-
+        batch_size (int): Size of training batch.
+        learning_rate (float): Initial learning rate.
+        max_iteration (int): Maximum number of iterations.
+        optimizer (str): Optimizer to use for training.
+        data_path (Path): Path to the YOLO dataset configuration file.
+        model_config (Path): Path to the YOLO model configuration file.
+        enable_wandb (bool): Whether to enable W&B logging.
     """
-    # model = YOLO("yolo11n.yaml")
+    run_folder = output_dir / timestamp
+    weights_folder = run_folder / "weights"
+    weights_folder.mkdir(parents=True, exist_ok=True)
+    print(f"Output directory: {run_folder}")
 
-    # model = YOLO("yolo11n.pt")
-
-    # update_yolo_settings(data_path)
-
-    # os.makedirs(output_dir, exist_ok=True)
-
-    # results = model.train(data=data_path, epochs=3)
-
-    # # Evaluate the model's performance on the validation set
-    # results = model.val()
-
-    # # Export the model to PyTorch format
-    # success = model.export()
-    # # Export the model to ONNX format
-    # success = model.export(format="onnx")
-
-    with wandb.init(
-        project="pv_defection",
-        entity="hndrkjs-danmarks-tekniske-universitet-dtu",
-        # entity= "amirkfir93-danmarks-tekniske-universitet-dtu",
-        name=f"{timestamp}",
-        sync_tensorboard=True,
-    ) as run:
-        artifact = wandb.Artifact(
-            type="model",
-            name="run-%s-model" % wandb.run.id,
-            metadata={
-                "format": {"type": "detectron_model"},
-                "timestamp": timestamp,
+    # Initialize W&B
+    if enable_wandb:
+        wandb.init(
+            project="models",
+            entity=entity_name,
+            name=f"BS{batch_size}_LR{learning_rate}_OPT{optimizer}_{timestamp}",
+            config={
+                "batch_size": batch_size,
+                "learning_rate": learning_rate,
+                "optimizer": optimizer,
+                "epochs": max_iteration,
             },
         )
 
-        model = YOLO("yolo11n.yaml")
+    # Load YOLO model
+    model = load_pretrained_model(config_path=model_config)
 
-        model = YOLO("yolo11n.pt")
+    # Training
+    print("Starting training...")
+    model.train(
+        data=data_path,
+        epochs=max_iteration,
+        batch=batch_size,
+        lr0=learning_rate,
+        optimizer=optimizer,
+        project=str(output_dir),
+        name=f"pv_defection_model_{timestamp}",
+        save=True,
+    )
 
-        update_yolo_settings(data_path)
+    # Save model
+    save_model(model, weights_folder / "best.pt")
+    print("Training complete. Model checkpoints are saved in:", run_folder)
 
-        os.makedirs(output_dir, exist_ok=True)
-
-        model.train(data=data_path, epochs=3, project=output_dir, save=True)
-
-        # Evaluate the model's performance on the validation set
-        model.val()
-
-        # Export the model to PyTorch format
-        # Export the model to ONNX format
-        success = model.export(format="onnx")
-        output_paths = str(Path(success).parent)
-        artifact.add_file(success)
-        artifact.add_file(output_paths + "/last.pt")
-        run.log_artifact(artifact)
-        run.link_artifact(
-            artifact=artifact,
-            target_path="hndrkjs-danmarks-tekniske-universitet-dtu-org/wandb-registry-mlops final project/trained-detectron2-model",
-        )
-        run.finish()
+    if enable_wandb:
+        wandb.finish()
 
 
 if __name__ == "__main__":
