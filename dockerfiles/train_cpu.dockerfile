@@ -35,11 +35,6 @@ RUN pip install --upgrade pip && \
 RUN pip install uv
 RUN uv pip install --system -e ".[export]" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-first-match
 
-# RUN dvc init --no-scm
-# COPY .dvc/config .dvc/config
-# COPY *.dvc ./
-# RUN dvc config core.no_scm true
-# RUN dvc pull
 
 ADD https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt .
 
