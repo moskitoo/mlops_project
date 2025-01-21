@@ -1,5 +1,5 @@
 substitutions:
-  _VERTEX_TRAIN_CONFIG: 'vertex_ai_train_cpu_config.yaml'
+  _VERTEX_TRAIN_CONFIG: '.github/vertex_ai_train_cpu_config.yaml'
   _DISPLAY_NAME: 'vertex_ai_train_config'
 
 steps:
