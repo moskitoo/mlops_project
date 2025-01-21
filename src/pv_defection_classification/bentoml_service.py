@@ -10,14 +10,14 @@ from ultralytics import YOLO
 
 
 BUCKET_NAME = "yolo_model_storage"
-MODEL_NAME = "pv_defection_best_model.pth"
+MODEL_NAME = "pv_defection_classification_model.pt"
 MODEL_FILE_NAME = "pv_defection_model.pt"
 
 def download_model_from_gcp():
     """Download the model from GCP bucket."""
     client = storage.Client()
     bucket = client.bucket(BUCKET_NAME)
-    blob = bucket.blob(MODEL_FILE_NAME)
+    blob = bucket.blob(MODEL_NAME)
     blob.download_to_filename(MODEL_FILE_NAME)
 
     model = YOLO(MODEL_FILE_NAME)
