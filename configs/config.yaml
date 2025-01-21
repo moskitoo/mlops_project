@@ -1,0 +1,18 @@
+data: 'data/processed/pv_defection/pv_defection.yaml'
+epochs: 5 # (int) number of epochs to train for
+batch: 2 # (int) number of images per batch (-1 for AutoBatch)
+optimizer: auto # (str) optimizer to use, choices=[SGD, Adam, Adamax, AdamW, NAdam, RAdam, RMSProp, auto]
+seed: 0 # (int) random seed for reproducibility
+cos_lr: False # (bool) use cosine learning rate scheduler
+profile: False # (bool) profile ONNX and TensorRT speeds during training for loggers
+# Classification
+dropout: 0.0 # (float) use dropout regularization (classify train only)
+
+# Hyperparameters ------------------------------------------------------------------------------------------------------
+lr0: 0.00025 # (float) initial learning rate (i.e. SGD=1E-2, Adam=1E-3)
+momentum: 0.937 # (float) SGD momentum/Adam beta1
+weight_decay: 0.0005 # (float) optimizer weight decay 5e-4
+box: 7.5 # (float) box loss gain
+cls: 0.5 # (float) cls loss gain (scale with pixels)
+dfl: 1.5 # (float) dfl loss gain
+

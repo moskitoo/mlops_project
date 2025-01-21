@@ -5,14 +5,13 @@ from pathlib import Path
 import typer
 from ultralytics import YOLO
 from utils.yolo_settings import update_yolo_settings
-
+from hydra import initialize,compose
 import wandb
 
 # default values
 batch_size = 2
 learning_rate = 0.00025
-max_iteration = 2
-number_of_classes = 2
+
 
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 output_dir = f"models/{timestamp}"
@@ -23,10 +22,9 @@ logging.getLogger("ultralytics").setLevel(logging.CRITICAL)
 def train_model(
     batch_size: int = batch_size,
     learning_rate: float = learning_rate,
-    max_iteration: int = max_iteration,
-    number_of_classes: int = number_of_classes,
     data_path: Path = "data/processed/pv_defection/pv_defection.yaml",
-    # data_path: Path = "data/processed/pv_defection",
+    epochs: int = 20,
+    use_config: bool = True, #if True get configs from file
 ):
     """
     this function creates the model and trains the model
@@ -34,37 +32,31 @@ def train_model(
     Args:
         batch_size: int, size of training batch
         learning_rate: float, initial learning rate
-        max_iteration: int, maximum number of iterations
         number_of_classes: int, number of classes (no +1 needed for background)
 
     Returns:
         no return, logs and checkpoints are stored under /models/<timestamp>
 
     """
-    # model = YOLO("yolo11n.yaml")
 
-    # model = YOLO("yolo11n.pt")
-
-    # update_yolo_settings(data_path)
-
-    # os.makedirs(output_dir, exist_ok=True)
-
-    # results = model.train(data=data_path, epochs=3)
-
-    # # Evaluate the model's performance on the validation set
-    # results = model.val()
-
-    # # Export the model to PyTorch format
-    # success = model.export()
-    # # Export the model to ONNX format
-    # success = model.export(format="onnx")
-
+    if use_config:
+        # Load configuration using Hydra
+        with initialize(config_path="../../configs/", version_base=None):
+            config = compose(config_name="config")
+            config = dict(config)
+    else:
+        config = {"batch": batch_size,
+                  "lr0": learning_rate,
+                  "data": data_path,
+                  "epochs": epochs
+                  }
+    config["project"] = output_dir
     with wandb.init(
         project="pv_defection",
         entity="hndrkjs-danmarks-tekniske-universitet-dtu",
-        # entity= "amirkfir93-danmarks-tekniske-universitet-dtu",
         name=f"{timestamp}",
         sync_tensorboard=True,
+        config = config,
     ) as run:
         artifact = wandb.Artifact(
             type="model",
@@ -75,7 +67,6 @@ def train_model(
             },
         )
 
-        model = YOLO("yolo11n.yaml")
 
         model = YOLO("yolo11n.pt")
 
@@ -83,16 +74,17 @@ def train_model(
 
         os.makedirs(output_dir, exist_ok=True)
 
-        model.train(data=data_path, epochs=3, project=output_dir, save=True)
-
+        # model.train(data=data_path, epochs=20,batch = batch_size,
+        #             lr0 = learning_rate,project=output_dir, save=True)
         # Evaluate the model's performance on the validation set
+        model.train(**config)
         model.val()
 
-        # Export the model to PyTorch format
         # Export the model to ONNX format
         success = model.export(format="onnx")
         output_paths = str(Path(success).parent)
         artifact.add_file(success)
+        artifact.add_file(output_paths + "/last.pt")
         artifact.add_file(output_paths + "/last.pt")
         run.log_artifact(artifact)
         run.link_artifact(
