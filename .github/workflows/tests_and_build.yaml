@@ -80,25 +80,9 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Submit build
-        run: gcloud builds submit --config .github/cloudbuild_containers.yaml
+      - name: Submit build for training image
+        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=train_cpu
 
-  train:
-    needs: build
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Auth with GCP
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-
-      - name: Submit build
-        run: gcloud builds submit --config .github/vertex_ai_train_cpu.yaml
+      - name: Submit build for bento_service
+        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=bento_service,_DEPLOY=true
 
