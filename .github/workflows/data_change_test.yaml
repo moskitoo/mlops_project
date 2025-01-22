@@ -57,9 +57,6 @@ jobs:
       - name: Setup cml
         uses: iterative/setup-cml@v2
 
-      - name: Setup cml
-      uses: iterative/setup-cml@v2
-
       - name: Comment on PR
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
