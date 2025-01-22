@@ -26,7 +26,7 @@ def test_download_model_from_gcp():
     onnx_path, _ = download_model_from_gcp()
 
     # Check that the path to onnx is a string
-    assert type(onnx_path) == str
+    assert isinstance(onnx_path, str)
 
     # Check that the correct bucket and model names are used
     assert BUCKET_NAME == "yolo_model_storage"
