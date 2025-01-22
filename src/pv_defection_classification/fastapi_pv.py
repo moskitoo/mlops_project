@@ -15,6 +15,7 @@ BUCKET_NAME = "yolo_model_storage"
 MODEL_NAME = "pv_defection_best_model.pth"
 MODEL_FILE_NAME = "pv_defection_model.pt"
 
+
 def download_model_from_gcp():
     """Download the model from GCP bucket."""
     client = storage.Client()
@@ -27,10 +28,20 @@ def download_model_from_gcp():
 
     return onnx_path
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Load model and classes."""
-    global model, model_inputs, img_width, img_height, input_width, input_height, confidence_thres, iou_thres, class_labels
+    global \
+        model, \
+        model_inputs, \
+        img_width, \
+        img_height, \
+        input_width, \
+        input_height, \
+        confidence_thres, \
+        iou_thres, \
+        class_labels
     # Download model from GCP bucket
     onnx_path = download_model_from_gcp()
 
@@ -49,9 +60,9 @@ async def lifespan(app: FastAPI):
             try:
                 class_labels = yaml.safe_load(file)
             except Exception:
-                class_labels = {0:'working', 1:'defected'}
+                class_labels = {0: "working", 1: "defected"}
     except Exception:
-        class_labels = {0:'working', 1:'defected'}
+        class_labels = {0: "working", 1: "defected"}
 
     yield
 
@@ -59,6 +70,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
 
 def draw_detections(self, img, box, score, class_id):
     """
@@ -83,7 +95,7 @@ def draw_detections(self, img, box, score, class_id):
     cv2.rectangle(img, (int(x1), int(y1)), (int(x1 + w), int(y1 + h)), color, 2)
 
     # Create the label text with class name and score
-    try: 
+    try:
         detected_object = self.class_labels[class_id]
     except Exception:
         detected_object = "Unknown"
@@ -104,7 +116,8 @@ def draw_detections(self, img, box, score, class_id):
 
     # Draw the label text on the image
     cv2.putText(img, label, (label_x, label_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
-    
+
+
 def preprocess(self, image: np.ndarray) -> List:
     """
     Preprocess the input image for inference.
@@ -116,11 +129,12 @@ def preprocess(self, image: np.ndarray) -> List:
         List: List containing the preprocessed image.
     """
     image = np.array(image).astype(np.float32)
-    image = cv2.resize(image, (640, 640 ))
+    image = cv2.resize(image, (640, 640))
     image = np.transpose(image, (2, 0, 1))
     image = np.expand_dims(image, axis=0).astype(np.float32)
     return image
-    
+
+
 def postprocess(self, input: np.ndarray, output: np.ndarray) -> np.ndarray:
     """
     Postprocess the inference result.
@@ -192,12 +206,13 @@ def postprocess(self, input: np.ndarray, output: np.ndarray) -> np.ndarray:
 
 @app.get("/")
 def root():
-    """ Health check."""
+    """Health check."""
     response = {
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
     }
     return response
+
 
 @app.post("/predict")
 async def detect_and_predict(self, input: UploadFile = File(...)) -> FileResponse:
@@ -211,12 +226,12 @@ async def detect_and_predict(self, input: UploadFile = File(...)) -> FileRespons
         Dict: Dictionary containing the prediction results.
     """
     # Copy the input image to avoid modifying the original
-    with open('image.jpg', 'wb') as image:
+    with open("image.jpg", "wb") as image:
         content = await input.read()
         image.write(content)
         image.close()
 
-    image = cv2.imread('image.jpg')
+    image = cv2.imread("image.jpg")
     image = np.array(image).astype(np.float32)
     image_resized = cv2.resize(image, (640, 640))
 
@@ -224,10 +239,10 @@ async def detect_and_predict(self, input: UploadFile = File(...)) -> FileRespons
     preprocess_image = self.preprocess(image)
 
     inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
-        
+
     # Post-processing draws the detected bounding boxes on the input image
     postprocess_image = self.postprocess(image_resized, inference_result)
 
-    cv2.imwrite('image_postprocessed.jpg', postprocess_image)
-        
-    return FileResponse('image_postprocessed.jpg')
+    cv2.imwrite("image_postprocessed.jpg", postprocess_image)
+
+    return FileResponse("image_postprocessed.jpg")

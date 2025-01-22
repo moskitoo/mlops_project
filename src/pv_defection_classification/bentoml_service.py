@@ -12,6 +12,7 @@ BUCKET_NAME = "yolo_model_storage"
 MODEL_NAME = "pv_defection_classification_model.pt"
 MODEL_FILE_NAME = "pv_defection_model.pt"
 
+
 def download_model_from_gcp():
     """Download the model from GCP bucket."""
     client = storage.Client()
@@ -25,10 +26,9 @@ def download_model_from_gcp():
     return onnx_path, model
 
 
-@bentoml.service #(resources={"cpu": 2}, traffic={'timeout': '60'})
+@bentoml.service  # (resources={"cpu": 2}, traffic={'timeout': '60'})
 class PVClassificationService:
     def __init__(self) -> None:
-
         # Download model from GCP bucket
         onnx_path, _ = download_model_from_gcp()
         self.model = onnxruntime.InferenceSession(onnx_path)
@@ -46,11 +46,10 @@ class PVClassificationService:
                 try:
                     self.class_labels = yaml.safe_load(file)
                 except Exception:
-                    self.class_labels = {0:'working', 1:'defected'}
+                    self.class_labels = {0: "working", 1: "defected"}
         except Exception:
-            self.class_labels = {0:'working', 1:'defected'}
+            self.class_labels = {0: "working", 1: "defected"}
 
-    
     def draw_detections(self, img, box, score, class_id):
         """
         Draws bounding boxes and labels on the input image based on the detected objects.
@@ -74,7 +73,7 @@ class PVClassificationService:
         cv2.rectangle(img, (int(x1), int(y1)), (int(x1 + w), int(y1 + h)), color, 2)
 
         # Create the label text with class name and score
-        try: 
+        try:
             detected_object = self.class_labels[class_id]
         except Exception:
             detected_object = "Unknown"
@@ -191,11 +190,13 @@ class PVClassificationService:
 
         # Return the modified input image
         return input
-        
-    @bentoml.api(batchable=False,
-                    batch_dim=(0, 0),
-                    max_batch_size=8,
-                    max_latency_ms=1000,)
+
+    @bentoml.api(
+        batchable=False,
+        batch_dim=(0, 0),
+        max_batch_size=8,
+        max_latency_ms=1000,
+    )
     def detect_and_predict(self, input: np.ndarray) -> np.ndarray:
         """
         Detect and predict the defective PV modules in the input image.
@@ -219,5 +220,5 @@ class PVClassificationService:
 
         # Post-processing draws the detected bounding boxes on the input image
         postprocess_image = self.postprocess(image_resized, inference_result)
-        
+
         return postprocess_image

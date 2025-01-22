@@ -12,5 +12,5 @@ if __name__ == "__main__":
 #https://bento-service-38375731884.europe-west1.run.app
     with bentoml.SyncHTTPClient("http://localhost:3000") as client:
         resp = client.detect_and_predict(input=image)
-        
+
         cv2.imwrite("output.jpg", resp)
