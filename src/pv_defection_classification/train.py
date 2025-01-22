@@ -3,11 +3,9 @@ from pathlib import Path
 import typer
 from dotenv import load_dotenv
 from google.cloud import storage
-# from ultralytics import settings
+from utils.update_yolo_settings import update_yolo_settings
 
-# from model import load_pretrained_model, save_model
 import wandb
-# from utils.update_yolo_settings import update_yolo_settings
 
 # Ensure the .env file has the wandb API key and the path to the GCP credentials
 load_dotenv()
@@ -23,10 +21,6 @@ RUN_FOLDER_NAME = "current_run"
 RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME
 GCP_BUCKET_NAME = "yolo_model_storage"
 GCP_MODEL_NAME = "pv_defection_classification_model.pt"
-
-# Configure W&B
-wandb.login()
-wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu")
 
 
 def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_name: str):
@@ -68,14 +62,17 @@ def train_model(
         enable_wandb (bool): Whether to enable W&B logging.
     """
     try:
-        # update_yolo_settings(data_path)
+        update_yolo_settings(data_path)
 
         from ultralytics import settings
+        from model import load_pretrained_model, save_model
 
         # Update Ultralytics settings for wandb
         settings.update({"wandb": True})
 
-        from model import load_pretrained_model, save_model
+        # Configure W&B
+        wandb.login()
+        wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu")
 
         # Load YOLO model
         print("Initializing YOLO model...")
