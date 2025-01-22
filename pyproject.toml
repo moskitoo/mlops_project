@@ -34,5 +34,11 @@ omit = ["tests/*",
 "/Users/runner/work/mlops_project/mlops_project/config.py",
 "/Users/runner/work/mlops_project/mlops_project/config-2.py",
 "/private/var/folders/84/5079cppj57s0lzywhyzcxkjc0000gn/T/tmpcw1oq0yj/_remote_module_non_scriptable.py",
+"/home/runner/work/mlops_project/mlops_project/config-3.py",
+"/home/runner/work/mlops_project/mlops_project/config-2.py",
+"/home/runner/work/mlops_project/mlops_project/config.py",
 "**/_remote_module_non_scriptable.py",
     "**/tmp*/**"]
+
+[tool.bentoml.build]
+service = "src/pv_defection_classification/bentoml_service:PVClassificationService"
