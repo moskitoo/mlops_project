@@ -1,6 +1,6 @@
 substitutions:
   _VERTEX_TRAIN_CONFIG: 'configs/vertex_ai_train_cpu_config.yaml'
-  _DISPLAY_NAME: 'vertex_ai_train_config'
+  _DISPLAY_NAME: 'vertex_ai_train'
 
 steps:
 - name: "alpine"
