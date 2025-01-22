@@ -3,6 +3,7 @@ import json
 import logging
 import os
 from pathlib import Path
+import typer
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -39,7 +40,7 @@ def update_yolo_settings(data_path: str = None) -> None:
 
 if __name__ == "__main__":
     try:
-        update_yolo_settings()
+        typer.run(update_yolo_settings)
         print("Settings updated successfully")
     except Exception as e:
         print(f"Error: {e}")

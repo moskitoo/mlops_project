@@ -1,24 +1,25 @@
 from pathlib import Path
-from ultralytics import settings
-from google.cloud import storage
-from dotenv import load_dotenv
+
 import typer
-from model import load_pretrained_model, save_model
+from dotenv import load_dotenv
+from google.cloud import storage
+from utils.update_yolo_settings import update_yolo_settings
+
 import wandb
 from hydra import initialize,compose
 
 # Ensure the .env file has the wandb API key and the path to the GCP credentials
 load_dotenv()
 
-# Update Ultralytics settings for wandb
-settings.update({"wandb": True})
+# # Update Ultralytics settings for wandb
+# settings.update({"wandb": True})
 
 BATCH_SIZE = 32
 LEARNING_RATE = 0.01
 MAX_ITERATION = 100
 OUTPUT_DIR = Path("models")
 RUN_FOLDER_NAME = "current_run"
-RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME  
+RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME
 GCP_BUCKET_NAME = "yolo_model_storage"
 GCP_MODEL_NAME = "pv_defection_classification_model.pt"
 
@@ -45,6 +46,7 @@ def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_nam
     except Exception as e:
         print(f"Failed to upload model to GCP: {e}")
         raise
+
 
 def train_model(
     batch_size: int = BATCH_SIZE,
@@ -90,7 +92,17 @@ def train_model(
         config["name"] = RUN_FOLDER_NAME
 
         wandb.config.update(config)
-        # Load YOLO model 
+
+        update_yolo_settings(Path(config["data"]))
+
+        # import yolo after setting default dataset path
+        from ultralytics import settings
+        from model import load_pretrained_model, save_model
+
+        # Update Ultralytics settings for wandb
+        settings.update({"wandb": True})
+
+        # Load YOLO model
         print("Initializing YOLO model...")
         model = load_pretrained_model(config_path=Path("yolo11n.yaml"))
 
@@ -98,7 +110,7 @@ def train_model(
         print("Starting training...")
         model.train(**config)
 
-        # Save the trained model 
+        # Save the trained model
         best_model_path = RUN_FOLDER / "weights" / "best.pt"
         if not best_model_path.exists():
             raise FileNotFoundError(f"'best.pt' not found at {best_model_path}")
@@ -118,6 +130,7 @@ def train_model(
     except Exception as e:
         print(f"An error occurred during training: {e}")
         raise
+
 
 if __name__ == "__main__":
     typer.run(train_model)
