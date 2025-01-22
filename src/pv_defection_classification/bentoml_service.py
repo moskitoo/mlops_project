@@ -2,7 +2,6 @@ import bentoml
 import onnxruntime
 import numpy as np
 import cv2
-from typing import List
 import copy
 import yaml
 from google.cloud import storage

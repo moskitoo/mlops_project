@@ -1,10 +1,6 @@
 import numpy as np
 from locust import HttpUser, between, task
 from PIL import Image
-import sys
-import os
-
-#sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 
 def prepare_image():
