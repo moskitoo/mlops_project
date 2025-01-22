@@ -6,11 +6,8 @@ import cv2
 
 if __name__ == "__main__":
     image = Image.open("data/processed/pv_defection/images/train/20180630_154039.jpg")
-    # image = image.resize((224, 224))  # Resize to match the minimum input size of the model
-    image = np.array(image)
     
-    # image = np.transpose(image, (2, 0, 1))  # Change to CHW format
-    # image = np.expand_dims(image, axis=0)  # Add batch dimension
+    image = np.array(image)
 
 #https://bento-service-38375731884.europe-west1.run.app
     with bentoml.SyncHTTPClient("http://localhost:3000") as client:

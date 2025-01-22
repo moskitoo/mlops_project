@@ -31,8 +31,7 @@ class PVClassificationService:
     def __init__(self) -> None:
 
         # Download model from GCP bucket
-        onnx_path, yolo_model = download_model_from_gcp()
-        self.yolo_model = yolo_model
+        onnx_path, _ = download_model_from_gcp()
         self.model = onnxruntime.InferenceSession(onnx_path)
         self.model_inputs = self.model.get_inputs()
 
