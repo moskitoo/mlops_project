@@ -81,4 +81,8 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Submit build
-        run: gcloud builds submit --config .github/cloudbuild_containers.yaml
+        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=train_cpu
+
+      - name: Submit build
+        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=bento_service,_DEPLOY=true
+

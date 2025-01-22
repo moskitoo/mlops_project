@@ -1,0 +1,40 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Build Bento service'
+    args: [
+      'build',
+      '.',
+      '-t',
+      'europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME',
+      '-f',
+      'dockerfiles/api.dockerfile'
+    ]
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push Bento service'
+    args: [
+      'push',
+      'europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME'
+    ]
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'Deploy to Cloud Run'
+    entrypoint: '/bin/sh'
+    args:
+      - '-c'
+      - |
+        if [ "$_DEPLOY" = "true" ]; then
+          echo "Deploying to Cloud Run..."
+          gcloud run deploy bento_service \
+            --image europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME \
+            --region europe-west1 \
+            --platform managed
+        else
+          echo "Skipping deployment step."
+        fi
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+substitutions:
+  _IMAGE_NAME: 'train_cpu'
+  _DEPLOY: 'false'
