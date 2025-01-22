@@ -3,8 +3,6 @@ import typer
 from dotenv import load_dotenv
 from google.cloud import storage
 from utils.update_yolo_settings import update_yolo_settings
-from google.cloud import storage
-from utils.update_yolo_settings import update_yolo_settings
 import wandb
 import os
 
