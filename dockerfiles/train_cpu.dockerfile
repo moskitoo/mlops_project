@@ -35,15 +35,23 @@ RUN pip install --upgrade pip && \
 RUN pip install uv
 RUN uv pip install --system -e ".[export]" --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-first-match
 
-# RUN dvc init --no-scm
-# COPY .dvc/config .dvc/config
-# COPY *.dvc ./
-# RUN dvc config core.no_scm true
-# RUN dvc pull
 
+# Install GC SDK
+RUN apt-get update && apt-get install -y curl apt-transport-https ca-certificates gnupg && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /etc/apt/keyrings/google-cloud-sdk.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/google-cloud-sdk.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | \
+    tee /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    apt-get update && apt-get install -y google-cloud-cli && \
+    gcloud --version
+
+# COPY application_default_credentials.json /root/.config/gcloud/application_default_credentials.json
+# ENV GOOGLE_APPLICATION_CREDENTIALS="/root/.config/gcloud/application_default_credentials.json"
+    
 ADD https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt .
 
 # RUN python src/pv_defection_classification/data.py
 # RUN python src/pv_defection_classification/data.py --raw-data-path data/raw/pv_defection/dataset_1
 
-CMD ["python", "-u", "src/pv_defection_classification/train.py", "--data-path", "/gcs/test-pv-2/data/processed/pv_defection/pv_defection.yaml"]
+CMD ["python", "-u", "src/pv_defection_classification/train.py"]
+#, "--data-path", "/gcs/test-pv-2/data/processed/pv_defection_gcp_mounted/pv_defection.yaml"]

@@ -1,83 +1,132 @@
-from datetime import datetime
 from pathlib import Path
-import wandb
+
 import typer
 from dotenv import load_dotenv
+from google.cloud import storage
+from utils.update_yolo_settings import update_yolo_settings
 
-from model import load_pretrained_model, save_model
+import wandb
+import os
 
+# Ensure the .env file has the wandb API key and the path to the GCP credentials
 load_dotenv()
 
-batch_size = 32
-learning_rate = 0.01
-max_iteration = 100
-timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-output_dir = Path("models")
-entity_name = "hndrkjs-danmarks-tekniske-universitet-dtu"
+# # Update Ultralytics settings for wandb
+# settings.update({"wandb": True})
+
+BATCH_SIZE = 32
+LEARNING_RATE = 0.01
+MAX_ITERATION = 100
+OUTPUT_DIR = Path("models")
+RUN_FOLDER_NAME = "current_run"
+RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME
+GCP_BUCKET_NAME = "test-pv-2"
+GCP_MODEL_NAME = "pv_defection_classification_model.pt"
+
+# Download dataset from GS bucket
+def download_data(bucket_name, source_blob_name, destination_file_name):
+    if not os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
+        raise RuntimeError("GCP credentials not found. Please set GOOGLE_APPLICATION_CREDENTIALS.")
+
+    client = storage.Client()
+    bucket = client.bucket(bucket_name)
+    blob = bucket.blob(source_blob_name)
+    blob.download_to_filename(destination_file_name)
+    print(f"Blob {source_blob_name} downloaded to {destination_file_name}")
+
+gcs_data_path = "data/processed/pv_defection_gcp_mounted/pv_defection.yaml"
+local_data_path = "pv_defection.yaml"
+download_data(GCP_BUCKET_NAME, gcs_data_path, local_data_path)
+
+def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_name: str):
+    """
+    Upload the best model to a GCP bucket.
+
+    Args:
+        local_best_model (Path): Path to the local best model file.
+        bucket_name (str): Name of the GCP bucket.
+        model_name (str): Name to save the model in GCP.
+    """
+    try:
+        print(f"Uploading {local_best_model} to GCP bucket {bucket_name}...")
+        client = storage.Client()
+        bucket = client.bucket(bucket_name)
+        blob = bucket.blob(model_name)
+        blob.upload_from_filename(str(local_best_model))
+        print(f"Uploaded {local_best_model} to GCP bucket {bucket_name} as {model_name}")
+    except Exception as e:
+        print(f"Failed to upload model to GCP: {e}")
+        raise
 
 
 def train_model(
-    batch_size: int = batch_size,
-    learning_rate: float = learning_rate,
-    max_iteration: int = max_iteration,
-    optimizer: str = "AdamW",
-    data_path: str = "gs://test-pv-2/data/processed/pv_defection/pv_defection.yaml",
-    model_config: Path = Path("yolo11n.yaml"),
+    batch_size: int = BATCH_SIZE,
+    learning_rate: float = LEARNING_RATE,
+    max_iteration: int = MAX_ITERATION,
+    #data_path: Path = Path("data/processed/pv_defection_gcp_mounted/pv_defection.yaml"),
+    data_path: Path = Path(local_data_path),
     enable_wandb: bool = True,
 ):
     """
-    Train a YOLO model.
+    Train a YOLO model and perform validation, ensuring consistent output folder.
 
     Args:
         batch_size (int): Size of training batch.
         learning_rate (float): Initial learning rate.
         max_iteration (int): Maximum number of iterations.
-        optimizer (str): Optimizer to use for training.
         data_path (Path): Path to the YOLO dataset configuration file.
-        model_config (Path): Path to the YOLO model configuration file.
         enable_wandb (bool): Whether to enable W&B logging.
     """
-    run_folder = output_dir / timestamp
-    weights_folder = run_folder / "weights"
-    weights_folder.mkdir(parents=True, exist_ok=True)
-    print(f"Output directory: {run_folder}")
+    try:
+        update_yolo_settings(data_path)
 
-    # Initialize W&B
-    if enable_wandb:
-        wandb.init(
-            project="models",
-            entity=entity_name,
-            name=f"BS{batch_size}_LR{learning_rate}_OPT{optimizer}_{timestamp}",
-            config={
-                "batch_size": batch_size,
-                "learning_rate": learning_rate,
-                "optimizer": optimizer,
-                "epochs": max_iteration,
-            },
+        from ultralytics import settings
+        from model import load_pretrained_model, save_model
+
+        # Update Ultralytics settings for wandb
+        settings.update({"wandb": True})
+
+        # Configure W&B
+        wandb.login()
+        wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu")
+
+        # Load YOLO model
+        print("Initializing YOLO model...")
+        model = load_pretrained_model(config_path=Path("yolo11n.yaml"))
+
+        # Start training
+        print("Starting training...")
+        model.train(
+            data=data_path,
+            epochs=max_iteration,
+            batch=batch_size,
+            lr0=learning_rate,
+            project=str(OUTPUT_DIR),
+            name=RUN_FOLDER_NAME,
+            save=True,
+            verbose=True,
         )
 
-    # Load YOLO model
-    model = load_pretrained_model(config_path=model_config)
+        # Save the trained model
+        best_model_path = RUN_FOLDER / "weights" / "best.pt"
+        if not best_model_path.exists():
+            raise FileNotFoundError(f"'best.pt' not found at {best_model_path}")
 
-    # Training
-    print("Starting training...")
-    model.train(
-        data=data_path,
-        epochs=max_iteration,
-        batch=batch_size,
-        lr0=learning_rate,
-        optimizer=optimizer,
-        project=str(output_dir),
-        name=f"pv_defection_model_{timestamp}",
-        save=True,
-    )
+        print(f"Training complete. Best model saved at {best_model_path}")
 
-    # Save model
-    save_model(model, weights_folder / "best.pt")
-    print("Training complete. Model checkpoints are saved in:", run_folder)
+        # Save the model
+        save_model(model, best_model_path)
 
-    if enable_wandb:
-        wandb.finish()
+        # Upload the best model to GCP
+        if enable_wandb:
+            print(f"Uploading best model to GCP bucket: {GCP_BUCKET_NAME}")
+            upload_best_model_to_gcp(best_model_path, GCP_BUCKET_NAME, GCP_MODEL_NAME)
+
+        print("Model successfully uploaded to GCP.")
+
+    except Exception as e:
+        print(f"An error occurred during training: {e}")
+        raise
 
 
 if __name__ == "__main__":
