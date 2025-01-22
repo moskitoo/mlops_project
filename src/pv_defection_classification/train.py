@@ -74,7 +74,7 @@ def train_model(
     batch_size: int = BATCH_SIZE,
     learning_rate: float = LEARNING_RATE,
     max_iteration: int = MAX_ITERATION,
-    data_path = BASE_DIR / "data" / "processed" / "pv_defection_" / "pv_defection.yaml",
+    data_path = BASE_DIR / "data" / "processed" / "pv_defection" / "pv_defection.yaml",
     #data_path: Path = Path(yaml_path),
     enable_wandb: bool = True,
 ):
