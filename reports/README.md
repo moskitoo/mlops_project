@@ -168,6 +168,7 @@ We initially considered Detectron2 but chose Ultralytics due to its active maint
 > *complete copy of our development environment, one would have to run the following commands*
 >
 > Answer:
+
 We managed our project dependencies using requirements.txt, requirements_dev.txt, and pyproject.toml. The requirements.txt file contains the core dependencies required to run the project, while requirements_dev.txt includes additional packages for development and testing. The pyproject.toml file provides metadata about the project and specifies build system requirements, ensuring compatibility and consistency. 
 
 To replicate the environment, a new team member would need to clone the repository, create and activate a virtual environment, and install the dependencies listed in the requirements.txt and requirements_dev.txt files. Alternatively, they can use the pyproject.toml file to install dependencies in one step. This structured approach ensures that every team member has an identical development environment, reducing issues caused by dependency mismatches.
