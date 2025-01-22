@@ -182,12 +182,7 @@ cd mlops_project
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-pip install -r requirements_dev.txt
-```
-4. Install all dependencies using pyproject.toml
+3. Install all dependencies using pyproject.toml
 ```bash
 pip install .
 ```
