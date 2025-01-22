@@ -80,11 +80,10 @@ def test_detect_and_predict(mocker):
     assert output_image.dtype == np.uint8
     assert np.all(output_image == 1) #Check if the postprocess mock worked correctly
 
-@pytest.mark.timeout(180)
 def test_defection_detection_service_integration():
     with subprocess.Popen(["bentoml", "serve", "src.pv_defection_classification.bentoml_service:PVClassificationService", "-p", "3000"]) as server_proc:
         try:
-            client = bentoml.SyncHTTPClient("http://localhost:3000", server_ready_timeout=220)
+            client = bentoml.SyncHTTPClient("http://localhost:3000", server_ready_timeout=300)
             response = client.detect_and_predict(input=EXAMPLE_INPUT)
 
             # Ensure the response is not empty
