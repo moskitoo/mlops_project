@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - api_development_dev
   pull_request:
     branches:
       - main
