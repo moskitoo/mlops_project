@@ -21,6 +21,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Auth with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -46,9 +51,6 @@ jobs:
           pip list
 
       - name: Run tests & coverage
-        uses: 'google-github-actions/auth@v2'
-        with:
-          credentials_json: '${{ secrets.GCLOUD_SERVICE_KEY }}'
         run: |
           python -m coverage run -m pytest tests/
           coverage report -m
