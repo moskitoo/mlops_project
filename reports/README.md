@@ -168,8 +168,31 @@ We initially considered Detectron2 but chose Ultralytics due to its active maint
 > *complete copy of our development environment, one would have to run the following commands*
 >
 > Answer:
+We managed our project dependencies using requirements.txt, requirements_dev.txt, and pyproject.toml. The requirements.txt file contains the core dependencies required to run the project, while requirements_dev.txt includes additional packages for development and testing. The pyproject.toml file provides metadata about the project and specifies build system requirements, ensuring compatibility and consistency. 
 
---- question 4 fill here ---
+To replicate the environment, a new team member would need to clone the repository, create and activate a virtual environment, and install the dependencies listed in the requirements.txt and requirements_dev.txt files. Alternatively, they can use the pyproject.toml file to install dependencies in one step. This structured approach ensures that every team member has an identical development environment, reducing issues caused by dependency mismatches.
+
+1. Clone the repository:
+```bash
+git clone https://github.com/moskitoo/mlops_project.git
+cd mlops_project
+```
+2. Create and activate virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+pip install -r requirements_dev.txt
+```
+4. Install all dependencies using pyproject.toml
+```bash
+pip install .
+```
+
+
 
 ### Question 5
 
@@ -221,9 +244,11 @@ In larger projects, even within a team of our size, proper documentation is cruc
 >
 > Answer:
 
-In total we have implemented X tests.
+In total we have implemented 3 tests.
 
 For the data processing component, we created four unit tests and two integration tests. The unit tests focused on handling cases of missing or corrupted data during processing, ensuring that the raw dataset was correctly transformed into the YOLO format. The integration tests verified that the overall structure of the processed dataset met the required format and organization needed for the training step of our pipeline.
+
+For the model, we have implemented three unit tests to validate the loading and saving mechanisms. The unit tests verify that pretrained models are loaded correctly with or without weights and that the saving process ensures models are stored at the correct paths with proper directory handling.
 
 For the API we implemented one performance test using the locust framework and and three unit tests to ensure that the internal functions work as expected. We also implemented one integration test to test whether the API behaves as expected.
 
@@ -240,6 +265,8 @@ For the API we implemented one performance test using the locust framework and a
 > *code and even if we were then...*
 >
 > Answer:
+
+The model.py file has 100% code coverage, meaning every line of code is tested. This shows that we’ve thoroughly validated its functionality and reliability. While 100% coverage doesn’t guarantee there are no errors, the extensive tests and attention to edge cases make this part of the project highly reliable and trustworthy.
 
 The code coverage for the API is 30%. We do not reach 100% here because the API includes functions that drwa on images where the proper functionality can only be inspected visually. Our tests cover the critical parts of our API, including the initialisation, preprocessing and prediction steps. 
 
