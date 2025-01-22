@@ -21,9 +21,9 @@ def download_model_from_gcp():
     blob.download_to_filename(MODEL_FILE_NAME)
 
     model = YOLO(MODEL_FILE_NAME)
-    onnx_path = model.export(format="onnx")
+    onnx_path = model.export(format="onnx", optimize=True)
 
-    return onnx_path
+    return onnx_path, model
 
 
 @bentoml.service #(resources={"cpu": 2}, traffic={'timeout': '60'})
@@ -31,8 +31,8 @@ class PVClassificationService:
     def __init__(self) -> None:
 
         # Download model from GCP bucket
-        onnx_path = download_model_from_gcp()
-
+        onnx_path, yolo_model = download_model_from_gcp()
+        self.yolo_model = yolo_model
         self.model = onnxruntime.InferenceSession(onnx_path)
         self.model_inputs = self.model.get_inputs()
 
@@ -41,7 +41,7 @@ class PVClassificationService:
         self.input_width = self.model_inputs[0].shape[2]
         self.input_height = self.model_inputs[0].shape[3]
         self.confidence_thres = 0.5
-        self.iou_thres = 0.5
+        self.iou_thres = 0.6
 
         try:
             with open("yolo_class_label.yaml", "r") as file:
@@ -98,7 +98,7 @@ class PVClassificationService:
         # Draw the label text on the image
         cv2.putText(img, label, (label_x, label_y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
     
-    def preprocess(self, image: np.ndarray) -> List:
+    def preprocess(self, image: np.ndarray) -> np.ndarray:
         """
         Preprocess the input image for inference.
 
@@ -108,11 +108,23 @@ class PVClassificationService:
         Returns:
             List: List containing the preprocessed image.
         """
-        image = np.array(image).astype(np.float32)
-        image = cv2.resize(image, (640, 640 ))
-        image = np.transpose(image, (2, 0, 1))
-        image = np.expand_dims(image, axis=0).astype(np.float32)
-        return image
+        image = image.astype(np.float32)
+
+        image[..., (0, 1, 2)] = image[..., (2, 1, 0)]
+    
+        # Resize the image to match the input shape
+        image_data = cv2.resize(image, (640, 640))
+
+        # Normalize the image data by dividing it by 255.0
+        image_data = np.array(image_data) / 255.0
+
+        # Transpose the image to have the channel dimension as the first dimension
+        image_data = np.transpose(image_data, (2, 0, 1)) 
+
+        # Expand the dimensions of the image data to match the expected input shape
+        image_data = np.expand_dims(image_data, axis=0).astype(np.float32)
+        
+        return image_data
     
     def postprocess(self, input: np.ndarray, output: np.ndarray) -> np.ndarray:
         """
@@ -130,7 +142,6 @@ class PVClassificationService:
 
         # Get the number of rows in the outputs array
         rows = outputs.shape[0]
-
         # Lists to store the bounding boxes, scores, and class IDs of the detections
         boxes = []
         scores = []
@@ -201,12 +212,13 @@ class PVClassificationService:
         input_copy = copy.deepcopy(input)
         image = np.array(input_copy).astype(np.float32)
         image_resized = cv2.resize(image, (640, 640))
+        image_resized[..., (0, 1, 2)] = image_resized[..., (2, 1, 0)]
 
         # Process the input image and perform inference
         preprocess_image = self.preprocess(input)
 
         inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
-        
+
         # Post-processing draws the detected bounding boxes on the input image
         postprocess_image = self.postprocess(image_resized, inference_result)
         
