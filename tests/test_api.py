@@ -87,11 +87,11 @@ def test_defection_detection_service_integration():
             client = bentoml.SyncHTTPClient("http://localhost:3000", server_ready_timeout=220)
             response = client.detect_and_predict(input=EXAMPLE_INPUT)
 
-            # Ensure the summarized text is not empty
+            # Ensure the response is not empty
             assert response.any(), "The response should not be empty."
             # Check the type of the response
             assert isinstance(response, np.ndarray), "The response should be a numpy array."
-            # Verify the length of the summarized text is less than the original input
+            # Check that the response is of the correct shape
             assert response.shape == (640,640,3), "The response should be of shape (640,640,3)."
         finally:
             server_proc.terminate()
