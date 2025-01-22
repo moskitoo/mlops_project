@@ -9,6 +9,12 @@ import os
 
 EXAMPLE_INPUT = np.random.randint(0, 256, (800, 800, 3), dtype=np.uint8)
 
+SAMPLE_RESULT = np.array([[320.0, 240.0, 100.0, 150.0, 0.1, 0.80],   
+                                [100.0, 100.0, 50.0, 80.0, 0.85, 0.15],     
+                                [540.0, 380.0, 120.0, 90.0, 0.75, 0.2],    
+                                [320.0, 100.0, 60.0, 70.0, 0.6, 0.50],     
+                                [500.0, 300.0, 80.0, 100.0, 0.2, 0.70]]).T
+
 @pytest.fixture
 def mock_download_model_from_gcp(mocker):
     mock_download = mocker.patch('src.pv_defection_classification.bentoml_service.download_model_from_gcp')
@@ -84,14 +90,9 @@ def test_preprocess():
 def test_postprocess():
     service = PVClassificationService()
 
-    output = np.random.rand(1, 10, 85).astype(np.float32)
-    
-    sample_result = [np.array([[[320.0, 240.0, 100.0, 150.0, 0.1, 0.80],   
-                                [100.0, 100.0, 50.0, 80.0, 0.85, 0.15],     
-                                [540.0, 380.0, 120.0, 90.0, 0.75, 0.2],    
-                                [320.0, 100.0, 60.0, 70.0, 0.6, 0.50],     
-                                [500.0, 300.0, 80.0, 100.0, 0.2, 0.70] ]], dtype=np.float32)]
+    output = EXAMPLE_INPUT
 
+    sample_result = [np.array([SAMPLE_RESULT], dtype=np.float32)]
 
     output_image = service.postprocess(output, sample_result)
 
@@ -99,15 +100,11 @@ def test_postprocess():
     assert output_image.dtype == np.uint8
 
     # Check shape: (640, 640, 3)
-    assert output_image.shape == (640, 640, 3)
+    assert output_image.shape == EXAMPLE_INPUT.shape
 
     # Check normalization
     assert output_image.max() <= 255
     assert output_image.min() >= 0
-    
-    # Check resizing
-    output_resized = cv2.resize(output_image, (85, 10))
-    assert np.allclose(output_resized, output[0])
 
 def test_detect_and_predict(mocker):
     service = PVClassificationService()
