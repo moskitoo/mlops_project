@@ -137,8 +137,6 @@ class PVClassificationService:
         # Transpose and squeeze the output to match the expected shape
         outputs = np.transpose(np.squeeze(output[0]))
 
-        print(outputs)
-
         # Get the number of rows in the outputs array
         rows = outputs.shape[0]
         # Lists to store the bounding boxes, scores, and class IDs of the detections
