@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import typer
 from model import load_pretrained_model, save_model
 import wandb
+from hydra import initialize,compose
 
 # Ensure the .env file has the wandb API key and the path to the GCP credentials
 load_dotenv()
@@ -23,7 +24,7 @@ GCP_MODEL_NAME = "pv_defection_classification_model.pt"
 
 # Configure W&B
 wandb.login()
-wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu")
+wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu",config = {})
 
 def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_name: str):
     """
@@ -51,6 +52,7 @@ def train_model(
     max_iteration: int = MAX_ITERATION,
     data_path: Path = Path("data/processed/pv_defection/pv_defection.yaml"),
     enable_wandb: bool = True,
+    ctx: typer.Context = None,
 ):
     """
     Train a YOLO model and perform validation, ensuring consistent output folder.
@@ -63,22 +65,38 @@ def train_model(
         enable_wandb (bool): Whether to enable W&B logging.
     """
     try:
+        if ctx is None or not any(ctx.get_parameter_source(param).name == 'COMMANDLINE' for param in ctx.params):
+            print("No arguments were provided for training.\n Configurations will be loaded from configs/config.yaml")
+            use_config = True,  # if True get configs from file
+
+        else:
+            print(f"Arguments received for training: {ctx.params}")
+            use_config = False
+
+        if use_config:
+            # Load configuration using Hydra
+            with initialize(config_path="../../configs/", version_base=None):
+                config = compose(config_name="config")
+                config = dict(config)
+        else:
+            config = {"batch": batch_size,
+                      "lr0": learning_rate,
+                      "data": data_path,
+                      "epochs": max_iteration,
+                      "save": True,
+                      "verbose": True,
+                      }
+        config["project"] = OUTPUT_DIR
+        config["name"] = RUN_FOLDER_NAME
+
+        wandb.config.update(config)
         # Load YOLO model 
         print("Initializing YOLO model...")
         model = load_pretrained_model(config_path=Path("yolo11n.yaml"))
 
         # Start training
         print("Starting training...")
-        model.train(
-            data=data_path,
-            epochs=max_iteration,
-            batch=batch_size,
-            lr0=learning_rate,
-            project=str(OUTPUT_DIR), 
-            name=RUN_FOLDER_NAME,  
-            save=True,
-            verbose=True,
-        )
+        model.train(**config)
 
         # Save the trained model 
         best_model_path = RUN_FOLDER / "weights" / "best.pt"
