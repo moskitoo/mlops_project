@@ -18,8 +18,13 @@ MAX_ITERATION = 3
 OUTPUT_DIR = Path("models")
 RUN_FOLDER_NAME = "current_run"
 RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME
-GCP_BUCKET_NAME = "test-pv-2"
+GCP_MODEL_BUCKET_NAME = "yolo_model_storage"
 GCP_MODEL_NAME = "pv_defection_classification_model.pt"
+
+GCP_DATA_BUCKET_NAME = "test-pv-2"
+GCS_PATH = "data/processed/pv_defection"
+LOCAL_PATH= "data/processed/pv_defection/"
+yaml_path = "data/processed/pv_defection/pv_defection.yaml"  
 
 # Download dataset from GS bucket
 def download_dataset(bucket_name: str, source_prefix: str, local_dir: str):
@@ -36,15 +41,10 @@ def download_dataset(bucket_name: str, source_prefix: str, local_dir: str):
         os.makedirs(os.path.dirname(local_path), exist_ok=True)
 
         # Download the file
-        #print(f"Downloading gs://{bucket_name}/{blob.name} -> {local_path}")
         blob.download_to_filename(local_path)
+        print(f"Downloading gs://{bucket_name}/{blob.name} to {local_path}")
 
-bucket_name = "test-pv-2"
-gcs_path = "data/processed/pv_defection"
-local_path = "data/processed/pv_defection/"
-yaml_path = "data/processed/pv_defection/pv_defection.yaml"  
-
-download_dataset(bucket_name, gcs_path, local_path)
+download_dataset(GCP_DATA_BUCKET_NAME, GCS_PATH, LOCAL_PATH)
 
 def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_name: str):
     """
@@ -75,7 +75,6 @@ def train_model(
     learning_rate: float = LEARNING_RATE,
     max_iteration: int = MAX_ITERATION,
     data_path = BASE_DIR / "data" / "processed" / "pv_defection" / "pv_defection.yaml",
-    #data_path: Path = Path(yaml_path),
     enable_wandb: bool = True,
 ):
     """
@@ -143,8 +142,8 @@ def train_model(
 
         # Upload the best model to GCP
         if enable_wandb:
-            print(f"Uploading best model to GCP bucket: {GCP_BUCKET_NAME}")
-            upload_best_model_to_gcp(best_model_path, GCP_BUCKET_NAME, GCP_MODEL_NAME)
+            print(f"Uploading best model to GCP bucket: {GCP_MODEL_BUCKET_NAME}")
+            upload_best_model_to_gcp(best_model_path, GCP_MODEL_BUCKET_NAME, GCP_MODEL_NAME)
 
         print("Model successfully uploaded to GCP.")
 
@@ -153,8 +152,8 @@ def train_model(
         raise
         # Upload the best model to GCP
         if enable_wandb:
-            print(f"Uploading best model to GCP bucket: {GCP_BUCKET_NAME}")
-            upload_best_model_to_gcp(best_model_path, GCP_BUCKET_NAME, GCP_MODEL_NAME)
+            print(f"Uploading best model to GCP bucket: {GCP_MODEL_BUCKET_NAME}")
+            upload_best_model_to_gcp(best_model_path, GCP_MODEL_BUCKET_NAME, GCP_MODEL_NAME)
 
         print("Model successfully uploaded to GCP.")
 
