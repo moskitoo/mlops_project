@@ -92,17 +92,15 @@ def train_model(
         config["name"] = RUN_FOLDER_NAME
 
         wandb.config.update(config)
-        update_yolo_settings(data_path)
 
+        update_yolo_settings(Path(config["data"]))
+
+        # import yolo after setting default dataset path
         from ultralytics import settings
         from model import load_pretrained_model, save_model
 
         # Update Ultralytics settings for wandb
         settings.update({"wandb": True})
-
-        # Configure W&B
-        wandb.login()
-        wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu")
 
         # Load YOLO model
         print("Initializing YOLO model...")
