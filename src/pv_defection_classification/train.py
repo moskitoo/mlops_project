@@ -1,106 +1,123 @@
-import logging
-import os
-from datetime import datetime
 from pathlib import Path
+from ultralytics import settings
+from google.cloud import storage
+from dotenv import load_dotenv
 import typer
-from ultralytics import YOLO
-from utils.yolo_settings import update_yolo_settings
-
+from model import load_pretrained_model, save_model
 import wandb
+from hydra import initialize,compose
 
-# default values
-batch_size = 2
-learning_rate = 0.00025
-max_iteration = 2
-number_of_classes = 2
+# Ensure the .env file has the wandb API key and the path to the GCP credentials
+load_dotenv()
 
-timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-output_dir = f"models/{timestamp}"
+# Update Ultralytics settings for wandb
+settings.update({"wandb": True})
 
-logging.getLogger("ultralytics").setLevel(logging.CRITICAL)
+BATCH_SIZE = 32
+LEARNING_RATE = 0.01
+MAX_ITERATION = 100
+OUTPUT_DIR = Path("models")
+RUN_FOLDER_NAME = "current_run"
+RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME  
+GCP_BUCKET_NAME = "yolo_model_storage"
+GCP_MODEL_NAME = "pv_defection_classification_model.pt"
 
+# Configure W&B
+wandb.login()
+wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu",config = {})
 
-def train_model(
-    batch_size: int = batch_size,
-    learning_rate: float = learning_rate,
-    max_iteration: int = max_iteration,
-    number_of_classes: int = number_of_classes,
-    data_path: Path = "data/processed/pv_defection/pv_defection.yaml",
-    # data_path: Path = "data/processed/pv_defection",
-):
+def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_name: str):
     """
-    this function creates the model and trains the model
+    Upload the best model to a GCP bucket.
 
     Args:
-        batch_size: int, size of training batch
-        learning_rate: float, initial learning rate
-        max_iteration: int, maximum number of iterations
-        number_of_classes: int, number of classes (no +1 needed for background)
-
-    Returns:
-        no return, logs and checkpoints are stored under /models/<timestamp>
-
+        local_best_model (Path): Path to the local best model file.
+        bucket_name (str): Name of the GCP bucket.
+        model_name (str): Name to save the model in GCP.
     """
-    # model = YOLO("yolo11n.yaml")
+    try:
+        print(f"Uploading {local_best_model} to GCP bucket {bucket_name}...")
+        client = storage.Client()
+        bucket = client.bucket(bucket_name)
+        blob = bucket.blob(model_name)
+        blob.upload_from_filename(str(local_best_model))
+        print(f"Uploaded {local_best_model} to GCP bucket {bucket_name} as {model_name}")
+    except Exception as e:
+        print(f"Failed to upload model to GCP: {e}")
+        raise
 
-    # model = YOLO("yolo11n.pt")
+def train_model(
+    batch_size: int = BATCH_SIZE,
+    learning_rate: float = LEARNING_RATE,
+    max_iteration: int = MAX_ITERATION,
+    data_path: Path = Path("data/processed/pv_defection/pv_defection.yaml"),
+    enable_wandb: bool = True,
+    ctx: typer.Context = None,
+):
+    """
+    Train a YOLO model and perform validation, ensuring consistent output folder.
 
-    # update_yolo_settings(data_path)
+    Args:
+        batch_size (int): Size of training batch.
+        learning_rate (float): Initial learning rate.
+        max_iteration (int): Maximum number of iterations.
+        data_path (Path): Path to the YOLO dataset configuration file.
+        enable_wandb (bool): Whether to enable W&B logging.
+    """
+    try:
+        if ctx is None or not any(ctx.get_parameter_source(param).name == 'COMMANDLINE' for param in ctx.params):
+            print("No arguments were provided for training.\n Configurations will be loaded from configs/config.yaml")
+            use_config = True,  # if True get configs from file
 
-    # os.makedirs(output_dir, exist_ok=True)
+        else:
+            print(f"Arguments received for training: {ctx.params}")
+            use_config = False
 
-    # results = model.train(data=data_path, epochs=3)
+        if use_config:
+            # Load configuration using Hydra
+            with initialize(config_path="../../configs/", version_base=None):
+                config = compose(config_name="config")
+                config = dict(config)
+        else:
+            config = {"batch": batch_size,
+                      "lr0": learning_rate,
+                      "data": data_path,
+                      "epochs": max_iteration,
+                      "save": True,
+                      "verbose": True,
+                      }
+        config["project"] = OUTPUT_DIR
+        config["name"] = RUN_FOLDER_NAME
 
-    # # Evaluate the model's performance on the validation set
-    # results = model.val()
+        wandb.config.update(config)
+        # Load YOLO model 
+        print("Initializing YOLO model...")
+        model = load_pretrained_model(config_path=Path("yolo11n.yaml"))
 
-    # # Export the model to PyTorch format
-    # success = model.export()
-    # # Export the model to ONNX format
-    # success = model.export(format="onnx")
+        # Start training
+        print("Starting training...")
+        model.train(**config)
 
-    with wandb.init(
-        project="pv_defection",
-        entity="hndrkjs-danmarks-tekniske-universitet-dtu",
-        # entity= "amirkfir93-danmarks-tekniske-universitet-dtu",
-        name=f"{timestamp}",
-        sync_tensorboard=True,
-    ) as run:
-        artifact = wandb.Artifact(
-            type="model",
-            name="run-%s-model" % wandb.run.id,
-            metadata={
-                "format": {"type": "detectron_model"},
-                "timestamp": timestamp,
-            },
-        )
+        # Save the trained model 
+        best_model_path = RUN_FOLDER / "weights" / "best.pt"
+        if not best_model_path.exists():
+            raise FileNotFoundError(f"'best.pt' not found at {best_model_path}")
 
-        model = YOLO("yolo11n.yaml")
+        print(f"Training complete. Best model saved at {best_model_path}")
 
-        model = YOLO("yolo11n.pt")
+        # Save the model
+        save_model(model, best_model_path)
 
-        update_yolo_settings(data_path)
+        # Upload the best model to GCP
+        if enable_wandb:
+            print(f"Uploading best model to GCP bucket: {GCP_BUCKET_NAME}")
+            upload_best_model_to_gcp(best_model_path, GCP_BUCKET_NAME, GCP_MODEL_NAME)
 
-        os.makedirs(output_dir, exist_ok=True)
+        print("Model successfully uploaded to GCP.")
 
-        model.train(data=data_path, epochs=3, project=output_dir, save=True)
-
-        # Evaluate the model's performance on the validation set
-        model.val()
-
-        # Export the model to PyTorch format
-        # Export the model to ONNX format
-        success = model.export(format="onnx")
-        output_paths = str(Path(success).parent)
-        artifact.add_file(success)
-        artifact.add_file(output_paths + "/last.pt")
-        run.log_artifact(artifact)
-        run.link_artifact(
-            artifact=artifact,
-            target_path="hndrkjs-danmarks-tekniske-universitet-dtu-org/wandb-registry-mlops final project/trained-detectron2-model",
-        )
-        run.finish()
-
+    except Exception as e:
+        print(f"An error occurred during training: {e}")
+        raise
 
 if __name__ == "__main__":
     typer.run(train_model)

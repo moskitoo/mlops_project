@@ -182,3 +182,11 @@ data/
 models/
 /data
 runs/
+
+src/pv_defection_classification/train_initialisation.py
+src/pv_defection_classification/yolo_log.py
+
+src/pv_defection_classification/utils/mlops-pv-classification-594b5f8143e2.json
+src/pv_defection_classification/train_wandb_gcp_model_storage.py
+
+gcp_auth/
