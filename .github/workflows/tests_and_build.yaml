@@ -80,9 +80,9 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Submit build
+      - name: Submit build for training image
         run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=train_cpu
 
-      - name: Submit build
+      - name: Submit build for bento_service
         run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=bento_service,_DEPLOY=true
 
