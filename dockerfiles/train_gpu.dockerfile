@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y curl apt-transport-https ca-certificate
 
 
 # Create working directory
-WORKDIR /app
+WORKDIR /ultralytics
 
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
