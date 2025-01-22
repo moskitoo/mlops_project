@@ -7,7 +7,7 @@ steps:
       '-t',
       'europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME',
       '-f',
-      'dockerfiles/api.dockerfile'
+      'dockerfiles/$_IMAGE_NAME.dockerfile'
     ]
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Push Bento service'
