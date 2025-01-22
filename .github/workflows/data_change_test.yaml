@@ -3,18 +3,10 @@ name: DVC Workflow
 on:
   pull_request:
     branches:
-      - '**'
-
-    # paths:
-    # - '**/*.dvc'
-    # - '.dvc/**'
-
-  # push:
-  #   branches:
-  #   - '**'
-  #   paths:
-  #   - '**/*.dvc'
-  #   - '.dvc/**'
+      - main
+    paths:
+    - '**/*.dvc'
+    - '.dvc/**'
 
 permissions:
   pull-requests: write
@@ -62,16 +54,3 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cml comment create data_statistics.md --watermark-title="Data Checker" # (1)!
-
-      # - name: Install GitHub CLI
-      #   run: sudo apt-get update && sudo apt-get install -y gh
-
-      # - name: Authenticate GitHub CLI
-      #   run: |
-      #     echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-
-      # - name: Comment on PR using GitHub Actions bot
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     gh pr comment ${{ github.event.pull_request.number }} --body "$(cat data_statistics.md)"
