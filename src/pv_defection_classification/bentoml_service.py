@@ -222,3 +222,14 @@ class PVClassificationService:
         postprocess_image = self.postprocess(image_resized, inference_result)
 
         return postprocess_image
+
+if __name__ == "__main__":
+    output = [np.array([[[     4.4373,      12.381,      20.104],
+        [     4.0638,      4.8612,      5.1262],
+        [     128.17,      135.29,      137.27],
+        [     126.28,      133.78,      136.49],
+        [  0.9,  0.6,  0.2],
+        [  0.1,  0.3,   0.7]]], dtype=np.float32)]
+    outputs = np.transpose(np.squeeze(output[0]))
+
+    print(outputs)

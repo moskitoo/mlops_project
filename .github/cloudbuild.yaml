@@ -24,7 +24,7 @@ steps:
       - |
         if [ "$_DEPLOY" = "true" ]; then
           echo "Deploying to Cloud Run..."
-          gcloud run deploy bento_service \
+          gcloud run deploy bento-service \
             --image europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME \
             --region europe-west1 \
             --platform managed

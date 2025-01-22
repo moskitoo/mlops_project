@@ -4,7 +4,7 @@ import cv2
 import onnxruntime
 import bentoml
 import subprocess
-from src.pv_defection_classification.bentoml_service import PVClassificationService
+from src.pv_defection_classification.bentoml_service import PVClassificationService, download_model_from_gcp
 
 EXAMPLE_INPUT = np.random.randint(0, 256, (800, 800, 3), dtype=np.uint8)
 
@@ -13,6 +13,12 @@ def mock_download_model_from_gcp(mocker):
     mock_download = mocker.patch('src.pv_defection_classification.bentoml_service.download_model_from_gcp')
     mock_download.return_value = ('/path/to/model.onnx', None)
     return mock_download
+
+def test_download_model_from_gcp():
+
+    onnx_path, _ = download_model_from_gcp()
+
+    assert type(onnx_path) == str
 
 def test_init_success(mocker, mock_download_model_from_gcp):
     mocker.patch('src.pv_defection_classification.bentoml_service.onnxruntime.InferenceSession')
@@ -61,6 +67,35 @@ def test_preprocess():
     actual_rgb = preprocessed[0, :, 0, 0].tolist()
 
     assert np.allclose(actual_rgb, expected_rgb, atol=1e-1)
+
+def test_postprocess():
+    service = PVClassificationService()
+
+    output = np.random.rand(1, 10, 85).astype(np.float32)
+    
+    sample_result = [np.array([[[     4.4373,      12.381,      20.104],
+        [     4.0638,      4.8612,      5.1262],
+        [     128.17,      135.29,      137.27],
+        [     126.28,      133.78,      136.49],
+        [  0.9,  0.6,  0.2],
+        [  0.1,  0.3,   0.7]]], dtype=np.float32)]
+
+
+    output_image = service.postprocess(output, sample_result)
+
+    # Check data type
+    assert output_image.dtype == np.uint8
+
+    # Check shape: (640, 640, 3)
+    assert output_image.shape == (640, 640, 3)
+
+    # Check normalization
+    assert output_image.max() <= 255
+    assert output_image.min() >= 0
+    
+    # Check resizing
+    output_resized = cv2.resize(output_image, (85, 10))
+    assert np.allclose(output_resized, output[0])
 
 def test_detect_and_predict(mocker):
     service = PVClassificationService()
