@@ -225,6 +225,8 @@ In total we have implemented X tests.
 
 For the data processing component, we created four unit tests and two integration tests. The unit tests focused on handling cases of missing or corrupted data during processing, ensuring that the raw dataset was correctly transformed into the YOLO format. The integration tests verified that the overall structure of the processed dataset met the required format and organization needed for the training step of our pipeline.
 
+For the API we implemented one performance test using the locust framework and and three unit tests to ensure that the internal functions work as expected. We also implemented one integration test to test whether the API behaves as expected.
+
 
 ### Question 8
 
@@ -239,7 +241,7 @@ For the data processing component, we created four unit tests and two integratio
 >
 > Answer:
 
---- question 8 fill here ---
+The code coverage for the API is 30%. We do not reach 100% here because the API includes functions that drwa on images where the proper functionality can only be inspected visually. Our tests cover the critical parts of our API, including the initialisation, preprocessing and prediction steps. 
 
 ### Question 9
 
@@ -355,7 +357,7 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 15 fill here ---
+We developed several docker images for our project. These include images for training on cpu and gpu and docker images for deploying our application. The docker image for our API can be run with the command `docker run bento_service:latest` and starts a bentoml api on `http://localhost:3000`. This API can then be interacted with by using a bentoml client or any other client that can send http requests.
 
 ### Question 16
 
@@ -387,7 +389,7 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 17 fill here ---
+We used the following services: Bucket, Artifact Registry, Cloud Run. Bucket is sed for storing our data and models. We use it to version our datasets and models. The Artifact Registry is used to store our docker images. We use Cloud Run to deploy our API using the corresponding docker image in the Artifact Registry.
 
 ### Question 18
 
@@ -411,7 +413,8 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 19 fill here ---
+[Overview](figures/bucket_2.png)
+[What the data looks like](figures/bucket_1.png)
 
 ### Question 20
 
@@ -420,7 +423,7 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 20 fill here ---
+[Our Artifact Regsitry](figures/artifact_registry.png)
 
 ### Question 21
 
@@ -429,7 +432,8 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 21 fill here ---
+[Part 1](figures/cloud_history_1.png)
+[Part 2](figures/cloud_history_2.png)
 
 ### Question 22
 
@@ -461,7 +465,7 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 23 fill here ---
+We did manage to write an API for our model. We started out with FastAPI but transitioned relatively quickly to BentoML as our application is focused on computer vision. Since BentoML provides native support for numpy arrays we decided that it is the more suitable framework for our task. We intergrated the API with access to our GCP buckets such that we can automatically load the newest model upon deployment. We also export the model to onnx and optimise the computation graph to make inference more efficient and quicker. We also experimented with dnamic batching. However, this did not work well with our application which is why we removed it.
 
 ### Question 24
 
@@ -477,7 +481,7 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 24 fill here ---
+We managed to deploy our API both locally and in the cloud. To achieve this we developed a custom docker container for the API. BentoML can buid these automatically, however, we decided to build a custom one for our application. Running this docker container enable local as well as in the cloud. To serve the model in the cloud we use Cloud Run. This mean that our model only runs when a request to the API is made. To invoke the service a user would call `curl -X POST -F "input=@file.json"<weburl>` where the json should contain a thermography image.
 
 ### Question 25
 
@@ -492,7 +496,10 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 25 fill here ---
+We implemented unit, integration and performance testing. For performance testing we used locust.
+For the unit testing we used pytest. We made use of pytest fixtures as well as mocking certain functions to test the functionality of the API. For the intergation testing we used subprocess to start our API in a subprocess and consequently send a request to it and validate its response. 
+The performance testing revealed the following results:
+
 
 ### Question 26
 
