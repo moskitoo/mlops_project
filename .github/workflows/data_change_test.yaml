@@ -1,7 +1,13 @@
 name: DVC Workflow
 
 on:
-  pull_request:
+  # pull_request:
+  #   branches:
+  #   - '**'
+  #   paths:
+  #   - '**/*.dvc'
+  #   - '.dvc/**'
+  push:
     branches:
     - '**'
     paths:
