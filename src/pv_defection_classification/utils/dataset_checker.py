@@ -1,3 +1,4 @@
+import random
 from pathlib import Path
 from typing import List, Tuple
 
@@ -145,46 +146,86 @@ def check_dataset(directory: Path) -> Tuple[int, int, int]:
     return total_defected, files_processed, files_without_defects
 
 
-def main(directory: Path = Path("data/processed")) -> None:
-    """Check dataset structure and count defected modules in the processed data directory.
-    This function verifies the structure of datasets in the specified directory and provides statistics
-    about defected modules in each dataset.
-    Args:
-        directory (Path, optional): Path to the processed data directory. Defaults to Path("data/processed").
-    Returns:
-        None. Prints validation results and statistics to console:
-            - Dataset structure validation status
-            - Error messages for invalid datasets
-            - Total number of defected modules
-            - Total files processed
-            - Number and percentage of files without defects
+def select_random_image(dataset_dir: Path) -> str:
     """
+    Select a random image from the dataset directory.
+
+    Args:
+        dataset_dir (Path): Path to the dataset directory
+
+    Returns:
+        str: Path to the randomly selected image or empty string if no images are found
+    """
+    image_extensions = (".jpg", ".jpeg", ".png")
+    image_files = []
+
+    for ext in image_extensions:
+        image_files.extend(dataset_dir.glob(f"images/train/*{ext}"))
+        image_files.extend(dataset_dir.glob(f"images/val/*{ext}"))
+
+    if not image_files:
+        return ""
+
+    return str(random.choice(image_files))
+
+
+def generate_report(directory: Path, report_file: Path) -> None:
+    """
+    Generate a markdown report for dataset statistics and sample images.
+
+    Args:
+        directory (Path): Path to the processed data directory
+        report_file (Path): Path to output markdown file
+
+    Returns:
+        None
+    """
+    with open(report_file, "w") as f:
+        f.write("# Dataset Statistics Report\n\n")
+
+        datasets = [d for d in directory.iterdir() if d.is_dir()]
+
+        if not datasets:
+            f.write("No datasets found.\n")
+            return
+
+        for dataset in datasets:
+            f.write(f"## Dataset: {dataset.name}\n")
+
+            # Verify dataset structure
+            is_valid, errors = verify_dataset_structure(dataset)
+            if is_valid:
+                f.write("✅ Dataset structure is valid\n\n")
+            else:
+                f.write("❌ Dataset structure is invalid:\n")
+                for error in errors:
+                    f.write(f"  - {error}\n")
+                f.write("\n")
+
+            # Count defected modules
+            total_defected, files_processed, files_without_defects = check_dataset(dataset)
+            f.write(f"**Total defected modules:** {total_defected}\n")
+            f.write(f"**Files processed:** {files_processed}\n")
+            f.write(
+                f"**Files without defects:** {files_without_defects} ({int(files_without_defects / files_processed * 100)}%)\n\n"
+            )
+
+            # Add a random image from the dataset
+            random_image = select_random_image(dataset)
+            if random_image:
+                f.write(f'![Sample Image]({random_image} "Sample from {dataset.name}")\n\n')
+
+        print(f"Report generated in {report_file}")
+
+
+def main(directory: Path = Path("data/processed"), report_file: Path = Path("data_statistics.md")) -> None:
+    """Check dataset structure, count defected modules, and generate a report."""
     if not directory.exists():
         print(f"Error: Directory '{directory}' does not exist")
         return
 
-    datasets = [d for d in directory.iterdir() if d.is_dir()]
-
-    if not datasets:
-        print(f"No datasets found in {directory}")
-        return
-
-    for dataset in datasets:
-        print(f"\nChecking dataset: {dataset.name}")
-        is_valid, errors = verify_dataset_structure(dataset)
-
-        if not is_valid:
-            print("❌ Dataset structure is invalid:")
-            for error in errors:
-                print(f"  - {error}")
-        else:
-            print("✅ Dataset structure is valid")
-
-        # # You can still keep the defected modules counting if needed
-        total_defected, files_processed, files_without_defects = check_dataset(dataset)
-        print(f"Total defected modules: {total_defected}")
-        print(f"Files processed: {files_processed}")
-        print(f"Files without defects: {files_without_defects} ({int(files_without_defects / files_processed * 100)}%)")
+    print(f"Generating dataset report for {directory}")
+    generate_report(directory, report_file)
 
 
 if __name__ == "__main__":

@@ -46,20 +46,10 @@ jobs:
       run: |
         dvc pull --no-run-cache
 
-    - name: Check data statistics
+    - name: Check dataset and generate report
       run: |
         python src/pv_defection_classification/utils/dataset_checker.py
-
-    - name: Check data statistics & generate report
-      run: |
-        python src/pv_defection_classification/utils/dataset_checker.py > data_statistics.md
-
-    # - name: Check data statistics & generate report
-    #   run: |
-    #     python src/pv_defection_classification/utils/dataset_checker.py > data_statistics.md
-    #     echo '![](./mnist_images.png "MNIST images")' >> data_statistics.md
-    #     echo '![](./train_label_distribution.png "Train label distribution")' >> data_statistics.md
-    #     echo '![](./test_label_distribution.png "Test label distribution")' >> data_statistics.md
+        cat data_statistics.md  # Display the report in the PR log
 
     - name: Setup cml
       uses: iterative/setup-cml@v2
