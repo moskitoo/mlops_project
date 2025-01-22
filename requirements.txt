@@ -300,3 +300,4 @@ opentelemetry-instrumentation-asgi==0.50b0
 opentelemetry-sdk==1.29.0
 opentelemetry-semantic-conventions==0.50b0
 opentelemetry-util-http==0.50b0
+pytest-mock==3.14.0

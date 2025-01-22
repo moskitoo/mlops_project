@@ -16,7 +16,7 @@ COPY requirements_dev.txt requirements_dev.txt
 COPY README.md README.md
 COPY pyproject.toml pyproject.toml
 
-RUN pip install -r requirements.txt --no-cache-dir --verbose
+RUN pip install bentoml ultralytics opencv-python numpy onnxruntime google-api-python-client google-cloud-storage google-cloud-core --no-cache-dir --verbose
 RUN pip install . --no-deps --no-cache-dir --verbose
 
 ENTRYPOINT ["bentoml", "serve", "src.pv_defection_classification.bentoml_service:PVClassificationService"]
