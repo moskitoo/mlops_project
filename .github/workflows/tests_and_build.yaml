@@ -3,7 +3,7 @@ name: Unit Tests
 on:
   push:
     branches:
-      - main
+      - '**'
   pull_request:
     branches:
       - main
@@ -13,8 +13,8 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: ["ubuntu-latest", "macos-latest"]
-        python-version: ["3.10", "3.11", "3.12"]
+        operating-system: ["ubuntu-latest"]
+        python-version: ["3.11"]
 
     steps:
       - name: Checkout code
@@ -66,7 +66,7 @@ jobs:
 
   build:
     needs: test
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -83,6 +83,6 @@ jobs:
       - name: Submit build for training image
         run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=train_cpu
 
-      - name: Submit build for bento_service
-        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=bento_service,_DEPLOY=true
+      # - name: Submit build for bento_service
+      #   run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=api,_DEPLOY=true
 

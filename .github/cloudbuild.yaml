@@ -1,16 +1,16 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    id: 'Build Bento service'
+    id: 'Build Container'
     args: [
       'build',
       '.',
       '-t',
       'europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME',
       '-f',
-      'dockerfiles/api.dockerfile'
+      'dockerfiles/$_IMAGE_NAME.dockerfile'
     ]
   - name: 'gcr.io/cloud-builders/docker'
-    id: 'Push Bento service'
+    id: 'Push Container'
     args: [
       'push',
       'europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME'
