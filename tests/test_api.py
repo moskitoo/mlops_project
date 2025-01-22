@@ -4,7 +4,8 @@ import cv2
 import onnxruntime
 import bentoml
 import subprocess
-from src.pv_defection_classification.bentoml_service import PVClassificationService, download_model_from_gcp
+from src.pv_defection_classification.bentoml_service import PVClassificationService, download_model_from_gcp, BUCKET_NAME, MODEL_NAME, MODEL_FILE_NAME
+import os
 
 EXAMPLE_INPUT = np.random.randint(0, 256, (800, 800, 3), dtype=np.uint8)
 
@@ -18,7 +19,19 @@ def test_download_model_from_gcp():
 
     onnx_path, _ = download_model_from_gcp()
 
+    # Check that the path to onnx is a string
     assert type(onnx_path) == str
+
+    # Check that the correct bucket and model names are used
+    assert BUCKET_NAME == "yolo_model_storage"
+    assert MODEL_NAME == "pv_defection_classification_model.pt"
+    assert MODEL_FILE_NAME == "pv_defection_model.pt"
+
+    # Check that the model file was downloaded
+    assert os.path.exists(MODEL_FILE_NAME)
+    assert os.path.exists(onnx_path)
+
+    
 
 def test_init_success(mocker, mock_download_model_from_gcp):
     mocker.patch('src.pv_defection_classification.bentoml_service.onnxruntime.InferenceSession')
@@ -73,12 +86,11 @@ def test_postprocess():
 
     output = np.random.rand(1, 10, 85).astype(np.float32)
     
-    sample_result = [np.array([[[     4.4373,      12.381,      20.104],
-        [     4.0638,      4.8612,      5.1262],
-        [     128.17,      135.29,      137.27],
-        [     126.28,      133.78,      136.49],
-        [  0.9,  0.6,  0.2],
-        [  0.1,  0.3,   0.7]]], dtype=np.float32)]
+    sample_result = [np.array([[[320.0, 240.0, 100.0, 150.0, 0.1, 0.80],   
+                                [100.0, 100.0, 50.0, 80.0, 0.85, 0.15],     
+                                [540.0, 380.0, 120.0, 90.0, 0.75, 0.2],    
+                                [320.0, 100.0, 60.0, 70.0, 0.6, 0.50],     
+                                [500.0, 300.0, 80.0, 100.0, 0.2, 0.70] ]], dtype=np.float32)]
 
 
     output_image = service.postprocess(output, sample_result)

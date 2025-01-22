@@ -137,6 +137,8 @@ class PVClassificationService:
         # Transpose and squeeze the output to match the expected shape
         outputs = np.transpose(np.squeeze(output[0]))
 
+        print(outputs)
+
         # Get the number of rows in the outputs array
         rows = outputs.shape[0]
         # Lists to store the bounding boxes, scores, and class IDs of the detections
@@ -218,18 +220,9 @@ class PVClassificationService:
 
         inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
 
+        print(inference_result)
+
         # Post-processing draws the detected bounding boxes on the input image
         postprocess_image = self.postprocess(image_resized, inference_result)
 
         return postprocess_image
-
-if __name__ == "__main__":
-    output = [np.array([[[     4.4373,      12.381,      20.104],
-        [     4.0638,      4.8612,      5.1262],
-        [     128.17,      135.29,      137.27],
-        [     126.28,      133.78,      136.49],
-        [  0.9,  0.6,  0.2],
-        [  0.1,  0.3,   0.7]]], dtype=np.float32)]
-    outputs = np.transpose(np.squeeze(output[0]))
-
-    print(outputs)
