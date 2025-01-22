@@ -4128,6 +4128,9 @@ outs:
       remote_storage:
         etag: 0881e5fccaf7fc8a031001
         version_id: '1737123033985665'
+  - relpath: raw/test_dir/001R copy.jpg
+    md5: 6b760d3ceddc8f69785712661c5be1d3
+    size: 904584
   - relpath: raw/test_dir/001R.jpg
     md5: 6b760d3ceddc8f69785712661c5be1d3
     size: 904584
