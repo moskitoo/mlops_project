@@ -15,7 +15,24 @@ steps:
     'push',
     'europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME'
   ]
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Build Bento service'
+  args: [
+    'build',
+    '.',
+    '-t',
+    'europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_BENTO_IMAGE',
+    '-f',
+    'dockerfiles/api.dockerfile'
+  ]
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'Push Bento service'
+  args: [
+    'push',
+    'europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_BENTO_IMAGE'
+  ]
 options:
   logging: CLOUD_LOGGING_ONLY
 substitutions:
   _IMAGE_NAME: 'train_cpu'
+  _BENTO_IMAGE: 'bento_service'
