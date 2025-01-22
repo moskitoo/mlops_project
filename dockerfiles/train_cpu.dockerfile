@@ -41,5 +41,4 @@ ADD https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt .
 # RUN python src/pv_defection_classification/data.py
 # RUN python src/pv_defection_classification/data.py --raw-data-path data/raw/pv_defection/dataset_1
 
-# CMD ["python", "-u", "src/pv_defection_classification/train.py", "--data-path", "/gcs/test-pv-2/data/processed/pv_defection_gcp_mounted/pv_defection.yaml"]
-CMD ["python", "-u", "src/pv_defection_classification/train.py", "--data-path", "/gcs/test-pv-2/data/processed/pv_defection/pv_defection.yaml"]
+CMD ["python", "-u", "src/pv_defection_classification/train.py", "--data-path", "/gcs/test-pv-2/data/processed/pv_defection_gcp_mounted/pv_defection.yaml"]
