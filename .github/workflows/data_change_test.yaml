@@ -38,10 +38,10 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
 
-    # - name: Pull data
-    #   run: |
-    #     dvc pull --no-run-cache
+    - name: Pull data
+      run: |
+        dvc pull --no-run-cache
 
-    # - name: Check data statistics
-    #   run: |
-    #     python dataset_statistics.py
+    - name: Check data statistics
+      run: |
+        python src/pv_defection_classification/utils/dataset_checker.py

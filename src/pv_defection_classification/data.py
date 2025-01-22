@@ -162,7 +162,7 @@ def process_files(
 
 
 def preprocess(
-    raw_data_path: Path = Path("data/raw/pv_defection/dataset_2"),
+    raw_data_path: Path = Path("data/raw/dataset_2"),
     output_folder: Path = Path("data/processed/pv_defection"),
     split_ratio: float = 0.8,
     random_seed: int = 42,
