@@ -2,7 +2,11 @@ import pytest
 import numpy as np
 import cv2
 import onnxruntime
+import bentoml
+import subprocess
 from src.pv_defection_classification.bentoml_service import PVClassificationService
+
+EXAMPLE_INPUT = np.random.randint(0, 256, (800, 800, 3), dtype=np.uint8)
 
 @pytest.fixture
 def mock_download_model_from_gcp(mocker):
@@ -31,9 +35,8 @@ def test_init_success(mocker, mock_download_model_from_gcp):
 
 def test_preprocess():
     service = PVClassificationService()
-    
-    # Create a dummy image (3 channels, 800x800)
-    input_image = np.random.randint(0, 256, (800, 800, 3), dtype=np.uint8)
+
+    input_image = EXAMPLE_INPUT
     
     preprocessed = service.preprocess(input_image)
     
@@ -76,4 +79,19 @@ def test_detect_and_predict(mocker):
     assert output_image.shape == (640, 640, 3)
     assert output_image.dtype == np.uint8
     assert np.all(output_image == 1) #Check if the postprocess mock worked correctly
-    
+
+@pytest.mark.timeout(180)
+def test_defection_detection_service_integration():
+    with subprocess.Popen(["bentoml", "serve", "src.pv_defection_classification.bentoml_service:PVClassificationService", "-p", "3000"]) as server_proc:
+        try:
+            client = bentoml.SyncHTTPClient("http://localhost:3000", server_ready_timeout=220)
+            response = client.detect_and_predict(input=EXAMPLE_INPUT)
+
+            # Ensure the summarized text is not empty
+            assert response.any(), "The response should not be empty."
+            # Check the type of the response
+            assert isinstance(response, np.ndarray), "The response should be a numpy array."
+            # Verify the length of the summarized text is less than the original input
+            assert response.shape == (640,640,3), "The response should be of shape (640,640,3)."
+        finally:
+            server_proc.terminate()
