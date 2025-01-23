@@ -50,7 +50,7 @@ def test_get_backend_url():
 
 def test_predict():
     # Load a sample image
-    with open("data/processed/pv_defection/images/train/20180630_154039.jpg", "rb") as f:
+    with open("tests/20180630_154039.jpg", "rb") as f:
         img = f.read()
 
     backend = get_backend_url()
