@@ -53,8 +53,6 @@ def main() -> None:
         msg = "Backend service not found"
         raise ValueError(msg)
     
-    st.write(f"Backend URL: {backend}")
-
     # Create the header page content
     st.title("Pholtovoltaic Defection Detection App")
     st.markdown(
@@ -76,14 +74,18 @@ def main() -> None:
         with st.spinner("Detecting and predicting..."):
             result = predict(image, backend)
 
-        if result is not None:
-            
-            # show the image and prediction
-            st.image(image, caption="Uploaded Image")
-            st.image(result, caption="Prediction")
+            if result is not None:
 
-        else:
-            st.write("Failed to get prediction")
+                st.success("Prediction successful!")
+                
+                result = result.astype(np.uint8)/255.0
+
+                # show the image and prediction
+                st.image(image, caption="Uploaded Image")
+                st.image(result, caption="Prediction", channels="BGR")
+
+            else:
+                st.write("Failed to get prediction")
 
 
 if __name__ == "__main__":
