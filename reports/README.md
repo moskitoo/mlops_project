@@ -370,9 +370,7 @@ As stated above, we used both config files and cli, during every experiment the 
 [Figure 2](figures/hyperparameter_sweep.png)
 [Figure 3](figures/model_save_artifact.png)
 
-We have used Weights & Biases (W&B) in our project for logging data to visualize metrics, performing hyperparameter sweeps, and saving model artifacts. Metrics like recall and precision helped us ensure the system accurately detected defective photovoltaic modules while minimizing false detections. We tracked mAP50-95 for a comprehensive evaluation of detection accuracy and monitored losses such as distributive focal loss, classification loss, and bounding box loss to ensure effective model learning. The learning rate schedules were analyzed to optimize the training process. Additionally, hyperparameter sweeps allowed us to fine-tune configurations like batch size and learning rate for the best performance. Saving model artifacts in W&B ensured easy access and versioning logging. All of this could be referred in the figures 1, 2 and 3. 
-
---- question 14 fill here ---
+We have used Weights & Biases (W&B) in our project for logging data to visualize metrics, performing hyperparameter sweeps, and saving model artifacts. Metrics like recall and precision helped us ensure the system accurately detected defective photovoltaic modules while minimizing false detections. We tracked mAP50-95 for a comprehensive evaluation of detection accuracy and monitored losses such as distributive focal loss, classification loss, and bounding box loss to ensure effective model learning. The learning rate schedules were analyzed to optimize the training process. Additionally, hyperparameter sweeps allowed us to fine-tune configurations like batch size and learning rate for the best performance. Saving model artifacts in W&B ensured easy access and versioning logging.  
 
 ### Question 15
 
@@ -402,7 +400,7 @@ We developed several docker images for our project. These include images for tra
 >
 > Answer:
 
---- question 16 fill here ---
+The debugging method used was dependent on the group member. Some just used the good old print statements. Others used breakpoints in VSCode to debug their code. We did not use profiling as we used YOLO which comes with training functions out of the box. We thus did not have much influence on creating a more performant training strategy. The same holds true for the data loading strategy as this is also being handled by YOLO. If we were to write the training code by ourselves, we would use the pytorch profiler.  
 
 ## Working in the cloud
 
@@ -434,7 +432,7 @@ We used the following services: Bucket, Artifact Registry, Cloud Run. Bucket is 
 >
 > Answer:
 
---- question 18 fill here ---
+We used the compute engine to manage the virtual machines (VMs) for our cloud project and to run the workloads involving deep learning tasks like classification and object detection. For our case, we used a GPU instance of machine type (n1-standard-1) and GPU (Nvidia V100), as well as a CPU instance (n1-standard-4 with 4 vCPUs and 15GB memory) for building and testing. An example would be the building dockers and testing the performance on both CPU and GPU. The GPU-optimized dockerfile was configured with CUDA, cuDNN, and Pytorch. Using the compute engine allows us to switch between instance types and fine-tune our docker environments for different use cases. 
 
 ### Question 19
 
@@ -478,7 +476,7 @@ We used the following services: Bucket, Artifact Registry, Cloud Run. Bucket is 
 >
 > Answer:
 
---- question 22 fill here ---
+For training our model, we decided to use Vertex AI. Submitting jobs was part of our GitHub workflow. The training step is triggered when the training build step is successful. It activates only on pushes to the main branch. This step submits a job to Vertex AI using a provided configuration. In the configuration, we specify the type of machine to be used for training, the image from our artifact registry that should be used, and the W&B API key, ensuring that the container used for training has access to submit the results to our logging platform. 
 
 ## Deployment
 
@@ -544,7 +542,7 @@ The performance testing revealed the following results:
 >
 > Answer:
 
---- question 26 fill here ---
+We implemented some basic custom monitoring that measures the number of requests, the time it takes to make an inference and the size of the images inference is done on. We could use these metrics to adapt to trends in the usage of our app. The number of requests tells us whether we have to scale up our application to deal with the increase in requests. If we were to see that inference takes a long time we could adapt the model or deploy a new one to ensure that the app is working as it is supposed to.  
 
 ## Overall discussion of project
 
@@ -563,7 +561,7 @@ The performance testing revealed the following results:
 >
 > Answer:
 
---- question 27 fill here ---
+On our shared project in Google Cloud we ended up using 39$. The biggest cost was associated with scanning the container registry for vulnerabilities. Generally working in the cloud was quite fun. Especially using services such as cloud run to host our backend and frontend was fun because of the automatic cloud build functionalities. It took a lot of the workload of having to remember what service to deploy where away. 
 
 ### Question 28
 
@@ -579,7 +577,7 @@ The performance testing revealed the following results:
 >
 > Answer:
 
---- question 28 fill here ---
+We implemented a frontend for our API using streamlit. We did this because our project deals with image data. Thus, it is much easier for the user to just upload the image on a webpage rather than calling an API. We can also show the user the results of their query on the website. This is a more natural way to deal with image data. 
 
 ### Question 29
 
@@ -596,7 +594,7 @@ The performance testing revealed the following results:
 >
 > Answer:
 
---- question 29 fill here ---
+The project began with finding a dataset and model development using YOLO. This model was trained on GPU configuration for faster training. We then started using GCP services and stored our data in cloud storage. Once training was completed, two dockerfiles were created, optmized for CPU and GPU.  The project is version-controlled with Github, and a CI/CD pipeline is implemented using cloud build to automate our testing, building and deployment processes. Each time changes are pushed to Github and all tests passed locally, cloud build will be triggered to validate the changes, build the docker images, and push them into the artifact registry, with the latest versions ready for deployment. Afterwards, the model will be deployed to Vertex AI where traning and hyperparameter tuning will take place. The final model will then be stored in the cloud storage, which is available for inference tasks. This is done using BentoML API, which packages them model and deploys it on cloud run. 
 
 ### Question 30
 
@@ -610,7 +608,13 @@ The performance testing revealed the following results:
 >
 > Answer:
 
---- question 30 fill here ---
+One of the main challenges we faced was a compatibility issue with NumPy, Pytorch, and Torchvision while building the Docker file for a Detectron2-based model. Besides, NumPy, there were many other dependencies issues that was time-consuming to resolve with Detectron2. Despite multiple attempts to resolve it, the issue persisted, forcing us to switch to a YOLOv11-based model. This required us to backtrack and modify the entire pipeline, including data preprocessing, model training, and building dockers. The process was time intensive as we had to adapt to the new model's requirements while ensuring all dependencies worked within the Docker environment. 
+
+ We also re-evaluated our workflow to the setup and prevent similar compatibility issues.  
+
+Using fastapi for our application also proved challenging as it does not natively support numpy arrays as an input type. We therefore moved to BentoML which provided many advantages including built-in metrics and native support of ML specific data types. Building a custom docker container for the bento application proved easier than thought. The deployment in the cloud both for the api and the frontend also worked well.  
+
+One challenge was also that we have different containers of which some are not deployed to cloud functions. We thus had to figure out a command to make and optional step in cloudbuild.yaml file to only deploy specific containers to CloudRun. We solced this by using substitution variables that indicated whether a specific container is supposed to be deployed to CloudRun.  
 
 ### Question 31
 
@@ -628,4 +632,14 @@ The performance testing revealed the following results:
 > *We have used ChatGPT to help debug our code. Additionally, we used GitHub Copilot to help write some of our code.*
 > Answer:
 
---- question 31 fill here ---
+Student s243575 was in charge of setting up the initial cookicutter project and developing the API and frontend as well as their deployment in the cloud.  
+
+Student s242529 in charge of model training, evaluation, initializing Weights & Biases, performing hyperparameter sweeps, saving the model in weights&biases and to GCP bucket, and writing unit tests for the model training. 
+
+Student s242672 was in charge of creating the docker files, building and testing it using the compute engine vm instances, working on trigger workflow to automatically build the dockers, working on data-drifting.  
+
+Student S242954 was in charge of adapting the model to run from configurations files, and to store the run information in WandB for reproducability. In addition to the project logging configurations. 
+
+Student s243600 was in charge of processing the dataset to make it work with YOLO, unit tests for this data part, setting up the workflow for training the model using Vertex AI, development of continuous workflow that triggers when data changes.  
+
+We have used ChatGPT to deal with cryptic error messages from libraries such as opencv. Additionally, Codepilot aided some group members in writing their code. 
