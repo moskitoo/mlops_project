@@ -32,9 +32,26 @@ steps:
           echo "Skipping deployment step."
         fi
 
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'Deploy frontend to Cloud Run'
+    entrypoint: '/bin/sh'
+    args:
+      - '-c'
+      - |
+        if [ "$_DEPLOY_FRONTEND" = "true" ]; then
+          echo "Deploying to Cloud Run..."
+          gcloud run deploy frontend-service \
+            --image europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME \
+            --region europe-west1 \
+            --platform managed
+        else
+          echo "Skipping deployment step."
+        fi
+
 options:
   logging: CLOUD_LOGGING_ONLY
 
 substitutions:
   _IMAGE_NAME: 'train_cpu'
   _DEPLOY: 'false'
+  _DEPLOY_FRONTEND: 'false'
