@@ -92,14 +92,7 @@ def train_model(
         config["project"] = OUTPUT_DIR
         config["name"] = RUN_FOLDER_NAME
 
-        data_path_to_verify = Path(config["data"])
-
-        print(f"Data path: {Path(config['data'])}")
-
-        config["data"] = verify_data_path(data_path_to_verify)
-
-        print(f"Data path: {config['data']}")
-        print(f"Data path: {Path(config['data'])}")
+        config["data"] = verify_data_path(Path(config["data"]))
 
         update_yolo_settings(Path(config["data"]))
 
