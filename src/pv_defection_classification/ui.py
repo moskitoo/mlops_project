@@ -8,8 +8,6 @@ import streamlit as st
 from PIL import Image
 import cv2
 
-API_ENDPOINT = "https://bento-service-38375731884.europe-west1.run.app/detect_and_predict"
-
 @st.cache_resource  
 def get_backend_url():
     """Get the URL of the backend service."""
