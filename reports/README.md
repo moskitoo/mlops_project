@@ -204,7 +204,7 @@ pip install .
 >
 > Answer:
 
---- question 5 fill here ---
+From the cookiecutter we have filled out the , reports, test (with the pytest unit tests), we stored all of our model’s python scripts under src/pv_defection_classification, in the configs folder we saved the running configurations, in the dockerfiles folder we used to save all different docker configurations. In the data we stored the data files as well as the dataset.yaml configurations. We didn’t use notebooks, and docs. We also added the “preformance_test” for running evaluations of our models not runned by the pytest auto unit tests. 
 
 ### Question 6
 
@@ -296,8 +296,9 @@ In our project, we made use of both branches and PRs. We created new branches fo
 
 We used DVC in the early stages as an easy way to access data for development. It allowed us to retrieve the processed dataset stored on GCP with a single command, eliminating the need to process it repeatedly, such as when working on our Docker container.
 
-[sth about data changes]
+However, for operations running in the cloud, we decided to access the data directly from GCP storage, which is auto-mounted, such as when running a Vertex AI job. Pulling data using DVC while building a container on Cloud Build turned out to be a significant bottleneck in the pipeline. 
 
+In the later stages of the project, when introducing new features, we used changes in DVC metafiles to trigger a GitHub Action that verifies whether the available datasets have the correct structure after data modifications. It also displays information about the datasets and sample images. Thanks to this, our pipeline offers better data protection and provides an easy way to inspect the data. 
 
 ### Question 11
 
@@ -314,7 +315,7 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 11 fill here ---
+We have organised our continuous integration pipeline into 3 separate files: one for detecting changes in the data, one for running our tests and starting the builds of our containers on GCP and one to detect changes in the model registry. In particular for our workflow for detecting changes in the model registry we used a weights and biases webhook to trigger a workflow in our repository. 
 
 ## Running code and tracking experiments
 
@@ -333,7 +334,7 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 12 fill here ---
+In order to run an experiment we should run the train.py file. There are 2 possible configurations for this run: if you run train.py without arguments, the code will identify that (out of the typer.context variable) and use configs/config.yaml otherwise, the code will use the given arguments and default code parameters. So you can go as Python train.py and also python train.py --batch_size 32 learning_rate 0.0025 --max_iteration 100 
 
 ### Question 13
 
@@ -348,7 +349,7 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
---- question 13 fill here ---
+As stated above, we used both config files and cli, during every experiment the YOLO model configurations are saved in a dictionary that is uploaded to weights and biases. In order to reproduce the results of an experiment, one would need to copy the hyperparameters from WandB to config.yaml file, and just run the experiment as mentioned above. 
 
 ### Question 14
 
