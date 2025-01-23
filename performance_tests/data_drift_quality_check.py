@@ -6,19 +6,29 @@ project_root = os.path.abspath(os.path.join(script_dir, '..'))
 sys.path.append(os.path.join(project_root, 'src'))
 
 from pv_defection_classification.data_drift import reference_df,current_df
+
 from evidently.test_suite import TestSuite
-from evidently.tests import TestNumberOfMissingValues
+from evidently.tests import (
+    TestNumberOfMissingValues,
+    TestNumberOfDuplicatedRows,
+    TestColumnsType,
+    TestColumnDrift,
+    TestCategoryShare,
+    TestCategoryCount
+)
 
-# Create a test suite to check for missing values
-data_test = TestSuite(tests=[TestNumberOfMissingValues()])
+# Define a test suite with relevant tests
+pv_defect_test_suite = TestSuite(tests=[
+    TestNumberOfMissingValues(),
+    TestNumberOfDuplicatedRows(),
+    TestColumnsType(),
+    TestColumnDrift(column_name="x"), 
+    TestColumnDrift(column_name="y"),
+    TestCategoryShare(column_name="class", category=1, lt=0.3),  # Defect proportion < 30%
+    TestCategoryCount(column_name="class", category=1, lt=100)   # Defects detected <100 
+])
 
-# Run tests on reference and current data
-data_test.run(reference_data=reference_df, current_data=current_df)
-
-# Get the results in dictionary format
-result = data_test.as_dict()
-
-# Print the test results
-print(result)
-print("All tests passed: ", result['summary']['all_passed'])
-
+pv_defect_test_suite.run(reference_data=reference_df, current_data=current_df)
+results = pv_defect_test_suite.as_dict()
+print(results)
+print("All tests passed:", results['summary']['all_passed'])
