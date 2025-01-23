@@ -11,7 +11,7 @@ WORKDIR /app
 COPY requirements_ui.txt /app/requirements_ui.txt
 COPY src/pv_defection_classification/ui.py /app/ui.py
 
-RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements_ui.txt
+RUN pip install -r requirements_ui.txt
 
 EXPOSE 8501
 
