@@ -38,3 +38,4 @@ options:
 substitutions:
   _IMAGE_NAME: 'train_cpu'
   _DEPLOY: 'false'
+  _DEPLOY_FRONTEND: 'false'
