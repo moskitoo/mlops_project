@@ -6,6 +6,7 @@ import numpy as np
 import requests
 import streamlit as st
 from PIL import Image
+import cv2
 
 API_ENDPOINT = "https://bento-service-38375731884.europe-west1.run.app/detect_and_predict"
 
@@ -67,6 +68,7 @@ def main() -> None:
     st.text("Get a picture of your solar panel and upload it here.")
 
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+    left_column, right_column = st.columns(2)
 
     if uploaded_file is not None:
         image = uploaded_file.read()
@@ -80,12 +82,24 @@ def main() -> None:
                 
                 result = result.astype(np.uint8)/255.0
 
+                image = cv2.resize(np.array(Image.open(io.BytesIO(image))), (640, 640))
+
                 # show the image and prediction
-                st.image(image, caption="Uploaded Image")
-                st.image(result, caption="Prediction", channels="BGR")
+                # You can use a column just like st.sidebar:
+                with left_column:
+                    st.image(image, caption="Uploaded Image")
+
+                # Or even better, call Streamlit functions inside a "with" block:
+                with right_column:
+                    st.image(result, caption="Processed Image", channels="BGR")
 
             else:
-                st.write("Failed to get prediction")
+
+                with left_column:
+                    st.image(image, caption="Uploaded Image")
+                
+                with right_column:
+                    st.write("Failed to get prediction")
 
 
 if __name__ == "__main__":
