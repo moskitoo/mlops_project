@@ -1,10 +1,15 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from pv_defection_classification.utils.convert_drift_data_to_yolo_format import run_yolo_inference_on_user_data
+
 import pandas as pd
 from google.cloud import storage
+from sklearn.preprocessing import StandardScaler
+
 from evidently.report import Report
 from evidently.metric_preset import DataDriftPreset, DataQualityPreset, TargetDriftPreset
-from sklearn.preprocessing import StandardScaler
-import json
-from utils.convert_drift_data_to_yolo_format import run_yolo_inference_on_user_data
 
 # Parse YOLO label content
 def parse_yolo_label_content(content):
