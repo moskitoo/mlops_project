@@ -3,7 +3,7 @@ name: Tests and Deployment
 on:
   push:
     branches:
-      - '**'
+      - main
   pull_request:
     branches:
       - main
@@ -13,10 +13,8 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        # operating-system: ["ubuntu-latest", "macos-latest"]
-        # python-version: ["3.10", "3.11", "3.12"]
-        operating-system: ["ubuntu-latest"]
-        python-version: ["3.11"]
+        operating-system: ["ubuntu-latest", "macos-latest"]
+        python-version: ["3.10", "3.11", "3.12"]
 
     steps:
       - name: Checkout code
@@ -68,7 +66,7 @@ jobs:
 
   build_train_container:
     needs: test
-    # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -87,7 +85,7 @@ jobs:
   
   build_app_container:
     needs: test
-    # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -106,7 +104,7 @@ jobs:
 
   train:
     needs: build_train_container
-    # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
