@@ -17,7 +17,7 @@ def streamlit_app():
     """
     # Start the Streamlit app
     process = subprocess.Popen(
-        ["streamlit", "run", "src/pv_defection_classification/ui.py"],
+        ["streamlit", "run", "src/pv_defection_classification/ui.py", "--server.port=8502"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
@@ -67,7 +67,7 @@ def test_image_upload_and_column_display(streamlit_app, driver):
     Test uploading an image and verifying both columns display results.
     """
     # Navigate to the Streamlit app
-    driver.get("http://localhost:8501")
+    driver.get("http://localhost:8502")
 
     wait = WebDriverWait(driver, 120)
 
