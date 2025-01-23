@@ -2,13 +2,35 @@ import bentoml
 import onnxruntime
 import numpy as np
 import cv2
-import copy
 import yaml
 from google.cloud import storage
 from ultralytics import YOLO
 import json
 import datetime
 import asyncio
+import time
+from prometheus_client import Histogram, Counter
+
+# Define Prometheus metrics
+request_counter = Counter(
+    name='summary_requests_total',
+    documentation='Total number of inference requests',
+    labelnames=['status']
+)
+
+inference_time_histogram = Histogram(
+    name='inference_time_seconds',
+    documentation='Time taken for yolo inference',
+    labelnames=['status'],
+    buckets=(0.1, 0.2, 0.5, 1, 2, 5, 10, float('inf')) 
+)
+
+input_size_request = Histogram(
+    name='input_size_bytes',
+    documentation='Size of the input image',
+    labelnames=['status'],
+    buckets=(0, 1024, 2048, 4096, 8192, 16384, 32768, 65536, float('inf'))
+)
 
 
 BUCKET_NAME = "yolo_model_storage"
@@ -31,7 +53,7 @@ def download_model_from_gcp():
 
 
 
-@bentoml.service  # (resources={"cpu": 2}, traffic={'timeout': '60'})
+@bentoml.service(metrics={"enabled": True})
 class PVClassificationService:
     def __init__(self) -> None:
         # Download model from GCP bucket
@@ -286,6 +308,7 @@ class PVClassificationService:
         Returns:
             Dict: Dictionary containing the prediction results.
         """
+        start_time = time.time()
         try:
             # Process the input image and perform inference
             preprocess_image, image_resized = self.preprocess(input)
@@ -299,18 +322,26 @@ class PVClassificationService:
                         )
             
             postprocess_image = future[0]
+
+            status = 'success'
+            input_size = input.nbytes
+
         except Exception as e:
             # Generate white image with error message
             postprocess_image = np.ones((640, 640, 3), np.uint8) * 255
-            cv2.putText(postprocess_image, 
-                        'Something went wrong :(', 
-                        (10, 320), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 
-                        1, 
-                        (0, 0, 0), 
-                        2, 
-                        cv2.LINE_AA
+            cv2.putText(postprocess_image, 'Something went wrong :(',(10, 320), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 
+                        2, cv2.LINE_AA
                         )
+            status = 'failure'
+            input_size = 0
+
+        finally:
+            # Measure how long the inference took and update the histogram
+            inference_time_histogram.labels(status=status).observe(time.time() - start_time)
+            input_size_request.labels(status=status).observe(input_size)
+            # Increment the request counter
+            request_counter.labels(status=status).inc()
 
         return postprocess_image
 
