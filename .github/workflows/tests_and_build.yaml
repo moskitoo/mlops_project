@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Tests and Deployment
 
 on:
   push:
@@ -81,7 +81,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Submit build for training image
-        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=train_cpu
+        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=train_gpu
   
   build_app_container:
     needs: test
@@ -119,5 +119,5 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Submit build
-        run: gcloud builds submit --config .github/vertex_ai_train_cpu.yaml
+        run: gcloud builds submit --config .github/vertex_ai_train_gpu.yaml
 
