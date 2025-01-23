@@ -8,6 +8,7 @@ from google.cloud import storage
 from ultralytics import YOLO
 import json
 import datetime
+import asyncio
 
 
 BUCKET_NAME = "yolo_model_storage"
@@ -103,7 +104,7 @@ class PVClassificationService:
 
 
     # Save prediction results to GCP
-    def save_prediction_to_gcp(self, input: np.ndarray, inference_result: list) -> None:
+    async def save_prediction_to_gcp(self, input: np.ndarray, inference_result: list) -> None:
         """
         Save the prediction results to GCP bucket.
         
@@ -188,10 +189,10 @@ class PVClassificationService:
         image[..., (0, 1, 2)] = image[..., (2, 1, 0)]
     
         # Resize the image to match the input shape
-        image_data = cv2.resize(image, (640, 640))
+        image_data_return = cv2.resize(image, (640, 640))
 
         # Normalize the image data by dividing it by 255.0
-        image_data = np.array(image_data) / 255.0
+        image_data = np.array(image_data_return) / 255.0
 
         # Transpose the image to have the channel dimension as the first dimension
         image_data = np.transpose(image_data, (2, 0, 1)) 
@@ -199,9 +200,9 @@ class PVClassificationService:
         # Expand the dimensions of the image data to match the expected input shape
         image_data = np.expand_dims(image_data, axis=0).astype(np.float32)
         
-        return image_data
+        return image_data, image_data_return
     
-    def postprocess(self, input: np.ndarray, output: np.ndarray) -> np.ndarray:
+    async def postprocess(self, input: np.ndarray, output: np.ndarray) -> np.ndarray:
         """
         Postprocess the inference result.
 
@@ -275,7 +276,7 @@ class PVClassificationService:
         max_batch_size=8,
         max_latency_ms=1000,
     )
-    def detect_and_predict(self, input: np.ndarray) -> np.ndarray:
+    async def detect_and_predict(self, input: np.ndarray) -> np.ndarray:
         """
         Detect and predict the defective PV modules in the input image.
 
@@ -285,19 +286,18 @@ class PVClassificationService:
         Returns:
             Dict: Dictionary containing the prediction results.
         """
-        # Copy the input image to avoid modifying the original
-        input_copy = copy.deepcopy(input)
-        image = np.array(input_copy).astype(np.float32)
-        image_resized = cv2.resize(image, (640, 640))
-        image_resized[..., (0, 1, 2)] = image_resized[..., (2, 1, 0)]
-
         # Process the input image and perform inference
-        preprocess_image = self.preprocess(input)
+        preprocess_image, image_resized = self.preprocess(input)
 
         inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
 
         # Post-processing draws the detected bounding boxes on the input image
-        postprocess_image = self.postprocess(image_resized, inference_result)
+        future = await asyncio.gather(
+                    self.postprocess(image_resized, inference_result),
+                    self.save_prediction_to_gcp(input, inference_result)
+                    )
+        
+        postprocess_image = future[0]
 
         return postprocess_image
 
