@@ -1,7 +1,7 @@
 FROM python:3.11-slim
 
 RUN apt update && \
-    apt install --no-install-recommends -y build-essential gcc git && \
+    apt install --no-install-recommends -y build-essential gcc git libgl1 libglib2.0-0 && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /app
