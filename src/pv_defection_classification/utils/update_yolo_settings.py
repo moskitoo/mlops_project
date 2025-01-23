@@ -26,7 +26,12 @@ def update_yolo_settings(data_path: str = None) -> None:
             settings = {}
 
         data_path = os.path.join(os.getcwd(), str(data_path.parents[1]))
+
+        print(f"YOLO data setting before {settings['datasets_dir']}")
+
         settings["datasets_dir"] = data_path or os.path.join(os.getcwd(), "data")
+
+        print(f"YOLO data setting before {settings['datasets_dir']}")
 
         logger.info(f"Setting datasets directory to: {settings['datasets_dir']}")
 

@@ -1,18 +1,17 @@
+import os
 from pathlib import Path
 
 import typer
 from dotenv import load_dotenv
 from google.cloud import storage
+from hydra import compose, initialize
 from utils.update_yolo_settings import update_yolo_settings
+from utils.verify_data_path import verify_data_path
 
 import wandb
-from hydra import initialize,compose
 
 # Ensure the .env file has the wandb API key and the path to the GCP credentials
 load_dotenv()
-
-# # Update Ultralytics settings for wandb
-# settings.update({"wandb": True})
 
 BATCH_SIZE = 32
 LEARNING_RATE = 0.01
@@ -25,7 +24,8 @@ GCP_MODEL_NAME = "pv_defection_classification_model.pt"
 
 # Configure W&B
 wandb.login()
-wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu",config = {})
+wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu", config={})
+
 
 def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_name: str):
     """
@@ -67,9 +67,9 @@ def train_model(
         enable_wandb (bool): Whether to enable W&B logging.
     """
     try:
-        if ctx is None or not any(ctx.get_parameter_source(param).name == 'COMMANDLINE' for param in ctx.params):
+        if ctx is None or not any(ctx.get_parameter_source(param).name == "COMMANDLINE" for param in ctx.params):
             print("No arguments were provided for training.\n Configurations will be loaded from configs/config.yaml")
-            use_config = True,  # if True get configs from file
+            use_config = (True,)  # if True get configs from file
 
         else:
             print(f"Arguments received for training: {ctx.params}")
@@ -81,23 +81,33 @@ def train_model(
                 config = compose(config_name="config")
                 config = dict(config)
         else:
-            config = {"batch": batch_size,
-                      "lr0": learning_rate,
-                      "data": data_path,
-                      "epochs": max_iteration,
-                      "save": True,
-                      "verbose": True,
-                      }
+            config = {
+                "batch": batch_size,
+                "lr0": learning_rate,
+                "data": data_path,
+                "epochs": max_iteration,
+                "save": True,
+                "verbose": True,
+            }
         config["project"] = OUTPUT_DIR
         config["name"] = RUN_FOLDER_NAME
 
-        wandb.config.update(config)
+        data_path_to_verify = Path(config["data"])
+
+        print(f"Data path: {Path(config['data'])}")
+
+        config["data"] = verify_data_path(data_path_to_verify)
+
+        print(f"Data path: {config['data']}")
+        print(f"Data path: {Path(config['data'])}")
 
         update_yolo_settings(Path(config["data"]))
 
+        wandb.config.update(config)
+
         # import yolo after setting default dataset path
-        from ultralytics import settings
         from model import load_pretrained_model, save_model
+        from ultralytics import settings
 
         # Update Ultralytics settings for wandb
         settings.update({"wandb": True})
