@@ -33,7 +33,7 @@ steps:
         fi
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    id: 'Deploy to Cloud Run Fronted'
+    id: 'Deploy to Cloud Run Frontend'
     entrypoint: '/bin/sh'
     args:
       - '-c'
