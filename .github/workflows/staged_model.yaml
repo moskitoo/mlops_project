@@ -1,0 +1,5 @@
+name: Check staged model
+
+on:
+  repository_dispatch:
+    types: staged_model
