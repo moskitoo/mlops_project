@@ -4,15 +4,40 @@ import cv2
 import onnxruntime
 import bentoml
 import subprocess
-from src.pv_defection_classification.bentoml_service import PVClassificationService
+from src.pv_defection_classification.bentoml_service import PVClassificationService, download_model_from_gcp, BUCKET_NAME, MODEL_NAME, MODEL_FILE_NAME
+import os
 
 EXAMPLE_INPUT = np.random.randint(0, 256, (800, 800, 3), dtype=np.uint8)
+
+SAMPLE_RESULT = np.array([[320.0, 240.0, 100.0, 150.0, 0.1, 0.80],   
+                                [100.0, 100.0, 50.0, 80.0, 0.85, 0.15],     
+                                [540.0, 380.0, 120.0, 90.0, 0.75, 0.2],    
+                                [320.0, 100.0, 60.0, 70.0, 0.6, 0.50],     
+                                [500.0, 300.0, 80.0, 100.0, 0.2, 0.70]]).T
 
 @pytest.fixture
 def mock_download_model_from_gcp(mocker):
     mock_download = mocker.patch('src.pv_defection_classification.bentoml_service.download_model_from_gcp')
     mock_download.return_value = ('/path/to/model.onnx', None)
     return mock_download
+
+def test_download_model_from_gcp():
+
+    onnx_path, _ = download_model_from_gcp()
+
+    # Check that the path to onnx is a string
+    assert isinstance(onnx_path, str)
+
+    # Check that the correct bucket and model names are used
+    assert BUCKET_NAME == "yolo_model_storage"
+    assert MODEL_NAME == "pv_defection_classification_model.pt"
+    assert MODEL_FILE_NAME == "pv_defection_model.pt"
+
+    # Check that the model file was downloaded
+    assert os.path.exists(MODEL_FILE_NAME)
+    assert os.path.exists(onnx_path)
+
+    
 
 def test_init_success(mocker, mock_download_model_from_gcp):
     mocker.patch('src.pv_defection_classification.bentoml_service.onnxruntime.InferenceSession')
@@ -61,6 +86,25 @@ def test_preprocess():
     actual_rgb = preprocessed[0, :, 0, 0].tolist()
 
     assert np.allclose(actual_rgb, expected_rgb, atol=1e-1)
+
+def test_postprocess():
+    service = PVClassificationService()
+
+    output = EXAMPLE_INPUT
+
+    sample_result = [np.array([SAMPLE_RESULT], dtype=np.float32)]
+
+    output_image = service.postprocess(output, sample_result)
+
+    # Check data type
+    assert output_image.dtype == np.uint8
+
+    # Check shape: (640, 640, 3)
+    assert output_image.shape == EXAMPLE_INPUT.shape
+
+    # Check normalization
+    assert output_image.max() <= 255
+    assert output_image.min() >= 0
 
 def test_detect_and_predict(mocker):
     service = PVClassificationService()
