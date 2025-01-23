@@ -8,7 +8,6 @@ from loguru import logger
 import wandb
 from hydra import initialize,compose
 import logging
-import sys
 
 from ultralytics import settings
 # Ensure the .env file has the wandb API key and the path to the GCP credentials
@@ -29,10 +28,6 @@ GCP_MODEL_NAME = "pv_defection_classification_model.pt"
 wandb.login()
 wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu",config = {})
 
-
-
-#Define a custom sink to send logs to wandb
-__all__ = ["logger"]
 
 class InterceptHandler(logging.Handler):
     def emit(self, record):

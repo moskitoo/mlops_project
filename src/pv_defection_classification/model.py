@@ -1,6 +1,6 @@
 from ultralytics import YOLO
 from pathlib import Path
-from train import logger
+from loguru import logger
 
 
 def load_pretrained_model(config_path: Path, weights_path: Path = None):
