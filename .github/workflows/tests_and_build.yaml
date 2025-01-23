@@ -118,7 +118,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Submit build for bento_service
+      - name: Submit build for frontend
         run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=frontend,_DEPLOY_FRONTEND=true
 
   train:
