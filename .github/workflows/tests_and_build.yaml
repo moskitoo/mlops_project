@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Tests and Deployment
 
 on:
   push:
@@ -64,7 +64,7 @@ jobs:
       - name: Ruff format
         run: ruff format .
 
-  build:
+  build_train_container:
     needs: test
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
@@ -81,8 +81,43 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Submit build for training image
-        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=train_cpu
+        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=train_gpu
+  
+  build_app_container:
+    needs: test
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Auth with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
 
       - name: Submit build for bento_service
-        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=bento_service,_DEPLOY=true
+        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=api,_DEPLOY=true
+
+  train:
+    needs: build_train_container
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Auth with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Submit build
+        run: gcloud builds submit --config .github/vertex_ai_train_gpu.yaml
 
