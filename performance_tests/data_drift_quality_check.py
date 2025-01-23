@@ -24,8 +24,8 @@ pv_defect_test_suite = TestSuite(tests=[
     TestColumnsType(),
     TestColumnDrift(column_name="x"), 
     TestColumnDrift(column_name="y"),
-    TestCategoryShare(column_name="class", category=1, lt=0.3),  # Defect proportion < 30%
-    TestCategoryCount(column_name="class", category=1, lt=100)   # Defects detected <100 
+    TestCategoryShare(column_name="target", category=1, lt=0.3),  # Defect proportion < 30%
+    TestCategoryCount(column_name="target", category=1, lt=100)   # Defects detected <100 
 ])
 
 pv_defect_test_suite.run(reference_data=reference_df, current_data=current_df)
