@@ -1,13 +1,7 @@
-from pathlib import Path
-
-import typer
-from dotenv import load_dotenv
 from google.cloud import storage
-
 import json
 import numpy as np
 import cv2
-import os
 from ultralytics import YOLO
 
 MODEL_BUCKET_NAME = "yolo_model_storage"
@@ -66,7 +60,7 @@ def run_yolo_inference(image, model):
             confidence = float(box.conf[0])  # Confidence score
             x_center, y_center, width, height = box.xywhn[0].tolist()  # Normalized bbox
 
-            print(f"Class: {class_id}, Confidence: {confidence:.2f}, Box: {x_center:.2f}, {y_center:.2f}, {width:.2f}, {height:.2f}")
+            #print(f"Class: {class_id}, Confidence: {confidence:.2f}, Box: {x_center:.2f}, {y_center:.2f}, {width:.2f}, {height:.2f}")
 
     return results
 
@@ -83,29 +77,32 @@ def format_yolo_output(results):
     return formatted_boxes
 
 # RUNNING ALL FUNCTIONS
+def run_yolo_inference_on_user_data(DRIFT_BUCKET_NAME=DRIFT_BUCKET_NAME, SOURCE_PATH=SOURCE_PATH, MODEL_BUCKET_NAME=MODEL_BUCKET_NAME, MODEL_NAME=MODEL_NAME, MODEL_FILE_NAME=MODEL_FILE_NAME):
+    data_list = download_data(DRIFT_BUCKET_NAME, SOURCE_PATH)
+    #print(len(data_list))
+    # Download model
+    model = download_model(MODEL_BUCKET_NAME, MODEL_FILE_NAME, MODEL_NAME)
 
-# Download user input data
-data_list = download_data(DRIFT_BUCKET_NAME, SOURCE_PATH)
+    all_formatted_results = []
+    for i, data in enumerate(data_list):
+        # Convert user input data to an image
+        image_path = convert_rgb_to_image(data_list[i]["input"])
+        image = cv2.imread(image_path)
 
-# Download model
-model = download_model(MODEL_BUCKET_NAME, MODEL_FILE_NAME, MODEL_NAME)
+        #cv2.imshow("Image Window", image)
+        #cv2.waitKey(1000)
+        #cv2.destroyAllWindows()
 
+        # Run model on the image
+        results = run_yolo_inference(image, model)
 
-for i, data in enumerate(data_list):
-    # Convert user input data to an image
-    image_path = convert_rgb_to_image(data_list[i]["input"])
-    image = cv2.imread(image_path)
+        # Convert to yolo format
+        formatted_results = format_yolo_output(results)
+    
+        #print(formatted_results)
+        # print(formatted_results)   
+        # for r in formatted_results:
+        #     print(r)
 
-    #cv2.imshow("Image Window", image)
-    #cv2.waitKey(1000)
-    #cv2.destroyAllWindows()
-
-    # Run model on the image
-    results = run_yolo_inference(image, model)
-
-    # Convert to yolo format
-    formatted_results = format_yolo_output(results)
-    # for r in formatted_results:
-    #     print(r)
-
-
+        all_formatted_results.append(formatted_results)
+    return all_formatted_results
