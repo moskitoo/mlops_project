@@ -32,12 +32,10 @@ input_size_request = Histogram(
     buckets=(0, 1024, 2048, 4096, 8192, 16384, 32768, 65536, float('inf'))
 )
 
-
 BUCKET_NAME = "yolo_model_storage"
 DRIFT_BUCKET_NAME = "data_drifting"
 MODEL_NAME = "pv_defection_classification_model.pt"
 MODEL_FILE_NAME = "pv_defection_model.pt"
-
 
 def download_model_from_gcp():
     """Download the model from GCP bucket."""
@@ -50,9 +48,6 @@ def download_model_from_gcp():
     onnx_path = model.export(format="onnx", optimize=True)
 
     return onnx_path, model
-
-
-
 @bentoml.service(metrics={"enabled": True})
 class PVClassificationService:
     def __init__(self) -> None:
