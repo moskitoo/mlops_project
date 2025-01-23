@@ -43,11 +43,11 @@ def download_model(MODEL_BUCKET_NAME,MODEL_FILE_NAME,MODEL_NAME):
 
 
 # Convert user input data to image
-def convert_rgb_to_image(rgb_input, output_path="user_input_image.jpg"):
+def convert_rgb_to_image(rgb_input):
     image = np.array(rgb_input, dtype=np.uint8)
-    cv2.imwrite(output_path, image)
+    #cv2.imwrite(output_path, image)
     #print("output path: ", output_path)
-    return output_path
+    return image
 
 
 # Run model on images
@@ -86,9 +86,9 @@ def run_yolo_inference_on_user_data(DRIFT_BUCKET_NAME=DRIFT_BUCKET_NAME, SOURCE_
     all_formatted_results = []
     for i, data in enumerate(data_list):
         # Convert user input data to an image
-        image_path = convert_rgb_to_image(data_list[i]["input"])
-        image = cv2.imread(image_path)
-
+        image = convert_rgb_to_image(data_list[i]["input"])
+        
+        #image = cv2.imread(image_path)
         #cv2.imshow("Image Window", image)
         #cv2.waitKey(1000)
         #cv2.destroyAllWindows()
