@@ -286,18 +286,31 @@ class PVClassificationService:
         Returns:
             Dict: Dictionary containing the prediction results.
         """
-        # Process the input image and perform inference
-        preprocess_image, image_resized = self.preprocess(input)
+        try:
+            # Process the input image and perform inference
+            preprocess_image, image_resized = self.preprocess(input)
 
-        inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
+            inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
 
-        # Post-processing draws the detected bounding boxes on the input image
-        future = await asyncio.gather(
-                    self.postprocess(image_resized, inference_result),
-                    self.save_prediction_to_gcp(input, inference_result)
-                    )
-        
-        postprocess_image = future[0]
+            # Post-processing draws the detected bounding boxes on the input image
+            future = await asyncio.gather(
+                        self.postprocess(image_resized, inference_result),
+                        self.save_prediction_to_gcp(input, inference_result)
+                        )
+            
+            postprocess_image = future[0]
+        except Exception as e:
+            # Generate white image with error message
+            postprocess_image = np.ones((640, 640, 3), np.uint8) * 255
+            cv2.putText(postprocess_image, 
+                        'Something went wrong :(', 
+                        (10, 320), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 
+                        1, 
+                        (0, 0, 0), 
+                        2, 
+                        cv2.LINE_AA
+                        )
 
         return postprocess_image
 
