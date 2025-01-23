@@ -4,7 +4,7 @@ on:
   repository_dispatch:
     types: staged_model
   
-  jobs:
+jobs:
   identify_event:
     runs-on: ubuntu-latest
     outputs:
