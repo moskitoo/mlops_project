@@ -634,7 +634,7 @@ One challenge was also that we have different containers of which some are not d
 
 Student s243575 was in charge of setting up the initial cookicutter project and developing the API and frontend as well as their deployment in the cloud.  
 
-Student s242529 in charge of model training, evaluation, initializing Weights & Biases, performing hyperparameter sweeps, saving the model in weights&biases and to GCP bucket, and writing unit tests for the model training. 
+Student s242529 was in charge of model training, evaluation, initializing Weights & Biases, performing hyperparameter sweeps, saving the model in weights&biases and to GCP bucket, and writing unit tests for the model training. 
 
 Student s242672 was in charge of creating the docker files, building and testing it using the compute engine vm instances, working on trigger workflow to automatically build the dockers, working on data-drifting.  
 
