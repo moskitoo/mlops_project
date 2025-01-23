@@ -6,9 +6,12 @@ import copy
 import yaml
 from google.cloud import storage
 from ultralytics import YOLO
+import json
+import datetime
 
 
 BUCKET_NAME = "yolo_model_storage"
+DRIFT_BUCKET_NAME = "data_drifting"
 MODEL_NAME = "pv_defection_classification_model.pt"
 MODEL_FILE_NAME = "pv_defection_model.pt"
 
@@ -24,6 +27,7 @@ def download_model_from_gcp():
     onnx_path = model.export(format="onnx", optimize=True)
 
     return onnx_path, model
+
 
 
 @bentoml.service  # (resources={"cpu": 2}, traffic={'timeout': '60'})
@@ -49,8 +53,82 @@ class PVClassificationService:
                     self.class_labels = {0: "working", 1: "defected"}
         except Exception:
             self.class_labels = {0: "working", 1: "defected"}
+    
+    # Extract basic properties from inference results
+    def calculate_prediction(self, inference_result: list) -> tuple:
+        """
+        Calculate the number of detected, working, and defective PV modules based on the inference results.
 
-    def draw_detections(self, img, box, score, class_id):
+        Args:
+            inference_result (list): List containing the inference results.
+
+        Returns:
+            Tuple: Tuple containing the number of detected, working, and defective PV modules.
+        """
+        
+        # Transpose and squeeze the output to match the expected shape
+        outputs = np.transpose(np.squeeze(inference_result[0]))
+
+        # Get the number of rows in the outputs array
+        rows = outputs.shape[0]
+
+        # Variables to store the number of detected, working, and defective PV modules
+        n_detected_pv_modules = 0
+        n_working_modules = 0
+        n_defective_modules = 0
+
+        # Iterate over each row in the outputs array
+        for i in range(rows):
+            # Extract the class scores from the current row
+            classes_scores = outputs[i][4:]
+
+            # Find the maximum score among the class scores
+            max_score = np.amax(classes_scores)
+
+            # If the maximum score is above the confidence threshold
+            if max_score >= self.confidence_thres:
+                # Get the class ID with the highest score
+                class_id = np.argmax(classes_scores)
+
+                # Increment the number of detected PV modules
+                n_detected_pv_modules += 1
+
+                # Increment the number of working or defective modules
+                if class_id == 0:
+                    n_working_modules += 1
+                elif class_id == 1:
+                    n_defective_modules += 1
+
+        return n_detected_pv_modules, n_working_modules, n_defective_modules
+
+
+    # Save prediction results to GCP
+    def save_prediction_to_gcp(self, input: np.ndarray, inference_result: list) -> None:
+        """
+        Save the prediction results to GCP bucket.
+        
+        Args:
+            input (np.ndarray): Input image data.
+            inference_result (list): Inference results.
+        
+        Returns:
+            None
+        """
+        client = storage.Client()
+        bucket = client.bucket(DRIFT_BUCKET_NAME)
+        time = datetime.datetime.now(tz=datetime.UTC)
+        # Prepare prediction data
+        n_detected_pv_modules, n_working_modules, n_defective_modules = self.calculate_prediction(inference_result)
+        data = {
+                "input":input.tolist(),
+                "n_detected_pv_modules": n_detected_pv_modules,
+                "n_working_modules": n_working_modules,
+                "n_defective_modules": n_defective_modules,
+            }
+        blob = bucket.blob(f"prediction_{time}.json")
+        blob.upload_from_string(json.dumps(data))
+
+    def draw_detections(self, img: np.ndarray, box: list, score: float, class_id: int) -> None:
         """
         Draws bounding boxes and labels on the input image based on the detected objects.
 
@@ -222,3 +300,4 @@ class PVClassificationService:
         postprocess_image = self.postprocess(image_resized, inference_result)
 
         return postprocess_image
+
