@@ -218,8 +218,6 @@ class PVClassificationService:
 
         inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
 
-        print(inference_result)
-
         # Post-processing draws the detected bounding boxes on the input image
         postprocess_image = self.postprocess(image_resized, inference_result)
 

@@ -100,7 +100,26 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Submit build for bento_service
-        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=api,_DEPLOY=true
+        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=bento_service,_DEPLOY=true
+  
+  build_frontend_container:
+    needs: test
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Auth with GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCLOUD_SERVICE_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Submit build for bento_service
+        run: gcloud builds submit --config .github/cloudbuild.yaml --substitutions=_IMAGE_NAME=frontend,_DEPLOY_FRONTEND=true
 
   train:
     needs: build_train_container
