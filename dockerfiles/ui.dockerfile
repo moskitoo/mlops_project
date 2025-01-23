@@ -8,11 +8,11 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY requirements_frontend.txt /app/requirements_frontend.txt
-COPY frontend.py /app/frontend.py
+COPY requirements_ui.txt /app/requirements_ui.txt
+COPY src/pv_defection_classification/ui.py /app/ui.py
 
-RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements_frontend.txt
+RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements_ui.txt
 
 EXPOSE 8501
 
-ENTRYPOINT ["streamlit", "run", "frontend.py", "--server.port=8501", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "ui.py", "--server.port=8501", "--server.address=0.0.0.0"]
