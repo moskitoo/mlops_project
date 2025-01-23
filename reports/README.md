@@ -365,6 +365,8 @@ We used DVC in the early stages as an easy way to access data for development. I
 >
 > Answer:
 
+We have used Weights & Biases (W&B) in our project for logging data to visualize metrics, performing hyperparameter sweeps, and saving model artifacts. Metrics like recall and precision helped us ensure the system accurately detected defective photovoltaic modules while minimizing false detections. We tracked mAP50-95 for a comprehensive evaluation of detection accuracy and monitored losses such as distributive focal loss, classification loss, and bounding box loss to ensure effective model learning. The learning rate schedules were analyzed to optimize the training process. Additionally, hyperparameter sweeps allowed us to fine-tune configurations like batch size and learning rate for the best performance. Saving model artifacts in W&B ensured easy access and versioning logging. 
+
 --- question 14 fill here ---
 
 ### Question 15
