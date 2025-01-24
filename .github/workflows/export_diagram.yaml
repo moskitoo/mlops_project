@@ -1,0 +1,48 @@
+name: Export Diagrams
+
+on:
+  push:
+    paths:
+      - 'reports/figures/**/*.drawio'
+
+permissions:
+  contents: write
+
+jobs:
+  export_diagram:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install Draw.io Desktop
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          sudo apt-get -y install xorg xvfb gtk2-engines-pixbuf
+          sudo apt-get -y install dbus-x11 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic xfonts-scalable
+          wget https://github.com/jgraph/drawio-desktop/releases/download/v26.0.4/drawio-amd64-26.0.4.deb
+          sudo dpkg -i drawio-amd64-26.0.4.deb || sudo apt-get install -f -y
+
+      - name: Export Using CLI
+        run: xvfb-run drawio --export --format png --output ./reports/figures/system_diagram.png ./reports/figures/system_diagram.drawio --no-sandbox --disable-gpu
+
+      - name: Commit changes
+        run: |
+          git add reports/figures/system_diagram.png
+          git commit -m "Update system_diagram.png" || echo "No changes to commit"
+
+      - name: Push changes
+        run: git push
+
+
+        
