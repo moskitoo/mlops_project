@@ -9,7 +9,6 @@ steps:
       '-f',
       'dockerfiles/$_IMAGE_NAME.dockerfile'
     ]
-    
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Push Container'
     args: [
@@ -48,23 +47,6 @@ steps:
         else
           echo "Skipping deployment step."
         fi
-    
-  - name: 'gcr.io/cloud-builders/gcloud'
-    id: 'Deploy Monitoring API'
-    entrypoint: '/bin/sh'
-    args:
-      - '-c'
-      - |
-        if [ "$_DEPLOY_MONITORING" = "true" ]; then
-          echo "Deploying Monitoring API to Cloud Run..."
-          gcloud run deploy monitoring-api-service \
-            --image europe-west1-docker.pkg.dev/mlops-pv-classification/pv-defection-classification-docker/$_IMAGE_NAME \
-            --region europe-west1 \
-            --platform managed
-        else
-          echo "Skipping Monitoring API deployment step."
-        fi
-
 
 options:
   logging: CLOUD_LOGGING_ONLY
@@ -73,4 +55,3 @@ substitutions:
   _IMAGE_NAME: 'train_cpu'
   _DEPLOY: 'false'
   _DEPLOY_FRONTEND: 'false'
-  _DEPLOY_MONITORING: 'true'
