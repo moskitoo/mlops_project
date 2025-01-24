@@ -5,7 +5,7 @@ from PIL import Image
 
 def prepare_image():
     """Load and preprocess the image as required."""
-    image = Image.open("20180630_154039.jpg")
+    image = Image.open("performance_tests/20180630_154039.jpg")
     image = np.array(image)
     return image.tolist()
 
