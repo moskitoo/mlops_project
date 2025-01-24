@@ -222,9 +222,9 @@ class PVClassificationService:
         # Expand the dimensions of the image data to match the expected input shape
         image_data = np.expand_dims(image_data, axis=0).astype(np.float32)
         
-        return image_data, image_data_return
+        return image_data #, image_data_return
     
-    async def postprocess(self, input: np.ndarray, output: np.ndarray) -> np.ndarray:
+    def postprocess(self, input: np.ndarray, output: np.ndarray) -> np.ndarray:
         """
         Postprocess the inference result.
 
@@ -315,13 +315,9 @@ class PVClassificationService:
 
             inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
 
-            # Post-processing draws the detected bounding boxes on the input image
-            future = await asyncio.gather(
-                        self.postprocess(image_resized, inference_result),
-                        self.save_prediction_to_gcp(input, inference_result)
-                        )
-            
-            postprocess_image = future[0]
+            # Call postprocess asynchronously
+            postprocess_image = await self.postprocess(input, inference_result)
+            await self.save_prediction_to_gcp(input, inference_result)
 
             status = 'success'
             input_size = input.nbytes
