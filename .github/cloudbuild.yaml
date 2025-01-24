@@ -70,7 +70,7 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 substitutions:
-  _IMAGE_NAME: 'train_cpu'
+  _IMAGE_NAME: 'monitoring-api'
   _DEPLOY: 'false'
   _DEPLOY_FRONTEND: 'false'
   _DEPLOY_MONITORING: 'true'
