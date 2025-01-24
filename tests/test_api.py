@@ -6,7 +6,6 @@ import bentoml
 import subprocess
 from src.pv_defection_classification.bentoml_service import PVClassificationService, download_model_from_gcp, BUCKET_NAME, MODEL_NAME, MODEL_FILE_NAME
 import os
-import asyncio
 
 EXAMPLE_INPUT = np.random.randint(0, 256, (800, 800, 3), dtype=np.uint8)
 
@@ -81,8 +80,8 @@ def test_preprocess():
     preprocessed = service.preprocess(input_image)
 
     # Resize input image to account for resizing in preprocess
-    input_resized = cv2.resize(input_image, (640, 640))
-    expected_rgb = [input_resized[0, 0, 2] / 255.0, input_resized[0, 0, 1] / 255.0, input_resized[0, 0, 0] / 255.0]
+    #input_resized = cv2.resize(input_image, (640, 640))
+    #expected_rgb = [input_resized[0, 0, 2] / 255.0, input_resized[0, 0, 1] / 255.0, input_resized[0, 0, 0] / 255.0]
 
     #actual_rgb = preprocessed[0, :, 0, 0].tolist()
 

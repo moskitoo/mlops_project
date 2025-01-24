@@ -321,7 +321,7 @@ class PVClassificationService:
             status = 'success'
             input_size = input.nbytes
 
-        except Exception as e:
+        except Exception:
             # Generate white image with error message
             postprocess_image = np.ones((640, 640, 3), np.uint8) * 255
             cv2.putText(postprocess_image, 'Something went wrong :(',(10, 320), 
