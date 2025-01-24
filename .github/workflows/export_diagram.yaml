@@ -1,0 +1,37 @@
+name: Export Draw.io Diagram
+
+on:
+  push:
+    paths:
+      - 'reports/figures/**/*.drawio'
+
+jobs:
+  export-diagram:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Download draw.io Desktop
+        run: |
+          wget https://github.com/jgraph/drawio-desktop/releases/download/v20.2.7/draw.io-amd64-20.2.7.deb
+          sudo dpkg -i draw.io-amd64-20.2.7.deb || sudo apt-get install -f -y
+
+      - name: Export Diagram to PNG
+        run: |
+          draw.io --export --format png --output ./reports/figures/system_diagram.png ./reports/figures/diagram.drawio
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add ./reports/figures/system_diagram.png
+          git commit -m "Update diagram.png from system_diagram.drawio" || echo "No changes to commit"
+          git push
