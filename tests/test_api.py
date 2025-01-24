@@ -132,15 +132,16 @@ def test_postprocess():
     assert output_image.max() <= 255
     assert output_image.min() >= 0
 
-def test_detect_and_predict(mocker):
+@pytest.mark.asyncio
+async def test_detect_and_predict(mocker):
     service = PVClassificationService()
 
     mock_preprocess = mocker.patch.object(service, 'preprocess', return_value=np.random.rand(1, 3, 640, 640).astype(np.float32))
     mock_run = mocker.patch.object(service.model, 'run', return_value=[np.random.rand(1, 10, 85).astype(np.float32)])
-    mock_postprocess = mocker.patch.object(service, 'postprocess', return_value=np.ones((640,640,3), dtype=np.uint8))
+    mock_postprocess = mocker.patch.object(service, 'postprocess', return_value=np.ones((640, 640, 3), dtype=np.uint8))
 
     input_image = np.zeros((800, 800, 3), dtype=np.uint8)
-    output_image = service.detect_and_predict(input_image)
+    output_image = await service.detect_and_predict(input_image)
 
     mock_preprocess.assert_called_once_with(input_image)
     mock_run.assert_called_once()
@@ -148,7 +149,7 @@ def test_detect_and_predict(mocker):
 
     assert output_image.shape == (640, 640, 3)
     assert output_image.dtype == np.uint8
-    assert np.all(output_image == 1) #Check if the postprocess mock worked correctly
+    assert np.all(output_image == 1)  # Check if the postprocess mock worked correctly
 
 def test_defection_detection_service_integration():
     with subprocess.Popen(["bentoml", "serve", "src.pv_defection_classification.bentoml_service:PVClassificationService", "-p", "3000"]) as server_proc:
