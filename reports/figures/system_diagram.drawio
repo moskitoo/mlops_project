@@ -42,11 +42,11 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="XX38sZrsjDx7Qqt4Rlra-8" value="&lt;font style=&quot;font-size: 25px;&quot;&gt;System monitoring with prometheus&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="5KouOYf32s_LF__IzxT4-3" target="XX38sZrsjDx7Qqt4Rlra-7">
-          <mxGeometry x="0.5958" relative="1" as="geometry">
+          <mxGeometry x="0.5354" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="2012" y="190" />
             </Array>
-            <mxPoint as="offset" />
+            <mxPoint y="-1" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="5KouOYf32s_LF__IzxT4-3" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
