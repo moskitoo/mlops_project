@@ -37,8 +37,6 @@ def test_download_model_from_gcp():
     assert os.path.exists(MODEL_FILE_NAME)
     assert os.path.exists(onnx_path)
 
-    
-
 def test_init_success(mocker, mock_download_model_from_gcp):
     mocker.patch('src.pv_defection_classification.bentoml_service.onnxruntime.InferenceSession')
     service = PVClassificationService()
@@ -57,6 +55,34 @@ def test_init_success(mocker, mock_download_model_from_gcp):
     assert service.img_height == 640
     assert service.confidence_thres == 0.5
     assert service.iou_thres == 0.6
+
+def test_calculate_prediction():
+    service = PVClassificationService()
+
+    sample_result = [np.array([SAMPLE_RESULT], dtype=np.float32)]
+
+    n_detected_modules, n_working, n_defective = service.calculate_prediction(sample_result)
+
+    n_modules_expected = sum(map(lambda x: x[4] > service.confidence_thres or x[5] > service.confidence_thres, SAMPLE_RESULT.T))
+    n_working_expected = sum(map(lambda x: x[4] > service.confidence_thres and x[5] < service.iou_thres, SAMPLE_RESULT.T))
+    n_defective_expected = sum(map(lambda x: x[4] < service.confidence_thres and x[5] > service.iou_thres, SAMPLE_RESULT.T))
+
+    # Check that the output is a dictionary
+    assert isinstance(n_detected_modules, int)
+    assert isinstance(n_working, int)
+    assert isinstance(n_defective, int)
+
+    assert n_detected_modules == n_modules_expected
+    assert n_working == n_working_expected
+    assert n_defective == n_defective_expected
+
+    # Check that the values are within the expected range
+    assert 0 <= n_detected_modules
+    assert 0 <= n_working
+    assert 0 <= n_defective
+
+    # Check that the values sum to 1
+    assert np.isclose(n_working + n_defective, n_detected_modules)
 
 def test_preprocess():
     service = PVClassificationService()
