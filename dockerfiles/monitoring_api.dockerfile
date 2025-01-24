@@ -16,7 +16,7 @@ COPY requirements_dev.txt requirements_dev.txt
 COPY README.md README.md
 COPY pyproject.toml pyproject.toml
 
-RUN pip install fastapi opencv-python numpy pandas scikit-learn evidently onnxruntime google-api-python-client google-cloud-storage google-cloud-core --no-cache-dir --verbose
+RUN pip install ultralytics fastapi opencv-python numpy pandas scikit-learn evidently onnxruntime google-api-python-client google-cloud-storage google-cloud-core --no-cache-dir --verbose
 #RUN pip install fastapi google-cloud-storage scikit-learn evidently pandas --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir --verbose
 
