@@ -9,7 +9,6 @@ steps:
       '-f',
       'dockerfiles/$_IMAGE_NAME.dockerfile'
     ]
-    
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Push Container'
     args: [
