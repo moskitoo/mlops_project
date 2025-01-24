@@ -10,6 +10,8 @@ import datetime
 import asyncio
 import time
 from prometheus_client import Histogram, Counter
+from multipart.multipart import parse_options_header
+
 
 # Define Prometheus metrics
 request_counter = Counter(
