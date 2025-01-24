@@ -2,15 +2,14 @@ import bentoml
 import onnxruntime
 import numpy as np
 import cv2
-import copy
+import time
 import yaml
 from google.cloud import storage
 from ultralytics import YOLO
 import json
 import datetime
 import asyncio
-import time
-from prometheus_client import Histogram, Counter
+from prometheus_client import Counter, Histogram
 
 # Define Prometheus metrics
 request_counter = Counter(
@@ -34,6 +33,7 @@ input_size_request = Histogram(
 )
 
 BUCKET_NAME = "yolo_model_storage"
+DRIFT_BUCKET_NAME = "data_drifting"
 MODEL_NAME = "pv_defection_classification_model.pt"
 MODEL_FILE_NAME = "pv_defection_model.pt"
 
@@ -71,8 +71,82 @@ class PVClassificationService:
                     self.class_labels = {0: "working", 1: "defected"}
         except Exception:
             self.class_labels = {0: "working", 1: "defected"}
+    
+    # Extract basic properties from inference results
+    def calculate_prediction(self, inference_result: list) -> tuple:
+        """
+        Calculate the number of detected, working, and defective PV modules based on the inference results.
 
-    def draw_detections(self, img, box, score, class_id):
+        Args:
+            inference_result (list): List containing the inference results.
+
+        Returns:
+            Tuple: Tuple containing the number of detected, working, and defective PV modules.
+        """
+        
+        # Transpose and squeeze the output to match the expected shape
+        outputs = np.transpose(np.squeeze(inference_result[0]))
+
+        # Get the number of rows in the outputs array
+        rows = outputs.shape[0]
+
+        # Variables to store the number of detected, working, and defective PV modules
+        n_detected_pv_modules = 0
+        n_working_modules = 0
+        n_defective_modules = 0
+
+        # Iterate over each row in the outputs array
+        for i in range(rows):
+            # Extract the class scores from the current row
+            classes_scores = outputs[i][4:]
+
+            # Find the maximum score among the class scores
+            max_score = np.amax(classes_scores)
+
+            # If the maximum score is above the confidence threshold
+            if max_score >= self.confidence_thres:
+                # Get the class ID with the highest score
+                class_id = np.argmax(classes_scores)
+
+                # Increment the number of detected PV modules
+                n_detected_pv_modules += 1
+
+                # Increment the number of working or defective modules
+                if class_id == 0:
+                    n_working_modules += 1
+                elif class_id == 1:
+                    n_defective_modules += 1
+
+        return n_detected_pv_modules, n_working_modules, n_defective_modules
+
+
+    # Save prediction results to GCP
+    async def save_prediction_to_gcp(self, input: np.ndarray, inference_result: list) -> None:
+        """
+        Save the prediction results to GCP bucket.
+        
+        Args:
+            input (np.ndarray): Input image data.
+            inference_result (list): Inference results.
+        
+        Returns:
+            None
+        """
+        client = storage.Client()
+        bucket = client.bucket(DRIFT_BUCKET_NAME)
+        time = datetime.datetime.now(tz=datetime.UTC)
+        # Prepare prediction data
+        n_detected_pv_modules, n_working_modules, n_defective_modules = self.calculate_prediction(inference_result)
+        data = {
+                "input":input.tolist(),
+                "n_detected_pv_modules": n_detected_pv_modules,
+                "n_working_modules": n_working_modules,
+                "n_defective_modules": n_defective_modules,
+            }
+        blob = bucket.blob(f"prediction_{time}.json")
+        blob.upload_from_string(json.dumps(data))
+
+    def draw_detections(self, img: np.ndarray, box: list, score: float, class_id: int) -> None:
         """
         Draws bounding boxes and labels on the input image based on the detected objects.
 
@@ -132,10 +206,10 @@ class PVClassificationService:
         image[..., (0, 1, 2)] = image[..., (2, 1, 0)]
     
         # Resize the image to match the input shape
-        image_data = cv2.resize(image, (640, 640))
+        image_data_return = cv2.resize(image, (640, 640))
 
         # Normalize the image data by dividing it by 255.0
-        image_data = np.array(image_data) / 255.0
+        image_data = np.array(image_data_return) / 255.0
 
         # Transpose the image to have the channel dimension as the first dimension
         image_data = np.transpose(image_data, (2, 0, 1)) 
@@ -143,9 +217,9 @@ class PVClassificationService:
         # Expand the dimensions of the image data to match the expected input shape
         image_data = np.expand_dims(image_data, axis=0).astype(np.float32)
         
-        return image_data
+        return image_data, image_data_return
     
-    def postprocess(self, input: np.ndarray, output: np.ndarray) -> np.ndarray:
+    async def postprocess(self, input: np.ndarray, output: np.ndarray) -> np.ndarray:
         """
         Postprocess the inference result.
 
@@ -219,7 +293,7 @@ class PVClassificationService:
         max_batch_size=8,
         max_latency_ms=1000,
     )
-    def detect_and_predict(self, input: np.ndarray) -> np.ndarray:
+    async def detect_and_predict(self, input: np.ndarray) -> np.ndarray:
         """
         Detect and predict the defective PV modules in the input image.
 
@@ -229,18 +303,39 @@ class PVClassificationService:
         Returns:
             Dict: Dictionary containing the prediction results.
         """
-        # Copy the input image to avoid modifying the original
-        input_copy = copy.deepcopy(input)
-        image = np.array(input_copy).astype(np.float32)
-        image_resized = cv2.resize(image, (640, 640))
-        image_resized[..., (0, 1, 2)] = image_resized[..., (2, 1, 0)]
+        start_time = time.time()
+        try:
+            # Process the input image and perform inference
+            preprocess_image, image_resized = self.preprocess(input)
 
-        # Process the input image and perform inference
-        preprocess_image = self.preprocess(input)
+            inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
 
-        inference_result = self.model.run(None, {self.model_inputs[0].name: preprocess_image})
+            # Post-processing draws the detected bounding boxes on the input image
+            future = await asyncio.gather(
+                        self.postprocess(image_resized, inference_result),
+                        self.save_prediction_to_gcp(input, inference_result)
+                        )
+            
+            postprocess_image = future[0]
 
-        # Post-processing draws the detected bounding boxes on the input image
-        postprocess_image = self.postprocess(image_resized, inference_result)
+            status = 'success'
+            input_size = input.nbytes
+
+        except Exception as e:
+            # Generate white image with error message
+            postprocess_image = np.ones((640, 640, 3), np.uint8) * 255
+            cv2.putText(postprocess_image, 'Something went wrong :(',(10, 320), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 
+                        2, cv2.LINE_AA
+                        )
+            status = 'failure'
+            input_size = 0
+
+        finally:
+            # Measure how long the inference took and update the histogram
+            inference_time_histogram.labels(status=status).observe(time.time() - start_time)
+            input_size_request.labels(status=status).observe(input_size)
+            # Increment the request counter
+            request_counter.labels(status=status).inc()
 
         return postprocess_image
