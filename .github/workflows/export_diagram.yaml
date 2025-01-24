@@ -24,7 +24,7 @@ jobs:
 
       - name: Export Using CLI
         run: |
-          Xvfb -ac :99 -screen 0 1280x1024x16' 
+          Xvfb -ac :99 -screen 0 1280x1024x16
           export DISPLAY=:99
           drawio --export --format png --no-sandbox --disable-gpu --output ./reports/figures/system_diagram.png ./reports/figures/system_diagram.drawio
 
