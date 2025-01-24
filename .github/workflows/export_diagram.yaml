@@ -1,4 +1,4 @@
-name: Export Draw.io Diagram
+name: Export Diagrams
 
 on:
   push:
@@ -10,22 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Convert Diagram to PNG using Docker
+      - name: Install Draw.io Desktop
         run: |
-          docker run --rm -v $(pwd):/workspace jgraph/drawio:latest \
-            -x --export --format png --output /workspace/reports/figures/system_diagram.png /workspace/reports/figures/system_diagram.drawio
+          wget https://github.com/jgraph/drawio-desktop/releases/download/v26.0.4/drawio-amd64-26.0.4.deb
+          sudo dpkg -i draw.io-amd64-20.8.16.deb || sudo apt-get install -f -y
 
-      - name: List Files After Conversion
-        run: ls -la reports/figures/
+      - name: Export Using CLI
+        run: draw.io --export --format png --output ./reports/figures/system_diagram.png ./reports/figures/system_diagram.drawio
 
-      - name: Commit and Push Changes
-        if: success()
+      - name: Commit and Push
         run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add reports/figures/system_diagram.png
-          git commit -m "Update system_diagram.png from system_diagram.drawio" || echo "No changes to commit"
+          git commit -m "Update system_diagram.png" || echo "No changes to commit"
           git push
+
+
+        
