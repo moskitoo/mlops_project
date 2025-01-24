@@ -240,6 +240,9 @@
         <mxCell id="XX38sZrsjDx7Qqt4Rlra-9" value="&lt;span style=&quot;font-size: 17px;&quot;&gt;Prometheus&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1947" y="-284.18" width="130" height="64.87" as="geometry" />
         </mxCell>
+        <mxCell id="XX38sZrsjDx7Qqt4Rlra-10" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://cdn.prod.website-files.com/646dd1f1a3703e451ba81ecc/64994922be624dae865d06a5_UltralyticsYOLO_full_blue.svg;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="337.42" width="178.57" height="50" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
