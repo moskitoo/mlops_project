@@ -366,9 +366,9 @@ As stated above, we used both config files and cli, during every experiment the 
 >
 > Answer:
 
-[Figure 1](figures/data_log.png)
-[Figure 2](figures/hyperparameter_sweep.png)
-[Figure 3](figures/model_save_artifact.png)
+![Figure 1](figures/data_log.png)
+![Figure 2](figures/hyperparameter_sweep.png)
+![Figure 3](figures/model_save_artifact.png)
 
 We have used Weights & Biases (W&B) in our project for logging data to visualize metrics, performing hyperparameter sweeps, and saving model artifacts. Metrics like recall and precision helped us ensure the system accurately detected defective photovoltaic modules while minimizing false detections. We tracked mAP50-95 for a comprehensive evaluation of detection accuracy and monitored losses such as distributive focal loss, classification loss, and bounding box loss to ensure effective model learning. The learning rate schedules were analyzed to optimize the training process. Additionally, hyperparameter sweeps allowed us to fine-tune configurations like batch size and learning rate for the best performance. Saving model artifacts in W&B ensured easy access and versioning logging. All of this could be referred in the figures 1, 2 and 3.
 
@@ -441,8 +441,8 @@ We used the compute engine to manage the virtual machines (VMs) for our cloud pr
 >
 > Answer:
 
-[Overview](figures/bucket_2.png)
-[What the data looks like](figures/bucket_1.png)
+![Overview](figures/bucket_2.png)
+![What the data looks like](figures/bucket_1.png)
 
 ### Question 20
 
@@ -451,7 +451,7 @@ We used the compute engine to manage the virtual machines (VMs) for our cloud pr
 >
 > Answer:
 
-[Our Artifact Regsitry](figures/artifact_registry.png)
+![Our Artifact Regsitry](figures/artifact_registry.png)
 
 ### Question 21
 
@@ -460,8 +460,8 @@ We used the compute engine to manage the virtual machines (VMs) for our cloud pr
 >
 > Answer:
 
-[Part 1](figures/cloud_history_1.png)
-[Part 2](figures/cloud_history_2.png)
+![Part 1](figures/cloud_history_1.png)
+![Part 2](figures/cloud_history_2.png)
 
 ### Question 22
 
@@ -527,7 +527,7 @@ We managed to deploy our API both locally and in the cloud. To achieve this we d
 We implemented unit, integration and performance testing. For performance testing we used locust.
 For the unit testing we used pytest. We made use of pytest fixtures as well as mocking certain functions to test the functionality of the API. Mocking some of the functions was necessary because we only wanted to test wether they would be calles in the function. Since they wouldnÄt return a sensible result during testing we used mocking to mock a result of the function call. For the intergation testing we used subprocess to start our API in a subprocess and consequently send a request to it and validate its response. 
 The performance testing with locust revealed the following results:
-[Results from locust run](figures/locust_results.png)
+![Results from locust run](figures/locust_results.png)
 This shows that our API is rather slow to respond to users. These tests were run locally. We noted that the response time increased when the api was called on cloud run. Especially in connection with the user interface it takes several seconds until a response is generated. 
 
 
