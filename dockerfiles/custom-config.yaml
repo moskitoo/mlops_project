@@ -1,0 +1,19 @@
+apiVersion: monitoring.googleapis.com/v1beta
+kind: RunMonitoring
+metadata:
+  name: metric-sidecar-for-bento
+spec:
+  endpoints:
+  - port: 3000
+    path: /metrics
+    interval: 10s
+    metricRelabeling:
+    - action: replace
+      sourceLabels:
+      - __address__
+      targetLabel: label_key
+      replacement: label_value
+  targetLabels:
+    metadata:
+    - service
+    - revision

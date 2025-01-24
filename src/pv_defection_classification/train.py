@@ -1,30 +1,51 @@
 from pathlib import Path
-from ultralytics import settings
-from google.cloud import storage
-from dotenv import load_dotenv
+
 import typer
-from model import load_pretrained_model, save_model
+from dotenv import load_dotenv
+from google.cloud import storage
+from utils.update_yolo_settings import update_yolo_settings
+from loguru import logger
 import wandb
 from hydra import initialize,compose
+import logging
 
+from ultralytics import settings
 # Ensure the .env file has the wandb API key and the path to the GCP credentials
 load_dotenv()
-
-# Update Ultralytics settings for wandb
-settings.update({"wandb": True})
+# # Update Ultralytics settings for wandb
+# settings.update({"wandb": True})
 
 BATCH_SIZE = 32
 LEARNING_RATE = 0.01
 MAX_ITERATION = 100
 OUTPUT_DIR = Path("models")
 RUN_FOLDER_NAME = "current_run"
-RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME  
+RUN_FOLDER = OUTPUT_DIR / RUN_FOLDER_NAME
 GCP_BUCKET_NAME = "yolo_model_storage"
 GCP_MODEL_NAME = "pv_defection_classification_model.pt"
 
 # Configure W&B
 wandb.login()
 wandb.init(project="pv_defection_classification", entity="hndrkjs-danmarks-tekniske-universitet-dtu",config = {})
+
+
+class InterceptHandler(logging.Handler):
+    def emit(self, record):
+        # Retrieve the corresponding loguru level
+        try:
+            level = logger.level(record.levelname).name
+        except ValueError:
+            level = record.levelno
+
+        # Redirect the log message to loguru
+        logger.log(level, record.getMessage())
+
+def setup_logging():
+    # Clear existing logging handlers
+    logging.root.handlers = []
+    # Set the root logger level to NOTSET to capture all logs
+    logging.basicConfig(handlers=[InterceptHandler()], level=logging.NOTSET)
+
 
 def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_name: str):
     """
@@ -36,15 +57,16 @@ def upload_best_model_to_gcp(local_best_model: Path, bucket_name: str, model_nam
         model_name (str): Name to save the model in GCP.
     """
     try:
-        print(f"Uploading {local_best_model} to GCP bucket {bucket_name}...")
+        logger.info(f"Uploading {local_best_model} to GCP bucket {bucket_name}...")
         client = storage.Client()
         bucket = client.bucket(bucket_name)
         blob = bucket.blob(model_name)
         blob.upload_from_filename(str(local_best_model))
-        print(f"Uploaded {local_best_model} to GCP bucket {bucket_name} as {model_name}")
+        logger.info(f"Uploaded {local_best_model} to GCP bucket {bucket_name} as {model_name}")
     except Exception as e:
-        print(f"Failed to upload model to GCP: {e}")
+        logger.error(f"Failed to upload model to GCP: {e}")
         raise
+
 
 def train_model(
     batch_size: int = BATCH_SIZE,
@@ -64,13 +86,14 @@ def train_model(
         data_path (Path): Path to the YOLO dataset configuration file.
         enable_wandb (bool): Whether to enable W&B logging.
     """
+    setup_logging()
     try:
         if ctx is None or not any(ctx.get_parameter_source(param).name == 'COMMANDLINE' for param in ctx.params):
-            print("No arguments were provided for training.\n Configurations will be loaded from configs/config.yaml")
+            logger.info("No arguments were provided for training. Configurations will be loaded from configs/config.yaml")
             use_config = True,  # if True get configs from file
 
         else:
-            print(f"Arguments received for training: {ctx.params}")
+            logger.info(f"Arguments received for training: {ctx.params}")
             use_config = False
 
         if use_config:
@@ -90,34 +113,44 @@ def train_model(
         config["name"] = RUN_FOLDER_NAME
 
         wandb.config.update(config)
-        # Load YOLO model 
-        print("Initializing YOLO model...")
+
+        update_yolo_settings(Path(config["data"]))
+
+        # Update Ultralytics settings for wandb
+        settings.update({"wandb": True})
+
+        # import yolo after setting default dataset path
+        from model import load_pretrained_model, save_model
+
+        # Load YOLO model
+        logger.info("Initializing YOLO model...")
         model = load_pretrained_model(config_path=Path("yolo11n.yaml"))
 
         # Start training
-        print("Starting training...")
+        logger.info("Starting training...")
         model.train(**config)
 
-        # Save the trained model 
+        # Save the trained model
         best_model_path = RUN_FOLDER / "weights" / "best.pt"
         if not best_model_path.exists():
             raise FileNotFoundError(f"'best.pt' not found at {best_model_path}")
 
-        print(f"Training complete. Best model saved at {best_model_path}")
+        logger.info(f"Training complete. Best model saved at {best_model_path}")
 
         # Save the model
         save_model(model, best_model_path)
 
         # Upload the best model to GCP
         if enable_wandb:
-            print(f"Uploading best model to GCP bucket: {GCP_BUCKET_NAME}")
+            logger.info(f"Uploading best model to GCP bucket: {GCP_BUCKET_NAME}")
             upload_best_model_to_gcp(best_model_path, GCP_BUCKET_NAME, GCP_MODEL_NAME)
 
-        print("Model successfully uploaded to GCP.")
+        logger.info("Model successfully uploaded to GCP.")
 
     except Exception as e:
-        print(f"An error occurred during training: {e}")
+        logger.error(f"An error occurred during training: {e}")
         raise
+
 
 if __name__ == "__main__":
     typer.run(train_model)
