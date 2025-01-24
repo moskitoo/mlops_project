@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 import cv2
 import onnxruntime
-from multipart.multipart import parse_options_header
+from multipart import parse_options_header
 import bentoml
 import subprocess
 from src.pv_defection_classification.bentoml_service import PVClassificationService, download_model_from_gcp, BUCKET_NAME, MODEL_NAME, MODEL_FILE_NAME
