@@ -1,4 +1,4 @@
-name: Export Draw.io Diagram
+ame: Export Draw.io Diagram
 
 on:
   push:
@@ -13,8 +13,19 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Convert Diagram to PNG
-        uses: Burnett01/actions-drawio@1.2
-        with:
-          src: reports/figures/system_diagram.drawio
-          dest: reports/figures/diagram.png
+      - name: Convert Diagram to PNG using Docker
+        run: |
+          docker run --rm -v $(pwd):/workspace jgraph/drawio:latest \
+            -x --export --format png --output /workspace/reports/figures/system_diagram.png /workspace/reports/figures/system_diagram.drawio
+
+      - name: List Files After Conversion
+        run: ls -la reports/figures/
+
+      - name: Commit and Push Changes
+        if: success()
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add reports/figures/system_diagram.png
+          git commit -m "Update system_diagram.png from system_diagram.drawio" || echo "No changes to commit"
+          git push
