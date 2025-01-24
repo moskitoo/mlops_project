@@ -417,7 +417,7 @@ The debugging method used was dependent on the group member. Some just used the 
 >
 > Answer:
 
-We used the following services: Bucket, Artifact Registry, Cloud Run. Bucket is sed for storing our data and models. We use it to version our datasets and models. The Artifact Registry is used to store our docker images. We use Cloud Run to deploy our API using the corresponding docker image in the Artifact Registry.
+We used the following services: Bucket, Artifact Registry, Cloud Run and Compute Engine. Bucket is used for storing our data and models. We use it to version our datasets and models. The Artifact Registry is used to store our docker images. We use Cloud Run to deploy our API using the corresponding docker image in the Artifact Registry. The compute engine was used to run the training in the cloud.
 
 ### Question 18
 
@@ -509,7 +509,7 @@ We did manage to write an API for our model. We started out with FastAPI but tra
 >
 > Answer:
 
-We managed to deploy our API both locally and in the cloud. To achieve this we developed a custom docker container for the API. BentoML can buid these automatically, however, we decided to build a custom one for our application. Running this docker container enable local as well as in the cloud. To serve the model in the cloud we use Cloud Run. This mean that our model only runs when a request to the API is made. To invoke the service a user would call `curl -X POST -F "input=@file.json"<weburl>` where the json should contain a thermography image.
+We managed to deploy our API both locally and in the cloud. To achieve this we developed a custom docker container for the API. BentoML can buid these automatically, however, we decided to build a custom one for our application. Running this docker container enable local as well as in the cloud. To serve the model in the cloud we use Cloud Run. This mean that our model only runs when a request to the API is made. To invoke the service a user would call `curl -X POST \ -H "Content-Type: application/json" \ --data @file.json \ https://bento-service-38375731884.europe-west1.run.app/detect_and_predict` where the json should contain a thermography image.
 
 ### Question 25
 
@@ -525,8 +525,10 @@ We managed to deploy our API both locally and in the cloud. To achieve this we d
 > Answer:
 
 We implemented unit, integration and performance testing. For performance testing we used locust.
-For the unit testing we used pytest. We made use of pytest fixtures as well as mocking certain functions to test the functionality of the API. For the intergation testing we used subprocess to start our API in a subprocess and consequently send a request to it and validate its response. 
-The performance testing revealed the following results:
+For the unit testing we used pytest. We made use of pytest fixtures as well as mocking certain functions to test the functionality of the API. Mocking some of the functions was necessary because we only wanted to test wether they would be calles in the function. Since they wouldnÄt return a sensible result during testing we used mocking to mock a result of the function call. For the intergation testing we used subprocess to start our API in a subprocess and consequently send a request to it and validate its response. 
+The performance testing with locust revealed the following results:
+[Results from locust run](figures/locust_results.png)
+This shows that our API is rather slow to respond to users. These tests were run locally. We noted that the response time increased when the api was called on cloud run. Especially in connection with the user interface it takes several seconds until a response is generated. 
 
 
 ### Question 26
@@ -543,6 +545,7 @@ The performance testing revealed the following results:
 > Answer:
 
 We implemented some basic custom monitoring that measures the number of requests, the time it takes to make an inference and the size of the images inference is done on. We could use these metrics to adapt to trends in the usage of our app. The number of requests tells us whether we have to scale up our application to deal with the increase in requests. If we were to see that inference takes a long time we could adapt the model or deploy a new one to ensure that the app is working as it is supposed to.  
+Monitoring the number of requests would also be important for a real application when we would be operating on a limited budget. The number of requests could us then inform about whether we need to introduce pricing or change existing pricing strategies to keep operating at a financially stable cost. We could also use such metrics to automatically limit the number of replicas of our application that operate at the same time. 
 
 ## Overall discussion of project
 
@@ -594,7 +597,8 @@ We implemented a frontend for our API using streamlit. We did this because our p
 >
 > Answer:
 
-The project began with finding a dataset and model development using YOLO. This model was trained on GPU configuration for faster training. We then started using GCP services and stored our data in cloud storage. Once training was completed, two dockerfiles were created, optmized for CPU and GPU.  The project is version-controlled with Github, and a CI/CD pipeline is implemented using cloud build to automate our testing, building and deployment processes. Each time changes are pushed to Github and all tests passed locally, cloud build will be triggered to validate the changes, build the docker images, and push them into the artifact registry, with the latest versions ready for deployment. Afterwards, the model will be deployed to Vertex AI where traning and hyperparameter tuning will take place. The final model will then be stored in the cloud storage, which is available for inference tasks. This is done using BentoML API, which packages them model and deploys it on cloud run. 
+The project began with finding a dataset and model development using YOLO. This model was trained on GPU configuration for faster training. We then started using GCP services and stored our data in cloud storage. Once training was completed, two dockerfiles were created, optmized for CPU and GPU.  The project is version-controlled with Github, and a CI/CD pipeline is implemented using cloud build to automate our testing, building and deployment processes. Each time changes are pushed to Github and all tests passed locally, cloud build will be triggered to validate the changes, build the docker images, and push them into the artifact registry, with the latest versions ready for deployment. Afterwards, the model will be deployed to Vertex AI where traning and hyperparameter tuning will take place. The final model will then be stored in the cloud storage, which is available for inference tasks. This is done using BentoML API, which packages them model and deploys it on cloud run. At the same time the container for the frontend application is build and deployed to cloud run. The frontend has integrated metrics based on the prometheus client, which are accessible through the /metrics endpoint of the frontend's URL. 
+For every request the frontedn receives, it creates a json with the received image and the inference results and stores this in a specific bucket in Cloud Storage. This data is then used to perform data drift detection.
 
 ### Question 30
 
