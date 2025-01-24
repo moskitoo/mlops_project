@@ -1,4 +1,4 @@
-ame: Export Draw.io Diagram
+name: Export Draw.io Diagram
 
 on:
   push:
