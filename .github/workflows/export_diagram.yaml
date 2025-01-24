@@ -16,7 +16,7 @@ jobs:
       - name: Install Draw.io Desktop
         run: |
           wget https://github.com/jgraph/drawio-desktop/releases/download/v26.0.4/drawio-amd64-26.0.4.deb
-          sudo dpkg -i draw.io-amd64-20.8.16.deb || sudo apt-get install -f -y
+          sudo dpkg -i drawio-amd64-26.0.4.deb || sudo apt-get install -f -y
 
       - name: Export Using CLI
         run: draw.io --export --format png --output ./reports/figures/system_diagram.png ./reports/figures/system_diagram.drawio
