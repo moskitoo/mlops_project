@@ -22,10 +22,10 @@ jobs:
 
       - name: Export Using CLI
         run: |
-        xvfb-run -a --server-args='-screen 0 1024x768x24' \
-        drawio --export --format png --no-sandbox --disable-gpu \
-            --output ./reports/figures/system_diagram.png \
-            ./reports/figures/system_diagram.drawio
+          xvfb-run -a --server-args='-screen 0 1024x768x24' \
+          drawio --export --format png --no-sandbox --disable-gpu \
+              --output ./reports/figures/system_diagram.png \
+              ./reports/figures/system_diagram.drawio
 
       - name: Commit and Push
         run: |
