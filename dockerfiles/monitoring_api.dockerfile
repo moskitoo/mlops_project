@@ -2,7 +2,7 @@
 FROM python:3.11-slim AS base
 
 #ENV GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_SERVICE_KEY }}
-EXPOSE 3000
+EXPOSE 8080
 WORKDIR /app
 
 RUN apt update && \
@@ -20,6 +20,6 @@ RUN pip install ultralytics fastapi opencv-python numpy pandas scikit-learn evid
 #RUN pip install fastapi google-cloud-storage scikit-learn evidently pandas --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir --verbose
 
-CMD ["uvicorn", "pv_monitoring_api:app", "--port", "3000", "--host", "0.0.0.0", "--workers", "1"]
+CMD ["uvicorn", "pv_monitoring_api:app", "--port", "8080", "--host", "0.0.0.0", "--workers", "1"]
 
 
