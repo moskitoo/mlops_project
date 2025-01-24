@@ -304,3 +304,4 @@ pytest-mock==3.14.0
 selenium==4.28.0
 streamlit>=1.28.2
 google-cloud-run>=0.10.5
+evidently==0.5.1
