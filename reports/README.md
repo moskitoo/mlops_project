@@ -597,7 +597,7 @@ We implemented a frontend for our API using streamlit. We did this because our p
 >
 > Answer:
 
-[Our System](figures/system_diagram.png)
+![Our System](figures/system_diagram.png)
 The project began with finding a dataset and model development using YOLO. This model was trained on GPU configuration for faster training. We then started using GCP services and stored our data in cloud storage. Once training was completed, two dockerfiles were created, optmized for CPU and GPU.  The project is version-controlled with Github, and a CI/CD pipeline is implemented using cloud build to automate our testing, building and deployment processes. Each time changes are pushed to Github and all tests passed locally, cloud build will be triggered to validate the changes, build the docker images, and push them into the artifact registry, with the latest versions ready for deployment. Afterwards, the model will be deployed to Vertex AI where traning and hyperparameter tuning will take place. The final model will then be stored in the cloud storage, which is available for inference tasks. This is done using BentoML API, which packages them model and deploys it on cloud run. At the same time the container for the frontend application is build and deployed to cloud run. The frontend has integrated metrics based on the prometheus client, which are accessible through the /metrics endpoint of the frontend's URL. 
 For every request the frontedn receives, it creates a json with the received image and the inference results and stores this in a specific bucket in Cloud Storage. This data is then used to perform data drift detection.
 
