@@ -19,7 +19,7 @@ jobs:
           sudo dpkg -i drawio-amd64-26.0.4.deb || sudo apt-get install -f -y
 
       - name: Export Using CLI
-        run: drawio --export --format png --output ./reports/figures/system_diagram.png ./reports/figures/system_diagram.drawio
+        run: drawio --export --format png --output ./reports/figures/system_diagram.png ./reports/figures/system_diagram.drawio --no-sandbox
 
       - name: Commit and Push
         run: |
