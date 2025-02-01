@@ -47,7 +47,7 @@ jobs:
           cat data_statistics.md  # Display the report in the PR log
 
       - name: Setup cml
-        uses: iterative/setup-cml@v2
+        uses: iterative/setup-cml@v3
 
       - name: Comment on PR
         env:
