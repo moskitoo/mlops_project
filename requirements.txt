@@ -219,7 +219,7 @@ pygtrie==2.5.0
 pyOpenSSL==24.2.1
 pyparsing==3.2.1
 PySocks==1.7.1
-pytest==8.3.4
+pytest==8.3.5
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 python-multipart==0.0.20
